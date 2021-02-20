@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Dashboard from './modules/Dashboard/Dashboard';
+import DreamJournal from './modules/DreamJournal/DreamJournal';
+import NewDream from './modules/NewDream/NewDream';
+import Analytics from './modules/Analytics/Analytics';
+import Login from './modules/Login/Login';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/dreamjournal" component={DreamJournal} />
+        <Route exact path="/newdream" component={NewDream} />
+        <Route exact path="/analytics" component={Analytics} />
+      </Switch>
+    </main>
   );
-}
+};
 
 export default App;
