@@ -8,9 +8,14 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import image from '../../assets/login-landing-back.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    background: `url(${image})`,
+    backgroundSize: 'cover',
+    width: '100%',
+    height: '100vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -19,9 +24,6 @@ const useStyles = makeStyles((theme) => ({
   input: {
     margin: theme.spacing(1.5),
     width: '30ch',
-  },
-  text: {
-    color: 'floralwhite',
   },
 }));
 
@@ -41,17 +43,14 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <main>
-        <h1>VIVID</h1>
+      <main className={classes.root}>
         <form noValidate autoComplete="off" className={classes.root}>
+          <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
           <FilledInput
             id="username"
             color="primary"
             placeholder="Username"
             className={classes.input}
-            InputProps={{
-              className: classes.text,
-            }}
           ></FilledInput>
           <FilledInput
             id="dream-body"
@@ -59,9 +58,6 @@ const Login = () => {
             placeholder="Password"
             type={values.showPassword ? 'text' : 'password'}
             className={classes.input}
-            InputProps={{
-              className: classes.text,
-            }}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
