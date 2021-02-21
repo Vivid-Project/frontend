@@ -6,13 +6,16 @@ export const theme = createMuiTheme({
     primary: {
       main: orange[400],
     },
+    secondary: {
+      main: orange[200],
+    },
   },
   overrides: {
     MuiOutlinedInput: {
       root: {
         position: 'relative',
         '& $notchedOutline': {
-          borderColor: 'floralwhite',
+          borderColor: orange[100],
         },
       },
     },
