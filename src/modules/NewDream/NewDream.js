@@ -1,31 +1,9 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { theme } from '../../themes/theme';
 
-import {
-  makeStyles,
-  ThemeProvider,
-  createMuiTheme,
-} from '@material-ui/core/styles';
-import { orange } from '@material-ui/core/colors';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: orange[400],
-    },
-  },
-  overrides: {
-    MuiOutlinedInput: {
-      root: {
-        position: 'relative',
-        '& $notchedOutline': {
-          borderColor: 'floralwhite',
-        },
-      },
-    },
-  },
-});
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
