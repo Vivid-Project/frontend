@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -7,43 +7,74 @@ import {
   ThemeProvider,
   createMuiTheme,
 } from '@material-ui/core/styles';
-import { orange, blue } from '@material-ui/core/colors';
+import { orange } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
-  typography: {
-    h2: {
-      fontSize: 36,
-    },
-  },
   palette: {
     primary: {
       main: orange[400],
     },
-    secondary: {
-      main: blue[400],
+  },
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        position: 'relative',
+        '& $notchedOutline': {
+          borderColor: 'floralwhite',
+        },
+      },
     },
   },
 });
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    margin: theme.spacing(1.5),
+    width: '30ch',
+  },
+  text: {
+    color: 'floralwhite',
+  },
+}));
+
 const NewDream = () => {
+  const [dreamTitle, setDreamTitle] = useState(null);
+  const [dreamBody, setDreamBody] = useState(null);
+
+  const classes = useStyles();
+
+  const submitDream = () => {
+    if (!dreamTitle || !dreamBody) {
+      return;
+    }
+    // API call from here,
+    // Route to all Dream Entries
+    console.log(dreamTitle + ' ' + dreamBody);
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <main>
-        <h1>Dream Input</h1>
-        <form noValidate autoComplete="off">
+      <main className={classes.root}>
+        <h2>Dream Input</h2>
+        <form noValidate autoComplete="off" className={classes.root}>
           <TextField
             id="dream-title"
             variant="standard"
             color="primary"
             label="Name Your Dream"
             fullWidth
+            className={classes.input}
+            InputProps={{
+              className: classes.text,
+            }}
+            onChange={(e) => setDreamTitle(e.target.value)}
           ></TextField>
-          {/* <TextField
-            id="dream-date"
-            variant="outlined"
-            color="primary"
-            type="date"
-          ></TextField> */}
           <TextField
             id="dream-body"
             variant="outlined"
@@ -52,14 +83,16 @@ const NewDream = () => {
             fullWidth
             multiline
             rowsMax={12}
-            style={{
-              margin: '15px 0',
+            onChange={(e) => setDreamBody(e.target.value)}
+            className={classes.input}
+            InputProps={{
+              className: classes.text,
             }}
           ></TextField>
+          <Button variant="contained" color="primary" onClick={submitDream}>
+            Add
+          </Button>
         </form>
-        <Button variant="contained" color="primary">
-          LOG
-        </Button>
       </main>
     </ThemeProvider>
   );
