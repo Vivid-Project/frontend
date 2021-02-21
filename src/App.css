@@ -13,7 +13,8 @@
   color: white;
 }
 
-input {
+input,
+textarea {
   color: floralwhite !important;
 }
 

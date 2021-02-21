@@ -29,7 +29,7 @@ const NewDream = () => {
   return (
     <ThemeProvider theme={theme}>
       <main>
-        <h1>NewDream</h1>
+        <h1>Dream Input</h1>
         <form noValidate autoComplete="off">
           <TextField
             id="dream-title"
@@ -38,6 +38,12 @@ const NewDream = () => {
             label="Name Your Dream"
             fullWidth
           ></TextField>
+          {/* <TextField
+            id="dream-date"
+            variant="outlined"
+            color="primary"
+            type="date"
+          ></TextField> */}
           <TextField
             id="dream-body"
             variant="outlined"
