@@ -5,8 +5,7 @@ const fakeTone = {
     Joy: 2,
     Sadness: 2,
     Tentative: 1,
-  },
-  unique_tones: 'Joy, Sadness, Tentative, Fear, Analytical',
+  }
 }
 
 export default fakeTone;
