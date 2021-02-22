@@ -13,20 +13,21 @@ import {
 import fakeDreams from '../../data/fakeDreams'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { orange } from '@material-ui/core/colors'
-import { makeStyles } from '@material-ui/core/styles'
+import { theme } from '../../themes/theme'
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import DreamCard from '../../common/DreamCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     color: 'orange',
-    background: 'black',
+    background: '#282c34',
   },
   title: {
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
-    color: 'orange'
+    color: 'orange',
   },
   outterCard: {
     display: 'flex',
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '.5em',
     outline: 'none',
     color: 'orange',
-    background: 'black',
+    background: '#282c34',
     fontWeight: 400,
   },
   card: {
@@ -45,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
     color: 'orange',
     margin: '1em',
-    background: 'black',
-    borderColor: 'orange',
+    background: '#282c34',
+    borderColor: 'floralWhite',
   },
   expand: {
     transform: 'rotate(180deg)',
@@ -112,7 +113,7 @@ const DreamJournal = () => {
   })
 
   return (
-    <div style={{background: 'black'}}>
+    <div>
         <Link to="/dashboard">
           <Button className={classes.root}>Home</Button>
         </Link>
