@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
@@ -28,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ setUser }) => {
+const Login = (props) => {
+  let { history, setUser } = props;
   const theme = useTheme();
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -52,8 +54,8 @@ const Login = ({ setUser }) => {
   const loginUser = () => {
     setUser({
       username: values.username,
-      password: values.password,
     });
+    history.push('/dashboard');
   };
 
   return (
@@ -87,20 +89,13 @@ const Login = ({ setUser }) => {
               </InputAdornment>
             }
           ></FilledInput>{' '}
-          <Link
-            to="/dashboard"
-            style={{
-              textDecoration: 'none',
-            }}
-          >
-            <Button variant="contained" color="secondary" onClick={loginUser}>
-              Login
-            </Button>
-          </Link>
+          <Button variant="contained" color="primary" onClick={loginUser}>
+            Login
+          </Button>
         </form>
       </main>
     </ThemeProvider>
   );
 };
 
-export default Login;
+export default withRouter(Login);

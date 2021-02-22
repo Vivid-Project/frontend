@@ -20,9 +20,8 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
-  },
+  title: { flexGrow: 1 },
+  headerOptions: { margin: '0 10px' },
 }));
 
 const Header = (props) => {
@@ -31,7 +30,7 @@ const Header = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -94,7 +93,9 @@ const Header = (props) => {
                 </Menu>{' '}
               </>
             ) : (
-              <Button>HOME</Button>
+              <div className={classes.headerOptions}>
+                <Button variant="contained">HOME</Button>
+              </div>
             )}
           </div>
         </Toolbar>
