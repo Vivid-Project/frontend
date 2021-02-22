@@ -14,6 +14,7 @@ import fakeDreams from '../../data/fakeDreams'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { orange } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core/styles'
+import DreamCard from '../../common/DreamCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,39 +98,16 @@ const DreamJournal = () => {
 
   const dreamCards = dreams.map((dream) => {
     return (
-      <Grid className={classes.palette.primary}>
-        <Card
-          style={{ border: 'none', boxShadow: 'none' }}
-          className={(classes.outterCard)}
-          key={dream.id}
-        >
-          {dream.date}
-          <Card
-            key={dream.id}
-            id={dream.id}
-            style={{ margin: '1em', width: '40m' }}
-            className={classes.card}
-          >
-            <CardHeader title={dream.title} />
-            <CardActions>
-              <IconButton
-                className={classes.root}
-                onClick={() => handleExpandClick(dream.id)}
-                aria-expanded={expandedId === dream.id}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-            <Collapse in={expandedId === dream.id} timeout="auto" unmountOnExit>
-              <CardContent>
-                <p>{dream.description}</p>
-                <p>Emotion: {dream.emotion}</p>
-              </CardContent>
-            </Collapse>
-          </Card>
-        </Card>
-      </Grid>
+      <div key={dream.id}>
+      <DreamCard 
+      date={dream.date}
+      id={dream.id}
+      title={dream.title}
+      description={dream.description}
+      emotion={dream.emotion}
+      />
+      </div>
+
     )
   })
 
