@@ -8,6 +8,7 @@ import DreamJournal from './modules/DreamJournal/DreamJournal';
 import NewDream from './modules/NewDream/NewDream';
 import Analytics from './modules/Analytics/Analytics';
 import Login from './modules/Login/Login';
+import Header from './modules/Header/Header';
 
 import 'fontsource-roboto';
 
@@ -18,6 +19,7 @@ const App = () => {
     <UserContext.Provider value={user}>
       <main className="App">
         <header className="App-header">
+          <Header />
           <Switch>
             <Route
               exact
