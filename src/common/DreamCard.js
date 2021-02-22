@@ -15,9 +15,9 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 330,
+    // maxWidth: ,
     color: 'orange',
-    background: 'black',
+    background: '#282c34',
   },
   title: {
     display: 'flex',
@@ -30,19 +30,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    margin: '.5em',
+    margin: '1em',
     outline: 'none',
     color: 'orange',
-    background: 'black',
+    background: '#282c34',
     fontWeight: 400,
+    width: '20em',
   },
   card: {
     display: 'flex-box',
     flexDirection: 'row',
     justifyContent: 'space-around',
     color: 'orange',
-    margin: '1em',
-    background: 'black',
+    width: '13em',
+    background: '#282c34',
     borderColor: 'orange',
   },
   expand: {
