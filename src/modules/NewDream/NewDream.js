@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { theme } from '../../themes/theme';
+import UserContext from '../Context/UserContext'
 
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
@@ -22,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewDream = () => {
-  const [dreamTitle, setDreamTitle] = useState(null);
-  const [dreamBody, setDreamBody] = useState(null);
+  const [dreamTitle, setDreamTitle] = useState(null)
+  const [dreamBody, setDreamBody] = useState(null)
+  const user = useContext(UserContext)
 
   const classes = useStyles();
 
