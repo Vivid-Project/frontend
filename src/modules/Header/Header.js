@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const { history } = props;
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -41,12 +41,35 @@ const Header = (props) => {
     setAnchorEl(null);
   };
 
+  const menuItems = [
+    {
+      menuTitle: 'Dashboard',
+      pageURL: '/dashboard',
+    },
+    {
+      menuTitle: 'Add',
+      pageURL: '/newdream',
+    },
+    {
+      menuTitle: 'Journal',
+      pageURL: '/dreamjournal',
+    },
+    {
+      menuTitle: 'Data',
+      pageURL: '/analytics',
+    },
+    {
+      menuTitle: 'Logout',
+      pageURL: '/',
+    },
+  ];
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Photos
+            VIVID
           </Typography>
           <div>
             {isMobile ? (
@@ -75,26 +98,26 @@ const Header = (props) => {
                   open={open}
                   onClose={() => setAnchorEl(null)}
                 >
-                  <MenuItem onClick={() => handleMenuClick('/dashboard')}>
-                    Dashboard
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick('/newdream')}>
-                    Add
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick('/dreamjournal')}>
-                    Journal
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick('/analytics')}>
-                    Data
-                  </MenuItem>
-                  <MenuItem onClick={() => handleMenuClick('/')}>
-                    Logout
-                  </MenuItem>
+                  {menuItems.map((menuItem) => {
+                    return (
+                      <MenuItem
+                        onClick={() => handleMenuClick(menuItem.pageURL)}
+                      >
+                        {menuItem.menuTitle}
+                      </MenuItem>
+                    );
+                  })}
                 </Menu>{' '}
               </>
             ) : (
               <div className={classes.headerOptions}>
-                <Button variant="contained">HOME</Button>
+                {menuItems.map((menuItem) => {
+                  return (
+                    <Button onClick={() => handleMenuClick(menuItem.pageURL)}>
+                      {menuItem.menuTitle}
+                    </Button>
+                  );
+                })}
               </div>
             )}
           </div>
