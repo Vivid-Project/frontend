@@ -5,12 +5,16 @@ import { Card, Container, Grid, AppBar, Fab } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import DreamCard from '../../common/DreamCard'
 import fakeDreams from '../../data/fakeDreams'
+import fakeTone from '../../data/fakeTone'
 import { theme } from '../../themes/theme'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
+import Chart from 'chart.js';
 
 const Dashboard = () => {
+  var ctx = 'myChart'
   const [dreams, setDreams] = useState([])
+  const [tones, setTones] = useState([])
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
@@ -48,9 +52,10 @@ const Dashboard = () => {
   // }, [])
   useEffect(() => {
     setDreams(fakeDreams.dreams)
+    setTones(fakeTone.toneStrength)
+    console.log(tones)
   })
   const recentDreams = dreams.slice(0, 2)
-  console.log(recentDreams)
   const MostRecent = recentDreams.map((dream) => {
     return (
       <div key={dream.id}>
@@ -65,6 +70,13 @@ const Dashboard = () => {
     )
   })
 
+
+  var myDoughnutChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: tones,
+    // options: options,
+  })
+
   return (
     <main>
       <Container>
@@ -73,6 +85,7 @@ const Dashboard = () => {
         <Link to="/newdream">Log a Dream</Link>
         <Link to="/analytics">My Dream Data</Link>
         <Grid>
+          <canvas id='chart' width='400em' height='400em'>{myDoughnutChart}</canvas>
           <h5 className="mdc-card--outlined">Mini Analytics</h5>
         </Grid>
         <Grid>
