@@ -5,13 +5,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    textAlign: 'left',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -21,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar() {
+const Header = (props) => {
+  const { history } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -30,7 +32,8 @@ export default function MenuAppBar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleMenuClick = (routerURL) => {
+    history.push(routerURL);
     setAnchorEl(null);
   };
 
@@ -38,27 +41,20 @@ export default function MenuAppBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
           <div>
             <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
+              edge="start"
+              className={classes.menuButton}
               color="inherit"
+              aria-label="menu"
+              onClick={handleMenu}
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -72,14 +68,27 @@ export default function MenuAppBar() {
                 horizontal: 'right',
               }}
               open={open}
-              onClose={handleClose}
+              onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={() => handleMenuClick('/dashboard')}>
+                Dashboard
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick('/newdream')}>
+                Add
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick('/dreamjournal')}>
+                Journal
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick('/analytics')}>
+                Data
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick('/')}>Logout</MenuItem>
             </Menu>
           </div>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
+
+export default withRouter(Header);
