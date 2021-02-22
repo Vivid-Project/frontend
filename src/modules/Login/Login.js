@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { theme } from '../../themes/theme';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
 import FilledInput from '@material-ui/core/FilledInput';
 import Button from '@material-ui/core/Button';
@@ -30,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = ({ setUser }) => {
+  const theme = useTheme();
   const classes = useStyles();
   const [values, setValues] = useState({
     showPassword: false,
