@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignContent: 'center',
-    color: 'orange',
+    color: 'white'
   },
   outterCard: {
     display: 'flex',
