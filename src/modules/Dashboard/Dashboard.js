@@ -10,6 +10,7 @@ import { theme } from '../../themes/theme'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
 import Chart from 'chart.js';
+import ToneGraph from '../../common/ToneGraph'
 
 const Dashboard = () => {
   var ctx = 'myChart'
@@ -53,7 +54,6 @@ const Dashboard = () => {
   useEffect(() => {
     setDreams(fakeDreams.dreams)
     setTones(fakeTone.toneStrength)
-    console.log(tones)
   })
   const recentDreams = dreams.slice(0, 2)
   const MostRecent = recentDreams.map((dream) => {
@@ -69,13 +69,9 @@ const Dashboard = () => {
       </div>
     )
   })
+  const toneLabels = Object.keys(tones)
+  const toneValues = Object.values(tones)
 
-
-  var myDoughnutChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: tones,
-    // options: options,
-  })
 
   return (
     <main>
@@ -85,8 +81,7 @@ const Dashboard = () => {
         <Link to="/newdream">Log a Dream</Link>
         <Link to="/analytics">My Dream Data</Link>
         <Grid>
-          <canvas id='chart' width='400em' height='400em'>{myDoughnutChart}</canvas>
-          <h5 className="mdc-card--outlined">Mini Analytics</h5>
+          <ToneGraph toneLabels={toneLabels} toneValues={toneValues} />
         </Grid>
         <Grid>
           {!recentDreams.length && <h2>You have not saved any dreams yet</h2>}
@@ -96,9 +91,9 @@ const Dashboard = () => {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Link to="/newdream">
-          <Fab aria-label="add" className={classes.fabButton}>
-            <AddIcon />
-          </Fab>
+            <Fab aria-label="add" className={classes.fabButton}>
+              <AddIcon />
+            </Fab>
           </Link>
         </Toolbar>
       </AppBar>
