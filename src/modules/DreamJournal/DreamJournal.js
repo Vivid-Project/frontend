@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Grid,
@@ -14,10 +14,11 @@ import fakeDreams from '../../data/fakeDreams'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { orange } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core/styles'
+import UserContext from '../Context/UserContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 345,  
     color: 'orange',
     background: 'black',
   },
@@ -71,6 +72,7 @@ const DreamJournal = () => {
   const [dreams, setDreams] = useState([])
   const [error, setError] = useState('')
   const [expandedId, setExpandedId] = useState(-1)
+  const user = useContext(UserContext)
 
   const handleExpandClick = (i) => {
     setExpandedId(expandedId === i ? -1 : i)
