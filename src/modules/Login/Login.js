@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import FilledInput from '@material-ui/core/FilledInput';
-import Button from '@material-ui/core/Button';
+
 import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+
+import FilledInput from '@material-ui/core/FilledInput';
+import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
@@ -27,18 +29,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     showPassword: false,
+    username: '',
+    password: '',
   });
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const loginUser = () => {
+    setUser({
+      username: values.username,
+      password: values.password,
+    });
   };
 
   return (
@@ -51,6 +66,7 @@ const Login = () => {
             color="primary"
             placeholder="Username"
             className={classes.input}
+            onChange={handleChange('username')}
           ></FilledInput>
           <FilledInput
             id="dream-body"
@@ -58,6 +74,7 @@ const Login = () => {
             placeholder="Password"
             type={values.showPassword ? 'text' : 'password'}
             className={classes.input}
+            onChange={handleChange('password')}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -76,7 +93,7 @@ const Login = () => {
               textDecoration: 'none',
             }}
           >
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={loginUser}>
               Login
             </Button>
           </Link>
