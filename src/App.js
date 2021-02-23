@@ -19,17 +19,19 @@ const App = () => {
     <UserContext.Provider value={user}>
       <main className="App">
         <header className="App-header">
-          <Header />
           <Switch>
             <Route
               exact
               path="/"
               render={(props) => <Login {...props} setUser={setUser} />}
             />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/dreamjournal" component={DreamJournal} />
-            <Route exact path="/newdream" component={NewDream} />
-            <Route exact path="/analytics" component={Analytics} />
+            <>
+              <Header />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/dreamjournal" component={DreamJournal} />
+              <Route exact path="/newdream" component={NewDream} />
+              <Route exact path="/analytics" component={Analytics} />
+            </>
           </Switch>
         </header>
       </main>
