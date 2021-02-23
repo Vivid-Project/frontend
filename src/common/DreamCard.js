@@ -15,7 +15,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // maxWidth: ,
     color: 'orange',
     background: '#282c34',
   },
@@ -30,19 +29,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    margin: '1em',
     outline: 'none',
     color: 'orange',
     background: '#282c34',
     fontWeight: 400,
-    width: '20em',
   },
   card: {
     display: 'flex-box',
     flexDirection: 'row',
     justifyContent: 'space-around',
     color: 'orange',
-    width: '13em',
+    width: '20em',
     background: '#282c34',
     borderColor: 'orange',
   },
@@ -92,7 +89,7 @@ const DreamCard = ({ id, date, title, description, emotion }) => {
             style={{ margin: '1em'}}
             className={classes.card}
           >
-            <CardHeader title={title} />
+            <CardHeader title={title}/>
             <CardActions>
               <IconButton
                 className={classes.root}

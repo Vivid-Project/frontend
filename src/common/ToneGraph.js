@@ -7,7 +7,7 @@ const PieChart = ({toneValues, toneLabels}) => {
     labels: toneLabels,
     datasets: [
       {
-        label: '# of Votes',
+        label: 'Tone of dream',
         data: toneValues,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -31,7 +31,7 @@ const PieChart = ({toneValues, toneLabels}) => {
   }
   return(
   <>
-    <Pie data={data} />
+    <Pie data={data} height={30} width={100}/>
   </>
 
   )

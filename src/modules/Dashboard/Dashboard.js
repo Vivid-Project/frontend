@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Container, Grid, AppBar, Fab } from '@material-ui/core'
-import Toolbar from '@material-ui/core/Toolbar'
+import DoughnutChart from '../../common/ToneGraph'
+import UserContext from '../Context/UserContext'
 import DreamCard from '../../common/DreamCard'
+
 import fakeDreams from '../../data/fakeDreams'
 import fakeTone from '../../data/fakeTone'
+
 import { theme } from '../../themes/theme'
+import { Container, Grid, AppBar, Fab } from '@material-ui/core'
+import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
-import PieChart from '../../common/ToneGraph'
-import UserContext from '../Context/UserContext'
 
 
 const Dashboard = () => {
-  var ctx = 'myChart'
   const [dreams, setDreams] = useState([])
   const [tones, setTones] = useState([])
   const user = useContext(UserContext)
@@ -75,30 +76,32 @@ const Dashboard = () => {
 
 
   return (
-    <main>
-      <Container>
-        <h1>The Dashboard</h1>
-        <Link to="/dreamjournal">Dream Journal</Link>
-        <Link to="/newdream">Log a Dream</Link>
-        <Link to="/analytics">My Dream Data</Link>
-        <Grid>
-          <PieChart toneLabels={toneLabels} toneValues={toneValues} />
-        </Grid>
-        <Grid>
-          {!recentDreams.length && <h2>You have not saved any dreams yet</h2>}
-          {MostRecent}
-        </Grid>
-      </Container>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Link to="/newdream">
-            <Fab aria-label="add" className={classes.fabButton}>
-              <AddIcon />
-            </Fab>
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </main>
+    <ThemeProvider theme={theme}>
+      <main>
+        <Container>
+          <h1>The Dashboard</h1>
+          <Link to="/dreamjournal">Dream Journal</Link>
+          <Link to="/newdream">Log a Dream</Link>
+          <Link to="/analytics">My Dream Data</Link>
+          <Grid>
+            <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
+          </Grid>
+          <Grid>
+            {!recentDreams.length && <h2>You have not saved any dreams yet</h2>}
+            {MostRecent}
+          </Grid>
+        </Container>
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Link to="/newdream">
+              <Fab aria-label="add" className={classes.fabButton}>
+                <AddIcon />
+              </Fab>
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </main>
+    </ThemeProvider>
   )
 }
 
