@@ -8,6 +8,7 @@ import DreamJournal from './modules/DreamJournal/DreamJournal';
 import NewDream from './modules/NewDream/NewDream';
 import Analytics from './modules/Analytics/Analytics';
 import Login from './modules/Login/Login';
+import Header from './modules/Header/Header';
 
 import 'fontsource-roboto';
 
@@ -24,10 +25,13 @@ const App = () => {
               path="/"
               render={(props) => <Login {...props} setUser={setUser} />}
             />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/dreamjournal" component={DreamJournal} />
-            <Route exact path="/newdream" component={NewDream} />
-            <Route exact path="/analytics" component={Analytics} />
+            <>
+              <Header />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/dreamjournal" component={DreamJournal} />
+              <Route exact path="/newdream" component={NewDream} />
+              <Route exact path="/analytics" component={Analytics} />
+            </>
           </Switch>
         </header>
       </main>
