@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MDCRipple } from '@material/ripple'
 import { Card, Container, Grid, AppBar, Fab } from '@material-ui/core'
 import Toolbar from '@material-ui/core/Toolbar'
 import DreamCard from '../../common/DreamCard'
@@ -9,15 +8,15 @@ import fakeTone from '../../data/fakeTone'
 import { theme } from '../../themes/theme'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
-import Chart from 'chart.js';
-// import ToneGraph from '../../common/ToneGraph'
 import PieChart from '../../common/ToneGraph'
+import UserContext from '../Context/UserContext'
 
 
 const Dashboard = () => {
   var ctx = 'myChart'
   const [dreams, setDreams] = useState([])
   const [tones, setTones] = useState([])
+  const user = useContext(UserContext)
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
