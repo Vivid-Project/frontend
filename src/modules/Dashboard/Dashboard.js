@@ -10,7 +10,9 @@ import { theme } from '../../themes/theme'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
 import Chart from 'chart.js';
-import ToneGraph from '../../common/ToneGraph'
+// import ToneGraph from '../../common/ToneGraph'
+import PieChart from '../../common/ToneGraph'
+
 
 const Dashboard = () => {
   var ctx = 'myChart'
@@ -81,7 +83,7 @@ const Dashboard = () => {
         <Link to="/newdream">Log a Dream</Link>
         <Link to="/analytics">My Dream Data</Link>
         <Grid>
-          <ToneGraph toneLabels={toneLabels} toneValues={toneValues} />
+          <PieChart toneLabels={toneLabels} toneValues={toneValues} />
         </Grid>
         <Grid>
           {!recentDreams.length && <h2>You have not saved any dreams yet</h2>}
