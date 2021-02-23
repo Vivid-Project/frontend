@@ -80,9 +80,6 @@ const Dashboard = () => {
       <main>
         <Container>
           <h1>The Dashboard</h1>
-          <Link to="/dreamjournal">Dream Journal</Link>
-          <Link to="/newdream">Log a Dream</Link>
-          <Link to="/analytics">My Dream Data</Link>
           <Grid>
             <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
