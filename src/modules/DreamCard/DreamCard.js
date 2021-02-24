@@ -8,7 +8,7 @@ import {
   IconButton,
   Collapse,
 } from '@material-ui/core'
-import fakeDreams from '../data/fakeDreams'
+import fakeDreams from '../../data/fakeDreams'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { orange } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core/styles'
@@ -96,6 +96,7 @@ const DreamCard = ({ id, date, title, description, emotion }) => {
                 onClick={() => handleExpandClick(id)}
                 aria-expanded={expandedId === id}
                 aria-label="show more"
+                
               >
                 <ExpandMoreIcon />
               </IconButton>

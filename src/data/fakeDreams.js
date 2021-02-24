@@ -2,7 +2,7 @@ const fakeDreams = {
   dreams: [
     {
       id: 4,
-      date: 'January Wed 01',
+      date: 'January Sat 22',
       title: 'Forest dream',
       description: 'I was walking through a forest when I met a talking bird',
       emotion: '1',

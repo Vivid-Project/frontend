@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import DreamCard from '../../common/DreamCard'
+import DreamCard from '../DreamCard/DreamCard'
 import UserContext from '../Context/UserContext'
 
 import fakeDreams from '../../data/fakeDreams'
 
-import { orange } from '@material-ui/core/colors'
+// import { orange } from '@material-ui/core/colors'
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 import { theme } from '../../themes/theme'
 
@@ -68,7 +68,7 @@ const DreamJournal = () => {
   // }, [])
   useEffect(() => {
     setDreams(fakeDreams.dreams)
-  })
+  }, [])
 
   const dreamCards = dreams.map((dream) => {
     return (
