@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import DoughnutChart from '../../common/ToneGraph'
 import UserContext from '../Context/UserContext'
-import DreamCard from '../../common/DreamCard'
+import DreamCard from '../DreamCard/DreamCard'
 
-import fakeDreams from '../../data/fakeDreams'
+// import fakeDreams from '../../data/fakeDreams'
 import fakeTone from '../../data/fakeTone'
 
 import { theme } from '../../themes/theme'
@@ -54,7 +54,7 @@ const Dashboard = () => {
   //   getDreams()
   // }, [])
   useEffect(() => {
-    setDreams(fakeDreams.dreams)
+    // setDreams(fakeDreams.dreams)
     setTones(fakeTone.toneStrength)
   })
   const recentDreams = dreams.slice(0, 2)
@@ -81,6 +81,7 @@ const Dashboard = () => {
         <Container>
           <h1>The Dashboard</h1>
           <Grid>
+            {!toneValues.length && <h3>You do not have any data about dream tones yet</h3>}
             <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
           <Grid>
@@ -91,7 +92,7 @@ const Dashboard = () => {
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             <Link to="/newdream">
-              <Fab aria-label="add" className={classes.fabButton}>
+              <Fab aria-label="add" data-testid='addButton' className={classes.fabButton}>
                 <AddIcon />
               </Fab>
             </Link>
