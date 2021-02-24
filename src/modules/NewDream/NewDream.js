@@ -25,17 +25,21 @@ const useStyles = makeStyles((theme) => ({
 const NewDream = () => {
   const [dreamTitle, setDreamTitle] = useState(null)
   const [dreamBody, setDreamBody] = useState(null)
+  const [error, setError] = useState(false)
   const user = useContext(UserContext)
 
   const classes = useStyles();
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
+      setError(true)
       return;
+    } else {
+      setError(false)
+      // API call from here,
+      // Route to all Dream Entries
+      console.log(dreamTitle + ' ' + dreamBody);
     }
-    // API call from here,
-    // Route to all Dream Entries
-    console.log(dreamTitle + ' ' + dreamBody);
   };
 
   return (
@@ -45,13 +49,15 @@ const NewDream = () => {
         <form noValidate autoComplete="off" className={classes.root}>
           <TextField
             id="dream-title"
-            variant="standard"
+            // variant="standard"
+            variant="outlined"
             color="primary"
             label="Name Your Dream"
             fullWidth
             className={classes.input}
             InputProps={{
               className: classes.text,
+              'data-testid': 'nameInput',
             }}
             onChange={(e) => setDreamTitle(e.target.value)}
           ></TextField>
@@ -67,15 +73,17 @@ const NewDream = () => {
             className={classes.input}
             InputProps={{
               className: classes.text,
+              'data-testid': 'describeInput',
             }}
           ></TextField>
+          {(error === true) && <h3>Please ensure both fields are filled before adding the dream</h3>}
           <Button variant="contained" color="primary" onClick={submitDream}>
             Add
           </Button>
         </form>
       </main>
     </ThemeProvider>
-  );
+  )
 };
 
 export default NewDream;
