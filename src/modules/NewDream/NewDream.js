@@ -49,8 +49,7 @@ const NewDream = () => {
         <form noValidate autoComplete="off" className={classes.root}>
           <TextField
             id="dream-title"
-            // variant="standard"
-            variant="outlined"
+            variant="standard"
             color="primary"
             label="Name Your Dream"
             fullWidth
