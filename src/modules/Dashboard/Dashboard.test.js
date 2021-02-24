@@ -26,15 +26,4 @@ describe('Dashboard', () => {
       screen.getByText('You have not saved any dreams yet')
     ).toBeInTheDocument();
   });
-
-  it.skip('should render a message if there is no data for dream tones', () => {
-    render(
-      <BrowserRouter>
-        <Dashboard />
-      </BrowserRouter>
-    );
-    expect(
-      screen.getByText('You do not have any data about dream tones yet')
-    ).toBeInTheDocument();
-  });
 });
