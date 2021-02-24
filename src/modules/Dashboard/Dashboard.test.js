@@ -6,7 +6,7 @@ import Dashboard from './Dashboard'
 import fakeTone from '../../data/fakeTone'
 
 
-describe.only('Dashboard', () => {
+describe('Dashboard', () => {
   it('should render the dashboard', () => {
     render(
       <BrowserRouter>
@@ -24,5 +24,14 @@ describe.only('Dashboard', () => {
       </BrowserRouter>
     )
     expect(screen.getByText('You have not saved any dreams yet')).toBeInTheDocument()
+  })
+
+  it('should render a message if there is no data for dream tones', () => {
+    render(
+      <BrowserRouter>
+        <Dashboard />
+      </BrowserRouter>
+    )
+    expect(screen.getByText('You do not have any data about dream tones yet')).toBeInTheDocument()
   })
 })
