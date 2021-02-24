@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import DreamCard from '../../common/DreamCard'
+import DreamCard from '../DreamCard/DreamCard'
 import UserContext from '../Context/UserContext'
 
 import fakeDreams from '../../data/fakeDreams'
