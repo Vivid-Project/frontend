@@ -18,4 +18,17 @@ describe('NewDream', () => {
     expect(describeInput).toBeInTheDocument()
     expect(screen.getByText('Add')).toBeInTheDocument()
   })
+
+  it('should show a message when both inputs are not filled out', () =>{
+        render(
+      <NewDream />
+    )
+    
+    const addButton = screen.getByText('Add')
+    userEvent.type(screen.getByTestId('nameInput'), 'Crazy dream')
+    userEvent.click(addButton)
+    
+    expect(
+      screen.getByText('Please ensure both fields are filled before adding the dream')).toBeInTheDocument()
+  })
 })
