@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
+import * as API from '../../API/APIcalls';
 import FilledInput from '@material-ui/core/FilledInput';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -35,7 +36,7 @@ const Login = (props) => {
   const classes = useStyles();
   const [values, setValues] = useState({
     showPassword: false,
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -52,10 +53,16 @@ const Login = (props) => {
   };
 
   const loginUser = () => {
-    setUser({
-      username: values.username,
-    });
-    history.push('/dashboard');
+    API.fetchUserLogin(values.email)
+      .then((response) =>
+        setUser({
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          token: response.token,
+        })
+      )
+      .then(() => history.push('/dashboard'));
   };
 
   return (
@@ -64,11 +71,11 @@ const Login = (props) => {
         <form noValidate autoComplete="off" className={classes.root}>
           <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
           <FilledInput
-            id="username"
+            id="email"
             color="primary"
-            placeholder="Username"
+            placeholder="email"
             className={classes.input}
-            onChange={handleChange('username')}
+            onChange={handleChange('email')}
           ></FilledInput>
           <FilledInput
             id="dream-body"
