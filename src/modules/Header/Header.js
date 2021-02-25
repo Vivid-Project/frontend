@@ -101,6 +101,7 @@ const Header = (props) => {
                   {menuItems.map((menuItem) => {
                     return (
                       <MenuItem
+                        key={menuItem.menuTitle}
                         onClick={() => handleMenuClick(menuItem.pageURL)}
                       >
                         {menuItem.menuTitle}
@@ -113,7 +114,10 @@ const Header = (props) => {
               <div className={classes.headerOptions}>
                 {menuItems.map((menuItem) => {
                   return (
-                    <Button onClick={() => handleMenuClick(menuItem.pageURL)}>
+                    <Button
+                      key={menuItem.menuTitle}
+                      onClick={() => handleMenuClick(menuItem.pageURL)}
+                    >
                       {menuItem.menuTitle}
                     </Button>
                   );
