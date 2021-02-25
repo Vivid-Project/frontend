@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -123,6 +123,17 @@ const Header = (props) => {
           </div>
         </Toolbar>
       </AppBar>
+      {!navigator.onLine && (
+        <div
+          style={{
+            textAlign: 'center',
+            background:
+              'linear-gradient(180deg, rgba(255,70,37,1) 0%, rgba(51,34,0,1) 100%)',
+          }}
+        >
+          <Typography>Currently Offline</Typography>
+        </div>
+      )}
     </div>
   );
 };
