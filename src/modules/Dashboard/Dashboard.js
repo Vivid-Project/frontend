@@ -37,25 +37,10 @@ const Dashboard = () => {
   }));
   const classes = useStyles();
 
-  // const getDreams = async () => {
-  //   const url = ''
-  //   setError('')
-  //   try {
-  //     const response = await fetch(url)
-  //     const dreams = await response.json()
-  //     setDreams(dreams)
-  //   } catch (error) {
-  //     setError(error.message)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getDreams()
-  // }, [])
   useEffect(() => {
-    // setDreams(fakeDreams.dreams)
     setTones(fakeTone.toneStrength);
   });
+
   const recentDreams = dreams.slice(0, 2);
   const MostRecent = recentDreams.map((dream) => {
     return (
@@ -77,20 +62,22 @@ const Dashboard = () => {
     <ThemeProvider theme={theme}>
       <main>
         <Container>
-          <h3>Welcome, {user.name.split(' ')[0]}</h3>
+          <h3>
+            Welcome{user.name && <span>, {user.name.split(' ')[0]}</span>}
+          </h3>
           <Grid>
             {!toneValues.length && (
-              <h3>You do not have any data about dream tones yet</h3>
+              <h6>You do not have any data about dream tones yet</h6>
             )}
             <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
           <Grid>
-            {!recentDreams.length && <h2>You have not saved any dreams yet</h2>}
+            {!recentDreams.length && <h6>You have not saved any dreams yet</h6>}
             {MostRecent}
           </Grid>
         </Container>
         <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
+          <Toolbar variant="dense">
             <Link to="/newdream">
               <Fab
                 aria-label="add"
