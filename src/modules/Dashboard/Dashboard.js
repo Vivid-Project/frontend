@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import DoughnutChart from '../../common/ToneGraph';
-import UserContext from '../Context/UserContext';
-import DreamCard from '../DreamCard/DreamCard';
+import React, { useState, useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
+import DoughnutChart from '../../common/ToneGraph'
+import UserContext from '../Context/UserContext'
+import DreamCard from '../DreamCard/DreamCard'
+import * as API from '../../API/APIcalls'
 
-// import fakeDreams from '../../data/fakeDreams'
-import fakeTone from '../../data/fakeTone';
+import fakeTone from '../../data/fakeTone'
 
-import { theme } from '../../themes/theme';
-import { Container, Grid, AppBar, Fab } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
+import { theme } from '../../themes/theme'
+import { Container, Grid, AppBar, Fab } from '@material-ui/core'
+import Toolbar from '@material-ui/core/Toolbar'
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
+import AddIcon from '@material-ui/icons/Add'
 
 const Dashboard = () => {
-  const [dreams, setDreams] = useState([]);
-  const [tones, setTones] = useState([]);
-  const user = useContext(UserContext);
+  const [dreams, setDreams] = useState([])
+  const [tones, setTones] = useState([])
+  const user = useContext(UserContext)
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
@@ -34,14 +34,19 @@ const Dashboard = () => {
       right: 0,
       margin: '0 auto',
     },
-  }));
-  const classes = useStyles();
+  }))
+  const classes = useStyles()
 
   useEffect(() => {
-    setTones(fakeTone.toneStrength);
-  });
+    API.fetchUserDreams(user.token).then(
+      (response) => {
+        setDreams(response.dreams)
+      },
+      [dreams]
+    )
+  })
 
-  const recentDreams = dreams.slice(0, 2);
+  const recentDreams = dreams.slice(0, 2)
   const MostRecent = recentDreams.map((dream) => {
     return (
       <div key={dream.id}>
@@ -50,13 +55,13 @@ const Dashboard = () => {
           id={dream.id}
           title={dream.title}
           description={dream.description}
-          emotion={dream.emotion}
+          toneAnalysis={dream.toneAnalysis}
         />
       </div>
-    );
-  });
-  const toneLabels = Object.keys(tones);
-  const toneValues = Object.values(tones);
+    )
+  })
+  const toneLabels = Object.keys(tones)
+  const toneValues = Object.values(tones)
 
   return (
     <ThemeProvider theme={theme}>
@@ -91,7 +96,7 @@ const Dashboard = () => {
         </AppBar>
       </main>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
