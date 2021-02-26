@@ -54,7 +54,6 @@ export const postUserDream = async (token, date, title, desc) => {
         },
         body: JSON.stringify({
           date: date,
-          // Date Format: YYYY/MM/DD
           title: title,
           description: desc,
           emotion: null,

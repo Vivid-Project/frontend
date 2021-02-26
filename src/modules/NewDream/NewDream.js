@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { theme } from '../../themes/theme';
 import UserContext from '../Context/UserContext';
+import * as API from '../../API/APIcalls';
 
+import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +38,17 @@ const NewDream = () => {
         : setError({ ...error, desc: true });
       return;
     }
-    // API call from here,
+    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
+      (response) => {
+        console.log(response);
+      }
+    );
     // Route to all Dream Entries
+  };
+
+  const createDate = () => {
+    let d = new Date();
+    return `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`;
   };
 
   useEffect(() => {
