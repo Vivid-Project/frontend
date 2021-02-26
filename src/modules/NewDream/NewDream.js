@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { theme } from '../../themes/theme';
-import UserContext from '../Context/UserContext'
+import UserContext from '../Context/UserContext';
 
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
@@ -23,24 +23,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewDream = () => {
-  const [dreamTitle, setDreamTitle] = useState(null)
-  const [dreamBody, setDreamBody] = useState(null)
-  const [error, setError] = useState(false)
-  const user = useContext(UserContext)
+  const [dreamTitle, setDreamTitle] = useState(null);
+  const [dreamBody, setDreamBody] = useState(null);
+  const [error, setError] = useState(null);
+  const user = useContext(UserContext);
 
   const classes = useStyles();
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-      setError(true)
+      setError('Please ensure both fields are filled before adding the dream');
       return;
-    } else {
-      setError(false)
-      // API call from here,
-      // Route to all Dream Entries
-      console.log(dreamTitle + ' ' + dreamBody);
     }
+    // API call from here,
+    // Route to all Dream Entries
   };
+
+  useEffect(() => {
+    setError(null);
+  }, [dreamTitle, dreamBody]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -75,14 +76,14 @@ const NewDream = () => {
               'data-testid': 'describeInput',
             }}
           ></TextField>
-          {(error === true) && <h3>Please ensure both fields are filled before adding the dream</h3>}
+          {error && <h6>{error}</h6>}
           <Button variant="contained" color="primary" onClick={submitDream}>
             Add
           </Button>
         </form>
       </main>
     </ThemeProvider>
-  )
+  );
 };
 
 export default NewDream;
