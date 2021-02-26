@@ -25,14 +25,16 @@ const useStyles = makeStyles((theme) => ({
 const NewDream = () => {
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ name: false, desc: false });
   const user = useContext(UserContext);
 
   const classes = useStyles();
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-      setError('Please ensure both fields are filled before adding the dream');
+      !dreamTitle
+        ? setError({ ...error, name: true })
+        : setError({ ...error, desc: true });
       return;
     }
     // API call from here,
@@ -40,7 +42,10 @@ const NewDream = () => {
   };
 
   useEffect(() => {
-    setError(null);
+    if (!dreamTitle && !dreamBody) {
+      return;
+    }
+    setError({ name: false, desc: false });
   }, [dreamTitle, dreamBody]);
 
   return (
@@ -49,6 +54,8 @@ const NewDream = () => {
         <h2>Dream Input</h2>
         <form noValidate autoComplete="off" className={classes.root}>
           <TextField
+            error={error.name}
+            required={error.name}
             id="dream-title"
             variant="standard"
             color="primary"
@@ -62,6 +69,8 @@ const NewDream = () => {
             onChange={(e) => setDreamTitle(e.target.value)}
           ></TextField>
           <TextField
+            error={error.desc}
+            required={error.desc}
             id="dream-body"
             variant="outlined"
             color="primary"
@@ -76,7 +85,7 @@ const NewDream = () => {
               'data-testid': 'describeInput',
             }}
           ></TextField>
-          {error && <h6>{error}</h6>}
+          {/* {error && <h6>{error}</h6>} */}
           <Button variant="contained" color="primary" onClick={submitDream}>
             Add
           </Button>
