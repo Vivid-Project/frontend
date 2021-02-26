@@ -63,10 +63,10 @@ const DreamJournal = () => {
           id={dream.id}
           title={dream.title}
           description={dream.description}
-          emotion={dream.toneAnalysis.unique_tones}
+          toneAnalysis={dream.toneAnalysis}
         />
       </div>
-    );
+    )
   });
 
   return (
