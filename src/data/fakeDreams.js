@@ -2,33 +2,69 @@ const fakeDreams = {
   dreams: [
     {
       id: 4,
-      date: 'January Sat 22',
+      date: '02/22/2021',
       title: 'Forest dream',
       description: 'I was walking through a forest when I met a talking bird',
-      emotion: '1',
+      toneAnalysis: {
+        tone_strength: {
+          Analytical: 1,
+          Anger: 1,
+          Joy: 2,
+          Sadness: 2,
+          Tentative: 1,
+        },
+        unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
+      },
     },
     {
       id: 1,
-      date: 'January Wed 01',
+      date: '02/23/2021',
       title: 'Bear dream',
       description: 'A bear bit me',
-      emotion: '1',
+      toneAnalysis: {
+        tone_strength: {
+          Analytical: 1,
+          Anger: 1,
+          Joy: 2,
+          Sadness: 2,
+          Tentative: 1,
+        },
+        unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
+      },
     },
     {
       id: 2,
-      date: 'January Thur 02',
+      date: '02/24/2021',
       title: 'Bug dream',
       description: 'A bug landed on me',
-      emotion: '3',
+      toneAnalysis: {
+        tone_strength: {
+          Analytical: 1,
+          Anger: 1,
+          Joy: 2,
+          Sadness: 2,
+          Tentative: 1,
+        },
+        unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
+      },
     },
     {
       id: 3,
-      date: 'January Fri 03',
+      date: '02/25/2021',
       title: 'Dog dream',
       description: 'I was walking a dog',
-      emotion: '5',
+      toneAnalysis: {
+        tone_strength: {
+          Analytical: 1,
+          Anger: 1,
+          Joy: 2,
+          Sadness: 2,
+          Tentative: 1,
+        },
+        unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
+      },
     },
   ],
-}
+};
 
 export default fakeDreams;
