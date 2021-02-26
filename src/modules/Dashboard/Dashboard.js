@@ -68,7 +68,7 @@ const Dashboard = () => {
       <main>
         <Container>
           <h3>
-            Welcome{user.name && <span>, {user.name.split(' ')[0]}</span>}
+            Welcome{user && <span>, {user.name.split(' ')[0]}</span>}
           </h3>
           <Grid>
             {!toneValues.length && (
