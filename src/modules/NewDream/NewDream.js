@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import UserContext from '../Context/UserContext';
@@ -23,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewDream = () => {
+const NewDream = (props) => {
+  let { history } = props;
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
@@ -38,12 +40,13 @@ const NewDream = () => {
         : setError({ ...error, desc: true });
       return;
     }
-    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
-      (response) => {
+    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody)
+      .then((response) => {
         console.log(response);
-      }
-    );
-    // Route to all Dream Entries
+      })
+      .then(() => {
+        history.push('/dreamjournal');
+      });
   };
 
   const createDate = () => {
@@ -105,4 +108,4 @@ const NewDream = () => {
   );
 };
 
-export default NewDream;
+export default withRouter(NewDream);
