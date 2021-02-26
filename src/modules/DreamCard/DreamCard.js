@@ -8,7 +8,6 @@ import {
   IconButton,
   Collapse,
 } from '@material-ui/core'
-import fakeDreams from '../../data/fakeDreams'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { orange } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core/styles'
@@ -62,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DreamCard = ({ id, date, title, description, emotion }) => {
+const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   const classes = useStyles()
   const [dreams, setDreams] = useState([])
   const [expandedId, setExpandedId] = useState(-1)
@@ -70,9 +69,6 @@ const DreamCard = ({ id, date, title, description, emotion }) => {
   const handleExpandClick = (i) => {
     setExpandedId(expandedId === i ? -1 : i)
   }
-  useEffect(() => {
-    setDreams(fakeDreams.dreams)
-  })
 
   return (
     <div>
@@ -86,17 +82,16 @@ const DreamCard = ({ id, date, title, description, emotion }) => {
           <Card
             key={id}
             id={id}
-            style={{ margin: '1em'}}
+            style={{ margin: '1em' }}
             className={classes.card}
           >
-            <CardHeader title={title}/>
+            <CardHeader title={title} />
             <CardActions>
               <IconButton
                 className={classes.root}
                 onClick={() => handleExpandClick(id)}
                 aria-expanded={expandedId === id}
                 aria-label="show more"
-                
               >
                 <ExpandMoreIcon />
               </IconButton>
@@ -104,7 +99,7 @@ const DreamCard = ({ id, date, title, description, emotion }) => {
             <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
               <CardContent>
                 <p>{description}</p>
-                <p>Emotion: {emotion}</p>
+                <p>Dream tones: {toneAnalysis.unique_tones}</p>
               </CardContent>
             </Collapse>
           </Card>
