@@ -4,16 +4,36 @@ import user from '../data/fakeUser';
 export const fetchUserLogin = async (email) => {
   return user;
   // try {
+  // const response = await fetch(
+  //   'https://vivid-project-backend.herokuapp.com/users/authenticate',
+  //   {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //     }),
+  //   }
+  // );
+  //   return await response.json();
+  // } catch (error) {
+  //   return console.log(error);
+  // }
+};
+
+export const fetchUserDreams = async (token, dateStart, dateEnd) => {
+  return fakeDreams;
+
+  // try {
   //   const response = await fetch(
-  //     'https://vivid-project-backend.herokuapp.com/users/authenticate',
+  //     'https://vivid-project-backend.herokuapp.com/dreams',
   //     {
-  //       method: 'POST',
+  //       method: 'GET',
   //       headers: {
   //         'Content-Type': 'application/json',
+  //         Authorization: token,
   //       },
-  //       body: JSON.stringify({
-  //         email: email,
-  //       }),
   //     }
   //   );
   //   return await response.json();
@@ -22,23 +42,27 @@ export const fetchUserLogin = async (email) => {
   // }
 };
 
-export const fetchUserDreams = async (token) => {
-  return fakeDreams;
-
-  // try {
-  //   const response = await fetch(
-  //     'https://vivid-project-backend.herokuapp.com/users/authenticate',
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': token,
-  //       },
-  //       body: '',
-  //     }
-  //   );
-  //   return await response.json();
-  // } catch (error) {
-  //   return console.log(error);
-  // }
+export const postUserDream = async (token, date, title, desc) => {
+  try {
+    const response = await fetch(
+      'https://vivid-project-backend.herokuapp.com/dreams',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          date: date,
+          // Date Format: YYYY/MM/DD
+          title: title,
+          description: desc,
+          emotion: null,
+        }),
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
 };

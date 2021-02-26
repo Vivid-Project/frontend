@@ -9,11 +9,10 @@ const fakeDreams = {
         tone_strength: {
           Analytical: 1,
           Anger: 1,
-          Joy: 2,
           Sadness: 2,
           Tentative: 1,
         },
-        unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
+        unique_tones: 'Sadness, Tentative, Anger, Analytical',
       },
     },
     {

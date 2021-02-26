@@ -59,7 +59,7 @@ const Login = (props) => {
           id: response.id,
           name: response.name,
           email: response.email,
-          token: response.token,
+          token: `Bearer ${response.token}`,
         })
       )
       .then(() => history.push('/dashboard'));
@@ -73,7 +73,7 @@ const Login = (props) => {
           <FilledInput
             id="email"
             color="primary"
-            placeholder="email"
+            placeholder="Email"
             className={classes.input}
             onChange={handleChange('email')}
           ></FilledInput>
