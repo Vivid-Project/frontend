@@ -47,7 +47,7 @@ const Dashboard = () => {
   });
 
   const recentDreams = dreams.slice(0, 2);
-  const MostRecent = recentDreams.map((dream) => {
+  const mostRecent = recentDreams.map((dream) => {
     return (
       <div key={dream.id}>
         <DreamCard
