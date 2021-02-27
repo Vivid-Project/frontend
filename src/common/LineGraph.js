@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-const LineGraph = () => {
+const TonesOverTime = () => {
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -32,4 +32,4 @@ const LineGraph = () => {
   return <Line data={data} />;
 };
 
-export default LineGraph;
+export default TonesOverTime;
