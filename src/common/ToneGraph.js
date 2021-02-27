@@ -33,8 +33,7 @@ const PieChart = ({toneValues, toneLabels}) => {
   <>
     <Pie data={data} height={30} width={100}/>
   </>
-
   )
 }
 
-export default PieChart
+export default PieChart;

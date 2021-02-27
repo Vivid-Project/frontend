@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import DoughnutChart from '../../common/ToneGraph';
+import PieChart from '../../common/ToneGraph';
 import UserContext from '../Context/UserContext';
 import DreamJournal from '../DreamJournal/DreamJournal';
 
@@ -10,12 +10,17 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
+import fakeTone from '../../data/fakeTone';
+
 const Dashboard = () => {
   const [tones, setTones] = useState([]);
   const user = useContext(UserContext);
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
-  
+    useEffect(() => {
+      setTones(fakeTone.toneStrength);
+    });
+
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
@@ -47,7 +52,7 @@ const Dashboard = () => {
             {!toneValues.length && (
               <h6>You do not have any data about dream tones yet</h6>
             )}
-            <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
+            <PieChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
           <Grid>
             <DreamJournal />
