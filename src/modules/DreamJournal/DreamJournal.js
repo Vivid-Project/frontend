@@ -38,12 +38,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DreamJournal = (props) => {
-  const { amount } = props
-  const classes = useStyles();
+const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
   const [error, setError] = useState('');
   const [expandedId, setExpandedId] = useState(-1);
+  const [dreamAmount, setDreamAmount ] = useState(7)
+  const classes = useStyles();
   const user = useContext(UserContext);
 
   const handleExpandClick = (i) => {
@@ -52,7 +52,7 @@ const DreamJournal = (props) => {
 
   useEffect(() => {
     API.fetchUserDreams(user.token).then((response) => {
-      const mostRecentDreams = response.slice(0, (amount + 1))
+      const mostRecentDreams = response.slice(0, (dreamAmount + 1))
       setDreams(mostRecentDreams);
     });
   }, []);
