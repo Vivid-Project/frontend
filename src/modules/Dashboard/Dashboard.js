@@ -15,7 +15,7 @@ const Dashboard = () => {
   const user = useContext(UserContext);
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
-  
+
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
