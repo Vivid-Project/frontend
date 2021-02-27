@@ -51,6 +51,7 @@ const DreamJournal = () => {
   };
 
   useEffect(() => {
+    console.log(window.location.pathname)
     API.fetchUserDreams(user.token).then((response) => {
       const mostRecentDreams = response.slice(0, (dreamAmount + 1))
       setDreams(mostRecentDreams);
@@ -74,7 +75,7 @@ const DreamJournal = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
+         {window.location.pathname === '/dreamjournal' && <h2 className={(classes.root, classes.title)}>Dream Journal</h2>}
         {!dreams.length && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}
