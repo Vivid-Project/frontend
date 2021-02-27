@@ -53,14 +53,14 @@ const Login = (props) => {
 
   const loginUser = () => {
     API.fetchUserLogin(values.email)
-      .then((response) =>
+      .then((response) => {
         setUser({
           id: response.id,
           name: response.name,
           email: response.email,
           token: `Bearer ${response.token}`,
-        })
-      )
+        });
+      })
       .then(() => history.push('/dashboard'));
   };
 

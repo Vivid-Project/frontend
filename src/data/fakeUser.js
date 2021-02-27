@@ -2,7 +2,7 @@ const user = {
   id: 23,
   name: "Patches O'Hoolihan",
   email: 'patches@gmail.com',
-  token: 'erfgk45t6t459rgtngrtkj54no5v3n',
+  token: '2EbU2V36BARUVYB-pOLHvJcPGnt-k79h',
 };
 
 export default user;
