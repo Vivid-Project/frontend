@@ -51,9 +51,8 @@ const DreamJournal = () => {
   };
 
   useEffect(() => {
-    console.log(window.location.pathname)
     API.fetchUserDreams(user.token).then((response) => {
-      const mostRecentDreams = response.slice(0, (dreamAmount + 1))
+      const mostRecentDreams = response.slice(0, (dreamAmount))
       setDreams(mostRecentDreams);
     });
   }, []);
