@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { theme } from '../../themes/theme';
-import UserContext from '../Context/UserContext'
+import UserContext from '../Context/UserContext';
+import * as API from '../../API/APIcalls';
 
+import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -22,25 +24,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewDream = () => {
-  const [dreamTitle, setDreamTitle] = useState(null)
-  const [dreamBody, setDreamBody] = useState(null)
-  const [error, setError] = useState(false)
-  const user = useContext(UserContext)
+const NewDream = (props) => {
+  let { history } = props;
+  const [dreamTitle, setDreamTitle] = useState(null);
+  const [dreamBody, setDreamBody] = useState(null);
+  const [error, setError] = useState({ name: false, desc: false });
+  const user = useContext(UserContext);
 
   const classes = useStyles();
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-      setError(true)
+      !dreamTitle
+        ? setError({ ...error, name: true })
+        : setError({ ...error, desc: true });
       return;
-    } else {
-      setError(false)
-      // API call from here,
-      // Route to all Dream Entries
-      console.log(dreamTitle + ' ' + dreamBody);
     }
+    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody)
+      .then((response) => {
+        console.log(response);
+      })
+      .then(() => {
+        history.push('/dreamjournal');
+      });
   };
+
+  const createDate = () => {
+    let d = new Date();
+    return `${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`;
+  };
+
+  useEffect(() => {
+    if (!dreamTitle && !dreamBody) {
+      return;
+    }
+    setError({ name: false, desc: false });
+  }, [dreamTitle, dreamBody]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -48,6 +67,8 @@ const NewDream = () => {
         <h2>Dream Input</h2>
         <form noValidate autoComplete="off" className={classes.root}>
           <TextField
+            error={error.name}
+            required={error.name}
             id="dream-title"
             variant="standard"
             color="primary"
@@ -61,6 +82,8 @@ const NewDream = () => {
             onChange={(e) => setDreamTitle(e.target.value)}
           ></TextField>
           <TextField
+            error={error.desc}
+            required={error.desc}
             id="dream-body"
             variant="outlined"
             color="primary"
@@ -75,14 +98,14 @@ const NewDream = () => {
               'data-testid': 'describeInput',
             }}
           ></TextField>
-          {(error === true) && <h3>Please ensure both fields are filled before adding the dream</h3>}
+          {/* {error && <h6>{error}</h6>} */}
           <Button variant="contained" color="primary" onClick={submitDream}>
             Add
           </Button>
         </form>
       </main>
     </ThemeProvider>
-  )
+  );
 };
 
-export default NewDream;
+export default withRouter(NewDream);

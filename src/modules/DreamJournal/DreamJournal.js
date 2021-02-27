@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
-import DreamCard from '../DreamCard/DreamCard'
-import UserContext from '../Context/UserContext'
+import React, { useState, useEffect, useContext } from 'react';
+import DreamCard from '../DreamCard/DreamCard';
+import UserContext from '../Context/UserContext';
+import * as API from '../../API/APIcalls';
 
-import fakeDreams from '../../data/fakeDreams'
-
-// import { orange } from '@material-ui/core/colors'
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
-import { theme } from '../../themes/theme'
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../../themes/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,37 +36,24 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
-}))
+}));
 
 const DreamJournal = () => {
-  const classes = useStyles()
-  const [dreams, setDreams] = useState([])
-  const [error, setError] = useState('')
-  const [expandedId, setExpandedId] = useState(-1)
-  const user = useContext(UserContext)
+  const classes = useStyles();
+  const [dreams, setDreams] = useState([]);
+  const [error, setError] = useState('');
+  const [expandedId, setExpandedId] = useState(-1);
+  const user = useContext(UserContext);
 
   const handleExpandClick = (i) => {
-    setExpandedId(expandedId === i ? -1 : i)
-  }
-  //WIll use for API call
-  // const getDreams = async () => {
-  //   const url = ''
-  //   setError('')
-  //   try {
-  //     const response = await fetch(url)
-  //     const dreams = await response.json()
-  //     setDreams(dreams)
-  //   } catch (error) {
-  //     setError(error.message)
-  //   }
-  // }
+    setExpandedId(expandedId === i ? -1 : i);
+  };
 
-  // useEffect(() => {
-  //   getDreams()
-  // }, [])
   useEffect(() => {
-    setDreams(fakeDreams.dreams)
-  }, [])
+    API.fetchUserDreams(user.token).then((response) => {
+      setDreams(response.dreams);
+    });
+  }, []);
 
   const dreamCards = dreams.map((dream) => {
     return (
@@ -78,11 +63,11 @@ const DreamJournal = () => {
           id={dream.id}
           title={dream.title}
           description={dream.description}
-          emotion={dream.emotion}
+          toneAnalysis={dream.toneAnalysis}
         />
       </div>
     )
-  })
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,7 +79,7 @@ const DreamJournal = () => {
         {dreamCards}
       </div>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default DreamJournal
+export default DreamJournal;

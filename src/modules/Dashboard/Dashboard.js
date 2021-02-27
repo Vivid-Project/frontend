@@ -1,23 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
-import DoughnutChart from '../../common/ToneGraph'
-import UserContext from '../Context/UserContext'
-import DreamCard from '../DreamCard/DreamCard'
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import DoughnutChart from '../../common/ToneGraph';
+import UserContext from '../Context/UserContext';
+import DreamCard from '../DreamCard/DreamCard';
+import * as API from '../../API/APIcalls';
 
-// import fakeDreams from '../../data/fakeDreams'
-import fakeTone from '../../data/fakeTone'
+import fakeTone from '../../data/fakeTone';
 
-import { theme } from '../../themes/theme'
-import { Container, Grid, AppBar, Fab } from '@material-ui/core'
-import Toolbar from '@material-ui/core/Toolbar'
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
-import AddIcon from '@material-ui/icons/Add'
-
+import { theme } from '../../themes/theme';
+import { Container, Grid, AppBar, Fab } from '@material-ui/core';
+import Toolbar from '@material-ui/core/Toolbar';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
 
 const Dashboard = () => {
-  const [dreams, setDreams] = useState([])
-  const [tones, setTones] = useState([])
-  const user = useContext(UserContext)
+  const [dreams, setDreams] = useState([]);
+  const [tones, setTones] = useState([]);
+  const user = useContext(UserContext);
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
@@ -35,29 +34,19 @@ const Dashboard = () => {
       right: 0,
       margin: '0 auto',
     },
-  }))
-  const classes = useStyles()
+  }));
+  const classes = useStyles();
 
-  // const getDreams = async () => {
-  //   const url = ''
-  //   setError('')
-  //   try {
-  //     const response = await fetch(url)
-  //     const dreams = await response.json()
-  //     setDreams(dreams)
-  //   } catch (error) {
-  //     setError(error.message)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getDreams()
-  // }, [])
   useEffect(() => {
-    // setDreams(fakeDreams.dreams)
-    setTones(fakeTone.toneStrength)
-  })
-  const recentDreams = dreams.slice(0, 2)
+    API.fetchUserDreams(user.token).then(
+      (response) => {
+        setDreams(response.dreams);
+      },
+      [dreams]
+    );
+  });
+
+  const recentDreams = dreams.slice(0, 2);
   const MostRecent = recentDreams.map((dream) => {
     return (
       <div key={dream.id}>
@@ -66,33 +55,40 @@ const Dashboard = () => {
           id={dream.id}
           title={dream.title}
           description={dream.description}
-          emotion={dream.emotion}
+          toneAnalysis={dream.toneAnalysis}
         />
       </div>
-    )
-  })
-  const toneLabels = Object.keys(tones)
-  const toneValues = Object.values(tones)
-
+    );
+  });
+  const toneLabels = Object.keys(tones);
+  const toneValues = Object.values(tones);
 
   return (
     <ThemeProvider theme={theme}>
       <main>
         <Container>
-          <h1>The Dashboard</h1>
+          <h3>
+            Welcome{user.name && <span>, {user.name.split(' ')[0]}</span>}
+          </h3>
           <Grid>
-            {!toneValues.length && <h3>You do not have any data about dream tones yet</h3>}
+            {!toneValues.length && (
+              <h6>You do not have any data about dream tones yet</h6>
+            )}
             <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
           <Grid>
-            {!recentDreams.length && <h2>You have not saved any dreams yet</h2>}
-            {MostRecent}
+            {!recentDreams.length && <h6>You have not saved any dreams yet</h6>}
+            {mostRecent}
           </Grid>
         </Container>
         <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
+          <Toolbar variant="dense">
             <Link to="/newdream">
-              <Fab aria-label="add" data-testid='addButton' className={classes.fabButton}>
+              <Fab
+                aria-label="add"
+                data-testid="addButton"
+                className={classes.fabButton}
+              >
                 <AddIcon />
               </Fab>
             </Link>
@@ -100,7 +96,7 @@ const Dashboard = () => {
         </AppBar>
       </main>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
