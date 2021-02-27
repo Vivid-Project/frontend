@@ -38,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DreamJournal = () => {
+const DreamJournal = (props) => {
+  const { amount } = props
   const classes = useStyles();
   const [dreams, setDreams] = useState([]);
   const [error, setError] = useState('');
@@ -51,7 +52,8 @@ const DreamJournal = () => {
 
   useEffect(() => {
     API.fetchUserDreams(user.token).then((response) => {
-      setDreams(response.dreams);
+      const mostRecentDreams = response.slice(0, (amount + 1))
+      setDreams(mostRecentDreams);
     });
   }, []);
 
