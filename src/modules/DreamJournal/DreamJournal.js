@@ -42,7 +42,7 @@ const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
   const [error, setError] = useState('');
   const [expandedId, setExpandedId] = useState(-1);
-  const [dreamAmount, setDreamAmount ] = useState(7)
+  const [dreamAmount, setDreamAmount] = useState(7);
   const classes = useStyles();
   const user = useContext(UserContext);
 
@@ -51,9 +51,9 @@ const DreamJournal = () => {
   };
 
   useEffect(() => {
-    console.log(window.location.pathname)
     API.fetchUserDreams(user.token).then((response) => {
-      const mostRecentDreams = response.slice(0, (dreamAmount + 1))
+      console.log(response);
+      const mostRecentDreams = response.slice(0, dreamAmount + 1);
       setDreams(mostRecentDreams);
     });
   }, []);
@@ -69,13 +69,15 @@ const DreamJournal = () => {
           toneAnalysis={dream.toneAnalysis}
         />
       </div>
-    )
+    );
   });
 
   return (
     <ThemeProvider theme={theme}>
       <div>
-         {window.location.pathname === '/dreamjournal' && <h2 className={(classes.root, classes.title)}>Dream Journal</h2>}
+        {window.location.pathname === '/dreamjournal' && (
+          <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
+        )}
         {!dreams.length && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}
