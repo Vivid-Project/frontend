@@ -12,10 +12,10 @@ import AddIcon from '@material-ui/icons/Add';
 
 const Dashboard = () => {
   const [tones, setTones] = useState([]);
-  const numberOfDream = 7;
   const user = useContext(UserContext);
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
+  
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
@@ -50,7 +50,7 @@ const Dashboard = () => {
             <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
           <Grid>
-            <DreamJournal amount={numberOfDream} />
+            <DreamJournal />
           </Grid>
         </Container>
         <AppBar position="fixed" className={classes.appBar}>
