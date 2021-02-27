@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Grid,
   Card,
@@ -7,10 +7,12 @@ import {
   CardContent,
   IconButton,
   Collapse,
-} from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { orange } from '@material-ui/core/colors'
-import { makeStyles } from '@material-ui/core/styles'
+  Typography
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { orange } from '@material-ui/core/colors';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { theme } from '../../themes/theme';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
   card: {
     display: 'flex-box',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     color: 'orange',
-    width: '20em',
+    width: '17em',
     background: '#282c34',
     borderColor: 'orange',
   },
@@ -59,34 +61,32 @@ const useStyles = makeStyles((theme) => ({
       main: orange[400],
     },
   },
-}))
+}));
 
 const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
-  const classes = useStyles()
-  const [dreams, setDreams] = useState([])
-  const [expandedId, setExpandedId] = useState(-1)
+  const classes = useStyles();
+  const [dreams, setDreams] = useState([]);
+  const [expandedId, setExpandedId] = useState(-1);
 
   const handleExpandClick = (i) => {
-    setExpandedId(expandedId === i ? -1 : i)
-  }
+    setExpandedId(expandedId === i ? -1 : i);
+  };
 
   return (
-    <div>
-      <Grid className={classes.palette.primary}>
-        <Card
-          style={{ border: 'none', boxShadow: 'none' }}
-          className={classes.outterCard}
-          key={id}
-        >
-          {date}
+    <ThemeProvider theme={theme}>
+      <div>
+        <Grid className={classes.palette.primary}>
           <Card
             key={id}
             id={id}
             style={{ margin: '1em' }}
             className={classes.card}
           >
-            <CardHeader title={title} />
-            <CardActions>
+            <CardHeader title={title} style={{ padding: '0' }} />
+            <Typography color="orange">
+              {date}
+            </Typography>
+            <CardActions disableSpacing>
               <IconButton
                 className={classes.root}
                 onClick={() => handleExpandClick(id)}
@@ -99,13 +99,13 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
             <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
               <CardContent>
                 <p>{description}</p>
-                <p>Dream tones: {toneAnalysis.unique_tones}</p>
+                {/* <p>Dream tones: {toneAnalysis.unique_tones}</p> */}
               </CardContent>
             </Collapse>
           </Card>
-        </Card>
-      </Grid>
-    </div>
-  )
-}
-export default DreamCard
+        </Grid>
+      </div>
+    </ThemeProvider>
+  );
+};
+export default DreamCard;
