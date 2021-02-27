@@ -2,10 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import DoughnutChart from '../../common/ToneGraph';
 import UserContext from '../Context/UserContext';
-import DreamCard from '../DreamCard/DreamCard';
-import * as API from '../../API/APIcalls';
-
-import fakeTone from '../../data/fakeTone';
+import DreamJournal from '../DreamJournal/DreamJournal';
 
 import { theme } from '../../themes/theme';
 import { Container, Grid, AppBar, Fab } from '@material-ui/core';
@@ -14,9 +11,11 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
 const Dashboard = () => {
-  const [dreams, setDreams] = useState([]);
   const [tones, setTones] = useState([]);
+  const numberOfDream = 7;
   const user = useContext(UserContext);
+  const toneLabels = Object.keys(tones);
+  const toneValues = Object.values(tones);
   const useStyles = makeStyles((theme) => ({
     appBar: {
       top: 'auto',
@@ -37,32 +36,6 @@ const Dashboard = () => {
   }));
   const classes = useStyles();
 
-  useEffect(() => {
-    API.fetchUserDreams(user.token).then(
-      (response) => {
-        setDreams(response.dreams);
-      },
-      [dreams]
-    );
-  });
-
-  const recentDreams = dreams.slice(0, 2);
-  const MostRecent = recentDreams.map((dream) => {
-    return (
-      <div key={dream.id}>
-        <DreamCard
-          date={dream.date}
-          id={dream.id}
-          title={dream.title}
-          description={dream.description}
-          toneAnalysis={dream.toneAnalysis}
-        />
-      </div>
-    );
-  });
-  const toneLabels = Object.keys(tones);
-  const toneValues = Object.values(tones);
-
   return (
     <ThemeProvider theme={theme}>
       <main>
@@ -77,8 +50,7 @@ const Dashboard = () => {
             <DoughnutChart toneLabels={toneLabels} toneValues={toneValues} />
           </Grid>
           <Grid>
-            {!recentDreams.length && <h6>You have not saved any dreams yet</h6>}
-            {mostRecent}
+            <DreamJournal amount={numberOfDream} />
           </Grid>
         </Container>
         <AppBar position="fixed" className={classes.appBar}>
