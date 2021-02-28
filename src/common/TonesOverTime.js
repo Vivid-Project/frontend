@@ -21,7 +21,8 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     if (!chartDates) return;
-    API.fetchUserDreams(
+    debugger;
+    API.fetchUserDreamsByDates(
       user.token,
       chartDates[0],
       chartDates[chartDates.length - 1]
