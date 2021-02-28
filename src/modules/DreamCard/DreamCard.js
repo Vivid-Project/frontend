@@ -20,23 +20,23 @@ const useStyles = makeStyles((theme) => ({
   root: {
     color: 'orange',
     background: '#282c34',
-    display: 'flex',
-    // justifyContent: 'center',
-    flexDirection: 'column',
+    display: 'flex-box',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   card: {
+    boxShadow: '11px 12px 1px -1px rgb(0 0 0 / 20%), inset 6px 11px 2px 0px rgb(0 0 0 / 14%), 19px 20px 3px 0px rgb(0 0 0 / 12%)',
     display: 'flex-box',
     justifyContent: 'center',
     alignItems: 'stretch',
     color: 'orange',
-    width: '17em',
+    width: '20em',
     background: '#282c34',
     borderColor: 'orange',
+    margin: '2em'
   },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
+  button: {
+    alightItems: 'right'
   },
   expand: {
     transform: 'rotate(180deg)',
@@ -78,44 +78,47 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Grid className={classes.palette.primary} container justify='center'>
-          <Card
-            key={id}
-            id={id}
-            style={{ margin: '1em'}}
-            className={classes.card}
+        <Grid className={classes.palette.primary} container justify="center">
+          <CardActions
+            disableSpacing
+            variant="subtitle2"
+            style={{ textAlign: 'right' }}
           >
-            {' '}
-            <Typography
-              variant="subtitle1"
-              color="orange"
-              style={{ marginTop: '.5em', textAlign: 'left' }}
+            <Card
+              key={id}
+              id={id}
+              style={{ margin: '.5em', padding: '.5em' }}
+              className={classes.card}
             >
-              {date}
-            </Typography>
-            <CardHeader title={title} style={{ padding: '0' }} />
-            <CardActions
-              disableSpacing
-              variant="subtitle2"
-              style={{ textAlign: 'right' }}
-            >
+              {' '}
+              <Typography
+                variant="subtitle1"
+                color="orange"
+                style={{ margin: '1em', textAlign: 'left' }}
+              >
+                {date}
+              </Typography>
+              <CardHeader
+                title={title}
+                style={{ padding: '0', textAlign: 'center' }}
+              />
               <IconButton
                 className={classes.root}
                 onClick={() => handleExpandClick(id)}
                 aria-expanded={expandedId === id}
                 aria-label="show more"
-                style={{ textAlign: 'right' }}
+                // style={{ textAlign: 'right' }}
               >
-                <ExpandMoreIcon style={{ textAlign: 'right' }} />
+                <ExpandMoreIcon />
               </IconButton>
-            </CardActions>
-            <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
-              <CardContent className={classes.content}>
-                <p>{description}</p>
-                <PieChart toneLabels={toneLabels} toneValues={toneValues} />
-              </CardContent>
-            </Collapse>
-          </Card>
+              <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
+                <CardContent className={classes.content}>
+                  <p>{description}</p>
+                  <PieChart toneLabels={toneLabels} toneValues={toneValues} />
+                </CardContent>
+              </Collapse>
+            </Card>
+          </CardActions>
         </Grid>
       </div>
     </ThemeProvider>
