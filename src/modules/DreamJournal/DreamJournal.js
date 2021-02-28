@@ -19,16 +19,6 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     color: 'white',
   },
-  outterCard: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    outline: 'none',
-    color: 'orange',
-    background: '#282c34',
-    fontWeight: 400,
-  },
   expand: {
     transform: 'rotate(180deg)',
     marginLeft: 'auto',
@@ -59,8 +49,9 @@ const DreamJournal = () => {
 
   const dreamCards = dreams.map((dream) => {
     return (
-      <div key={dream.id}>
+      <div>
         <DreamCard
+          key={dream.id}
           date={dream.date}
           id={dream.id}
           title={dream.title}
@@ -74,7 +65,9 @@ const DreamJournal = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-         {window.location.pathname === '/dreamjournal' && <h2 className={(classes.root, classes.title)}>Dream Journal</h2>}
+        {window.location.pathname === '/dreamjournal' && (
+          <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
+        )}
         {!dreams.length && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}
