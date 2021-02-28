@@ -31,7 +31,7 @@ const PieChart = ({toneValues, toneLabels}) => {
   }
   return(
   <>
-    <Pie data={data} height={30} width={100}/>
+    <Pie data={data} height={40} width={100}/>
   </>
   )
 }
