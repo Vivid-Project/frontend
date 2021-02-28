@@ -18,10 +18,10 @@ export const fetchUserLogin = async (email) => {
   }
 };
 
-export const fetchUserDreams = async (token) => {
+export const fetchUserDreams = async (token, dateStart, dateEnd) => {
   try {
     const response = await fetch(
-      'https://vivid-project-backend.herokuapp.com/dreams',
+      `https://vivid-project-backend.herokuapp.com/dreams?dateStart=${dateStart}&dateEnd=${dateEnd}`,
       {
         method: 'GET',
         headers: {

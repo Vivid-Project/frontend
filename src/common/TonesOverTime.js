@@ -4,10 +4,12 @@ import UserContext from '../modules/Context/UserContext';
 import * as API from '../API/APIcalls';
 
 import fakeDreams from '../data/fakeDreams';
+import fakeUser from '../data/fakeUser';
 
 const TonesOverTime = () => {
   const user = useContext(UserContext);
-  const [allDreams, setAllDreams] = useState(fakeDreams.dreams);
+  // const user = fakeUser;
+  const [allDreams, setAllDreams] = useState([]);
   const [chartDayCount, setChartCount] = useState(7);
   const [chartDates, setChartDates] = useState(null);
   const [chartTones, setChartTones] = useState([]);
@@ -15,15 +17,20 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     buildChartDates();
-    // API.fetchUserDreams(user.token).then((r) => {
-    //   setAllDreams(r);
-    // });
   }, [chartDayCount]);
 
   useEffect(() => {
     if (!chartDates) return;
+    API.fetchUserDreams(
+      user.token,
+      chartDates[0],
+      chartDates[chartDates.length - 1]
+    ).then((r) => {
+      console.log(r);
+      setAllDreams(r);
+    });
+
     processDreamData();
-    console.log(chartTones);
     createPlotChartDatasets();
   }, [chartDates]);
 
