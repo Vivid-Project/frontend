@@ -8,9 +8,8 @@ import fakeUser from '../data/fakeUser';
 
 const TonesOverTime = () => {
   const user = useContext(UserContext);
-  // const user = fakeUser;
-  const [allDreams, setAllDreams] = useState([]);
-  const [chartDayCount, setChartCount] = useState(7);
+  const [allDreams, setAllDreams] = useState(null);
+  const [chartDayCount, setChartCount] = useState(70);
   const [chartDates, setChartDates] = useState(null);
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
@@ -21,19 +20,21 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     if (!chartDates) return;
-    debugger;
     API.fetchUserDreamsByDates(
       user.token,
-      chartDates[0],
-      chartDates[chartDates.length - 1]
+      chartDates[chartDates.length - 1],
+      chartDates[0]
     ).then((r) => {
-      console.log(r);
       setAllDreams(r);
+      console.log(r);
     });
+  }, [chartDates]);
 
+  useEffect(() => {
+    if (!allDreams) return;
     processDreamData();
     createPlotChartDatasets();
-  }, [chartDates]);
+  }, [allDreams]);
 
   const getDateToday = (dayModifier) => {
     const date = new Date();
