@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
-import UserContext from '../Context/UserContext'
+import React, { useContext, useEffect } from 'react';
+import UserContext from '../Context/UserContext';
+import TonesOverTime from '../../common/TonesOverTime';
 
 const Analytics = () => {
-  const user = useContext(UserContext)
+  const user = useContext(UserContext);
 
-  return <h1>Analytics</h1>;
+  return (
+    <>
+      <h5>My Dream Data</h5>
+      <TonesOverTime />
+    </>
+  );
 };
 
 export default Analytics;
