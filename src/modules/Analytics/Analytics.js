@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import UserContext from '../Context/UserContext';
 import TonesOverTime from '../../common/LineGraph';
 
@@ -7,7 +7,7 @@ const Analytics = () => {
 
   return (
     <>
-      <h1>Analytics</h1>
+      <h5>My Dream Data</h5>
       <TonesOverTime />
     </>
   );

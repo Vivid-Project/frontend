@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import UserContext from '../modules/Context/UserContext';
+import * as API from '../API/APIcalls';
+
+import fakeDreams from '../data/fakeDreams';
 
 const TonesOverTime = () => {
+  const user = useContext(UserContext);
+  const [allDreams, setAllDreams] = useState(fakeDreams.dreams);
+  const [graphData, setGraphData] = useState({ x: [], y: [] });
+
+  useEffect(() => {
+    // setAllDreams(fakeDreams.dreams);
+    processDreamData();
+
+    // API.fetchUserDreams(user.token).then((r) => {
+    //   setAllDreams(r);
+    // });
+  }, []);
+
+  const processDreamData = () => {
+    const toneDatesAndFreqs = allDreams.reduce((toneFreqs, dream) => {
+      Object.entries(dream.toneAnalysis.tone_strength).forEach((tonePair) => {
+        let tone = tonePair[0];
+        let freq = tonePair[1];
+        if (!toneFreqs[tone]) {
+          toneFreqs[tone] = { [dream.date]: 0 };
+        }
+        if (!toneFreqs[tone][dream.date]) {
+          toneFreqs[tone][dream.date] = 0;
+        }
+        toneFreqs[tone][dream.date] += freq;
+      });
+
+      return toneFreqs;
+    }, {});
+    console.log(toneDatesAndFreqs);
+  };
+
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [

@@ -8,9 +8,9 @@ const fakeDreams = {
       toneAnalysis: {
         tone_strength: {
           Analytical: 1,
-          Anger: 1,
+          Anger: 2,
           Sadness: 2,
-          Tentative: 1,
+          Tentative: 5,
         },
         unique_tones: 'Sadness, Tentative, Anger, Analytical',
       },
@@ -22,9 +22,9 @@ const fakeDreams = {
       description: 'A bear bit me',
       toneAnalysis: {
         tone_strength: {
-          Analytical: 1,
+          Analytical: 4,
           Anger: 1,
-          Joy: 2,
+          Joy: 3,
           Sadness: 2,
           Tentative: 1,
         },
@@ -39,10 +39,9 @@ const fakeDreams = {
       toneAnalysis: {
         tone_strength: {
           Analytical: 1,
-          Anger: 1,
+          Anger: 3,
           Joy: 2,
           Sadness: 2,
-          Tentative: 1,
         },
         unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
       },
@@ -55,9 +54,8 @@ const fakeDreams = {
       toneAnalysis: {
         tone_strength: {
           Analytical: 1,
-          Anger: 1,
           Joy: 2,
-          Sadness: 2,
+          Sadness: 4,
           Tentative: 1,
         },
         unique_tones: 'Joy, Sadness, Tentative, Anger, Analytical',
