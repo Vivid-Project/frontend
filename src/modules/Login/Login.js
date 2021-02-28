@@ -52,7 +52,8 @@ const Login = (props) => {
   };
 
   const loginUser = () => {
-    API.fetchUserLogin(values.email)
+    // API.fetchUserLogin(values.email)
+    API.fetchUserLogin('adrew@example.com')
       .then((response) => {
         setUser({
           id: response.id,

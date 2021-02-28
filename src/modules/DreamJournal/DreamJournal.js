@@ -32,7 +32,7 @@ const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
   const [error, setError] = useState('');
   const [expandedId, setExpandedId] = useState(-1);
-  const [dreamAmount, setDreamAmount ] = useState(7)
+  const [dreamAmount, setDreamAmount] = useState(7);
   const classes = useStyles();
   const user = useContext(UserContext);
 
@@ -42,7 +42,7 @@ const DreamJournal = () => {
 
   useEffect(() => {
     API.fetchUserDreams(user.token).then((response) => {
-      const mostRecentDreams = response.slice(0, (dreamAmount))
+      const mostRecentDreams = response.slice(0, dreamAmount + 1);
       setDreams(mostRecentDreams);
     });
   }, []);
@@ -59,7 +59,7 @@ const DreamJournal = () => {
           toneAnalysis={dream.toneAnalysis}
         />
       </div>
-    )
+    );
   });
 
   return (
