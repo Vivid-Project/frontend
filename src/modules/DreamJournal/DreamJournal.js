@@ -19,16 +19,6 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     color: 'white',
   },
-  outterCard: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    outline: 'none',
-    color: 'orange',
-    background: '#282c34',
-    fontWeight: 400,
-  },
   expand: {
     transform: 'rotate(180deg)',
     marginLeft: 'auto',
@@ -52,7 +42,6 @@ const DreamJournal = () => {
 
   useEffect(() => {
     API.fetchUserDreams(user.token).then((response) => {
-      console.log(response);
       const mostRecentDreams = response.slice(0, dreamAmount + 1);
       setDreams(mostRecentDreams);
     });
@@ -60,8 +49,9 @@ const DreamJournal = () => {
 
   const dreamCards = dreams.map((dream) => {
     return (
-      <div key={dream.id}>
+      <div>
         <DreamCard
+          key={dream.id}
           date={dream.date}
           id={dream.id}
           title={dream.title}

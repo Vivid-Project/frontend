@@ -1,8 +1,7 @@
-import React from 'react'
-import { Pie } from 'react-chartjs-2';
+import React from 'react';
+import { Bar } from 'react-chartjs-2';
 
-const PieChart = ({toneValues, toneLabels}) => {
-  
+const HorizontalTones = ({ toneValues, toneLabels}) => {
   const data = {
     labels: toneLabels,
     datasets: [
@@ -28,12 +27,26 @@ const PieChart = ({toneValues, toneLabels}) => {
         borderWidth: 1,
       },
     ],
-  }
-  return(
-  <>
-    <Pie data={data} height={40} width={100}/>
-  </>
-  )
+  };
+  
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+  
+  return (
+    <>
+      <Bar data={data} options={options} />
+    </>
+  );
 }
 
-export default PieChart;
+
+export default HorizontalTones;
