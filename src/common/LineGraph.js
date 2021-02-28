@@ -8,8 +8,9 @@ import fakeDreams from '../data/fakeDreams';
 const TonesOverTime = () => {
   const user = useContext(UserContext);
   const [allDreams, setAllDreams] = useState(fakeDreams.dreams);
-  const [chartDayCount, setChartCount] = useState(30);
+  const [chartDayCount, setChartCount] = useState(7);
   const [chartDates, setChartDates] = useState(null);
+  const [chartTones, setChartTones] = useState([]);
 
   useEffect(() => {
     buildChartDates();
@@ -20,9 +21,14 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     if (!chartDates) return;
-
     processDreamData();
+    console.log(chartTones);
+    // plotChartTones();
   }, [chartDates]);
+
+  // const plotChartTones = () => {
+
+  // }
 
   const getDateToday = (dayModifier) => {
     const date = new Date();
@@ -45,20 +51,24 @@ const TonesOverTime = () => {
       daysOfWeek.push(getDateToday(day));
       day--;
     }
-
     setChartDates(daysOfWeek);
   };
 
-  const buildToneValues = (toneData) => {
-    return chartDates.reduce((dateValues, date) => {
+  const createIndividualToneData = (tone, toneData) => {
+    const toneDates = chartDates.reduce((dateValues, date) => {
       if (!toneData[date]) {
         toneData[date] = 0;
       }
-
       dateValues.push(toneData[date]);
-
       return dateValues;
     }, []);
+    setChartTones(chartTones.push({ [tone]: toneDates }));
+  };
+
+  const buildToneValues = (toneData) => {
+    Object.keys(toneData).forEach((tone) =>
+      createIndividualToneData(tone, toneData[tone])
+    );
   };
 
   const processDreamData = () => {
@@ -80,7 +90,7 @@ const TonesOverTime = () => {
 
       return toneFreqs;
     }, {});
-    buildToneValues(toneDatesAndFreqs.Analytical);
+    buildToneValues(toneDatesAndFreqs);
   };
 
   const data = {
