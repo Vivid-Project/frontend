@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import DreamGen from '../../data/dreamGenerator';
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
@@ -99,6 +100,7 @@ const Login = (props) => {
           <Button variant="contained" color="primary" onClick={loginUser}>
             Login
           </Button>
+          <DreamGen />
         </form>
       </main>
     </ThemeProvider>

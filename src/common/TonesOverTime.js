@@ -9,7 +9,7 @@ import fakeUser from '../data/fakeUser';
 const TonesOverTime = () => {
   const user = useContext(UserContext);
   const [allDreams, setAllDreams] = useState(null);
-  const [chartDayCount, setChartCount] = useState(70);
+  const [chartDayCount, setChartCount] = useState(30);
   const [chartDates, setChartDates] = useState(null);
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
