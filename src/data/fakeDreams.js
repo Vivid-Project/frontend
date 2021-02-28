@@ -2,7 +2,7 @@ const fakeDreams = {
   dreams: [
     {
       id: 4,
-      date: '2021/22/02',
+      date: '2021/02/22',
       title: 'Forest dream',
       description: 'I was walking through a forest when I met a talking bird',
       toneAnalysis: {
@@ -17,7 +17,7 @@ const fakeDreams = {
     },
     {
       id: 1,
-      date: '2021/23/02',
+      date: '2021/02/23',
       title: 'Bear dream',
       description: 'A bear bit me',
       toneAnalysis: {
@@ -33,7 +33,7 @@ const fakeDreams = {
     },
     {
       id: 2,
-      date: '2021/24/02',
+      date: '2021/02/24',
       title: 'Bug dream',
       description: 'A bug landed on me',
       toneAnalysis: {
@@ -48,7 +48,7 @@ const fakeDreams = {
     },
     {
       id: 3,
-      date: '2021/25/02',
+      date: '2021/02/25',
       title: 'Dog dream',
       description: 'I was walking a dog',
       toneAnalysis: {

@@ -8,23 +8,29 @@ import fakeDreams from '../data/fakeDreams';
 const TonesOverTime = () => {
   const user = useContext(UserContext);
   const [allDreams, setAllDreams] = useState(fakeDreams.dreams);
-  const [graphData, setGraphData] = useState({ x: [], y: [] });
   const [chartDayCount, setChartCount] = useState(30);
-  const [chartDates, setChartDates] = useState([]);
+  const [chartDates, setChartDates] = useState(null);
 
   useEffect(() => {
     buildChartDates();
-    processDreamData();
     // API.fetchUserDreams(user.token).then((r) => {
     //   setAllDreams(r);
     // });
   }, [chartDayCount]);
 
+  useEffect(() => {
+    if (!chartDates) return;
+
+    processDreamData();
+  }, [chartDates]);
+
   const getDateToday = (dayModifier) => {
     const date = new Date();
+
     if (dayModifier) {
       date.setDate(date.getDate() + dayModifier);
     }
+
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const yyyy = date.getFullYear();
@@ -34,21 +40,25 @@ const TonesOverTime = () => {
   const buildChartDates = () => {
     let day = 0;
     const daysOfWeek = [];
+
     while (daysOfWeek.length < chartDayCount) {
       daysOfWeek.push(getDateToday(day));
       day--;
     }
+
     setChartDates(daysOfWeek);
   };
 
   const buildToneValues = (toneData) => {
-    // const values = chartDates.reduce((dateValues, date) => {
-    //   if (!toneData[date]) {
-    //     toneData[date] = 0;
-    //   }
-    //   return dateValues.push(toneData[date]);
-    // }, []);
-    // console.log(values);
+    return chartDates.reduce((dateValues, date) => {
+      if (!toneData[date]) {
+        toneData[date] = 0;
+      }
+
+      dateValues.push(toneData[date]);
+
+      return dateValues;
+    }, []);
   };
 
   const processDreamData = () => {
@@ -56,18 +66,20 @@ const TonesOverTime = () => {
       Object.entries(dream.toneAnalysis.tone_strength).forEach((tonePair) => {
         let tone = tonePair[0];
         let freq = tonePair[1];
+
         if (!toneFreqs[tone]) {
-          toneFreqs[tone] = { [dream.date]: 0 };
+          toneFreqs[tone] = {};
         }
+
         if (!toneFreqs[tone][dream.date]) {
           toneFreqs[tone][dream.date] = 0;
         }
+
         toneFreqs[tone][dream.date] += freq;
       });
 
       return toneFreqs;
     }, {});
-    console.log(toneDatesAndFreqs);
     buildToneValues(toneDatesAndFreqs.Analytical);
   };
 
