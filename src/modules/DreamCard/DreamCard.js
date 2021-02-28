@@ -72,9 +72,6 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
     setExpandedId(expandedId === i ? -1 : i);
   };
 
-  // const toneLabels = Object.keys(toneAnalysis);
-  // const toneValues = Object.values(toneAnalysis);
-
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -93,7 +90,6 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
               {' '}
               <Typography
                 variant="subtitle1"
-                color="orange"
                 style={{ margin: '1em', textAlign: 'left' }}
               >
                 {date}
