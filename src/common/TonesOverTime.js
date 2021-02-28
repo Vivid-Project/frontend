@@ -2,14 +2,14 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import UserContext from '../modules/Context/UserContext';
 import * as API from '../API/APIcalls';
-
-import fakeDreams from '../data/fakeDreams';
-import fakeUser from '../data/fakeUser';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const TonesOverTime = () => {
   const user = useContext(UserContext);
   const [allDreams, setAllDreams] = useState(null);
-  const [chartDayCount, setChartCount] = useState(70);
+  const [chartDayCount, setChartDayCount] = useState(30);
   const [chartDates, setChartDates] = useState(null);
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
@@ -35,6 +35,11 @@ const TonesOverTime = () => {
     processDreamData();
     createPlotChartDatasets();
   }, [allDreams]);
+
+  const handleChange = (event) => {
+    setChartDayCount(event.target.value);
+    setChartTones([]);
+  };
 
   const getDateToday = (dayModifier) => {
     const date = new Date();
@@ -140,7 +145,23 @@ const TonesOverTime = () => {
     datasets: chartPlotDatasets,
   };
 
-  return <Line data={data} />;
+  return (
+    <>
+      <FormControl>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={chartDayCount}
+          onChange={handleChange}
+        >
+          <MenuItem value={7}>Week</MenuItem>
+          <MenuItem value={14}>Bi-Weekly</MenuItem>
+          <MenuItem value={30}>Month</MenuItem>
+        </Select>
+      </FormControl>
+      <Line data={data} />
+    </>
+  );
 };
 
 export default TonesOverTime;
