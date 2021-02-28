@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     background: '#282c34',
     display: 'flex-box',
     justifyContent: 'space-around',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   card: {
     boxShadow: '11px 12px 1px -1px rgb(0 0 0 / 20%), inset 6px 11px 2px 0px rgb(0 0 0 / 14%), 19px 20px 3px 0px rgb(0 0 0 / 12%)',
@@ -30,20 +30,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'stretch',
     color: 'orange',
-    width: '20em',
+    width: '17em',
     background: '#282c34',
     borderColor: 'orange',
     margin: '2em'
   },
   button: {
     alightItems: 'right'
-  },
-  expand: {
-    transform: 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
   },
   typography: {
     h2: {
@@ -60,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   const [tones, setTones] = useState([]);
   const classes = useStyles();
-  const [dreams, setDreams] = useState([]);
   const [expandedId, setExpandedId] = useState(-1);
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
@@ -99,11 +91,10 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
                 style={{ padding: '0', textAlign: 'center' }}
               />
               <IconButton
-                className={classes.root}
                 onClick={() => handleExpandClick(id)}
                 aria-expanded={expandedId === id}
                 aria-label="show more"
-                // style={{ textAlign: 'right' }}
+                className={classes.root}
               >
                 <ExpandMoreIcon />
               </IconButton>
