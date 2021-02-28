@@ -12,6 +12,25 @@ import AddIcon from '@material-ui/icons/Add';
 
 import fakeTone from '../../data/fakeTone';
 
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    top: 'auto',
+    bottom: 0,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  fabButton: {
+    background: '#ff5722',
+    position: 'absolute',
+    zIndex: 1,
+    top: -30,
+    left: 0,
+    right: 0,
+    margin: '0 auto',
+  },
+}))
+
 const Dashboard = () => {
   const [tones, setTones] = useState([]);
   const user = useContext(UserContext);
@@ -21,24 +40,6 @@ const Dashboard = () => {
       setTones(fakeTone.toneStrength);
     });
 
-  const useStyles = makeStyles((theme) => ({
-    appBar: {
-      top: 'auto',
-      bottom: 0,
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    fabButton: {
-      background: '#ff5722',
-      position: 'absolute',
-      zIndex: 1,
-      top: -30,
-      left: 0,
-      right: 0,
-      margin: '0 auto',
-    },
-  }));
   const classes = useStyles();
 
   return (
