@@ -100,8 +100,8 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
               </IconButton>
               <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>
-                  <p>{description}</p>
                   <PieChart toneLabels={toneLabels} toneValues={toneValues} />
+                  <p style={{textAlign: 'left'}}>{description}</p>
                 </CardContent>
               </Collapse>
             </Card>
