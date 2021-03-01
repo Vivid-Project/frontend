@@ -2,7 +2,11 @@ import React from 'react'
 import { Pie } from 'react-chartjs-2';
 
 const PieChart = ({toneValues, toneLabels}) => {
-  
+  const options = {
+      legend: {
+        position: 'left'
+      }
+    }
   const data = {
     labels: toneLabels,
     datasets: [
@@ -31,7 +35,7 @@ const PieChart = ({toneValues, toneLabels}) => {
   }
   return(
   <>
-    <Pie data={data} height={40} width={100}/>
+    <Pie data={data} options={options} height={60} width={100}/>
   </>
   )
 }
