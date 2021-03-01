@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Line, Polar } from 'react-chartjs-2';
 import UserContext from '../modules/Context/UserContext';
 import * as API from '../API/APIcalls';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -25,6 +25,7 @@ const TonesOverTime = () => {
       chartDates[0],
       chartDates[chartDates.length - 1]
     ).then((r) => {
+      // TODO: Remove cl when no longer needed
       console.log(r);
       cleanAndStoreData(r);
     });
@@ -150,9 +151,21 @@ const TonesOverTime = () => {
     setChartPlotDatasets(chartPlotData);
   };
 
-  const data = {
-    labels: chartDates,
-    datasets: chartPlotDatasets,
+  const polarChartData = {
+    datasets: [
+      {
+        data: [11, 16, 7, 3, 14],
+        backgroundColor: [
+          '#FF6384',
+          '#4BC0C0',
+          '#FFCE56',
+          '#E7E9ED',
+          '#36A2EB',
+        ],
+        label: 'My dataset', // for legend
+      },
+    ],
+    labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
   };
 
   return (
@@ -170,7 +183,13 @@ const TonesOverTime = () => {
           <MenuItem value={30}>Month</MenuItem>
         </Select>
       </FormControl>
-      <Line data={data} />
+      <Line
+        data={{
+          labels: chartDates,
+          datasets: chartPlotDatasets,
+        }}
+      />
+      <Polar data={polarChartData} />
     </>
   );
 };

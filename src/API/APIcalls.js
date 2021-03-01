@@ -9,7 +9,7 @@ export const fetchUserLogin = async (email, password) => {
         },
         body: JSON.stringify({
           email: email,
-          password: password
+          password: password,
         }),
       }
     );
