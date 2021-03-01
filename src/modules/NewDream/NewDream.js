@@ -7,6 +7,8 @@ import * as API from '../../API/APIcalls';
 
 import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,16 +24,30 @@ const useStyles = makeStyles((theme) => ({
   text: {
     color: 'floralwhite',
   },
+  spinner: {
+      marginLeft: 5,
+  },
 }));
+
+
+// const SpinnerAdornment = () => (
+//   <CircularProgress className={classes.spinner} size={20} />
+// );
 
 const NewDream = (props) => {
   let { history } = props;
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
+  const [disabled, setDisabled] = useState(false)
+  const [loading, setLoading] = useState(false)
   const user = useContext(UserContext);
 
   const classes = useStyles();
+
+  const SpinnerAdornment = () => (
+    <CircularProgress className={classes.spinner} size={20} />
+  );
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
@@ -40,12 +56,15 @@ const NewDream = (props) => {
         : setError({ ...error, desc: true });
       return;
     }
+    setDisabled(true)
+    setLoading(true)
     API.postUserDream(user.token, createDate(), dreamTitle, dreamBody)
       .then((response) => {
         console.log(response);
       })
       .then(() => {
-        history.push('/dreamjournal');
+        setLoading(false)
+        // history.push('/dreamjournal');
       });
   };
 
@@ -63,6 +82,7 @@ const NewDream = (props) => {
     }
     setError({ name: false, desc: false });
   }, [dreamTitle, dreamBody]);
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -104,6 +124,7 @@ const NewDream = (props) => {
           {/* {error && <h6>{error}</h6>} */}
           <Button variant="contained" color="primary" onClick={submitDream}>
             Add
+            {loading && <SpinnerAdornment />}
           </Button>
         </form>
       </main>
