@@ -25,22 +25,18 @@ const useStyles = makeStyles((theme) => ({
     color: 'floralwhite',
   },
   spinner: {
-      marginLeft: 5,
+    marginLeft: 5,
   },
 }));
-
-
-// const SpinnerAdornment = () => (
-//   <CircularProgress className={classes.spinner} size={20} />
-// );
 
 const NewDream = (props) => {
   let { history } = props;
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
-  const [disabled, setDisabled] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const user = useContext(UserContext);
 
   const classes = useStyles();
@@ -51,19 +47,20 @@ const NewDream = (props) => {
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
+      setDisabled(false)
       !dreamTitle
-        ? setError({ ...error, name: true })
-        : setError({ ...error, desc: true });
-      return;
+      ? setError({ ...error, name: true })
+      : setError({ ...error, desc: true })
+      return
     }
-    setDisabled(true)
-    setLoading(true)
+    setDisabled(true);
+    setLoading(true);
     API.postUserDream(user.token, createDate(), dreamTitle, dreamBody)
       .then((response) => {
         console.log(response);
       })
       .then(() => {
-        setLoading(false)
+        setLoading(false);
         // history.push('/dreamjournal');
       });
   };
@@ -82,7 +79,6 @@ const NewDream = (props) => {
     }
     setError({ name: false, desc: false });
   }, [dreamTitle, dreamBody]);
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -122,7 +118,7 @@ const NewDream = (props) => {
             }}
           ></TextField>
           {/* {error && <h6>{error}</h6>} */}
-          <Button variant="contained" color="primary" onClick={submitDream}>
+          <Button variant="contained" color="primary" disabled={disabled} onClick={submitDream}>
             Add
             {loading && <SpinnerAdornment />}
           </Button>
