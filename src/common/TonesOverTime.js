@@ -83,14 +83,6 @@ const TonesOverTime = () => {
       if (!toneData[date]) {
         toneData[date] = 0;
       }
-
-      // *** ONLY for presentation, NOT FOR PRODUCTION *** //
-      if (tone === 'Joy') {
-        dateValues.push(Math.floor(toneData[date] / 2));
-        return dateValues;
-      }
-      // *** ONLY for presentation, NOT FOR PRODUCTION *** //
-
       dateValues.push(toneData[date]);
       return dateValues;
     }, []);
