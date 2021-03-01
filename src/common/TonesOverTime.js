@@ -9,7 +9,7 @@ import Select from '@material-ui/core/Select';
 const TonesOverTime = () => {
   const user = useContext(UserContext);
   const [allDreams, setAllDreams] = useState(null);
-  const [chartDayCount, setChartDayCount] = useState(30);
+  const [chartDayCount, setChartDayCount] = useState(14);
   const [chartDates, setChartDates] = useState(null);
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
@@ -22,11 +22,11 @@ const TonesOverTime = () => {
     if (!chartDates) return;
     API.fetchUserDreamsByDates(
       user.token,
-      chartDates[chartDates.length - 1],
-      chartDates[0]
+      chartDates[0],
+      chartDates[chartDates.length - 1]
     ).then((r) => {
-      cleanAndStoreData(r);
       console.log(r);
+      cleanAndStoreData(r);
     });
   }, [chartDates]);
 
@@ -69,7 +69,7 @@ const TonesOverTime = () => {
     const daysOfWeek = [];
 
     while (daysOfWeek.length < chartDayCount) {
-      daysOfWeek.push(getDateToday(day));
+      daysOfWeek.unshift(getDateToday(day));
       day--;
     }
     setChartDates(daysOfWeek);
@@ -80,7 +80,7 @@ const TonesOverTime = () => {
       if (!toneData[date]) {
         toneData[date] = 0;
       }
-      dateValues.unshift(toneData[date]);
+      dateValues.push(toneData[date]);
       return dateValues;
     }, []);
     setChartTones(chartTones.push({ [tone]: toneDates }));
