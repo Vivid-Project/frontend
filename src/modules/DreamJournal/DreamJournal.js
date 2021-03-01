@@ -5,6 +5,7 @@ import * as API from '../../API/APIcalls';
 
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../../themes/theme';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,20 +20,23 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     color: 'white',
   },
-  expand: {
-    transform: 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+  loading: {
+    width: '16em',
+    height: '20em',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    margin: '3em',
   },
 }));
 
 const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
-  const [error, setError] = useState('');
+  const [dreamsError, setDreamsError] = useState(false);
   const [expandedId, setExpandedId] = useState(-1);
   const [dreamAmount, setDreamAmount] = useState(7);
+  const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const user = useContext(UserContext);
 
@@ -40,18 +44,24 @@ const DreamJournal = () => {
     setExpandedId(expandedId === i ? -1 : i);
   };
 
+
   useEffect(() => {
+    setLoading(true);
     API.fetchUserDreams(user.token).then((response) => {
       const mostRecentDreams = response.slice(0, dreamAmount + 1);
       setDreams(mostRecentDreams);
+      setLoading(false);
+      if (mostRecentDreams === undefined) {
+        setDreamsError(true);
+        setLoading(false);
+      }
     });
   }, []);
 
   const dreamCards = dreams.map((dream) => {
     return (
-      <div>
+      <div key={dream.id}>
         <DreamCard
-          key={dream.id}
           date={dream.date}
           id={dream.id}
           title={dream.title}
@@ -68,9 +78,10 @@ const DreamJournal = () => {
         {window.location.pathname === '/dreamjournal' && (
           <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
         )}
-        {!dreams.length && (
+        {dreamsError && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}
+        {loading && <Skeleton variant="rect" className={classes.loading} />}
         {dreamCards}
       </div>
     </ThemeProvider>

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Button,
+  MenuItem,
+  Menu,
+  useMediaQuery,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,10 +58,6 @@ const Header = (props) => {
       pageURL: '/dreamjournal',
     },
     {
-      menuTitle: 'Data',
-      pageURL: '/analytics',
-    },
-    {
       menuTitle: 'Logout',
       pageURL: '/',
     },
@@ -67,8 +66,8 @@ const Header = (props) => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+        <Toolbar style={{background: 'orange'}}>
+          <Typography variant="h6" className={classes.title} style={{color: 'black'}}>
             VIVID
           </Typography>
           <div>
