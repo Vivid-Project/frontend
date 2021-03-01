@@ -61,7 +61,7 @@ const NewDream = (props) => {
       })
       .then(() => {
         setLoading(false);
-        // history.push('/dreamjournal');
+        history.push('/dreamjournal');
       });
   };
 
