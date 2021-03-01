@@ -173,7 +173,7 @@ const TonesOverTime = () => {
     console.log(polarData);
   };
 
-  const polarChartData = {
+  const polarChartInfo = {
     data: {
       datasets: [
         {
@@ -192,14 +192,29 @@ const TonesOverTime = () => {
     },
     options: {
       legend: {
-        position: 'left',
+        display: false,
+        labels: { fontColor: 'floralwhite', boxWidth: 30 },
       },
+      animation: { animateScale: true },
     },
   };
 
-  const lineChartData = {
-    labels: chartDates,
-    datasets: chartPlotDatasets,
+  const lineChartInfo = {
+    data: { labels: chartDates, datasets: chartPlotDatasets },
+    options: {
+      layout: {
+        padding: {
+          left: 15,
+          right: 15,
+          top: 15,
+          bottom: 15,
+        },
+      },
+      legend: {
+        position: 'bottom',
+        labels: { fontColor: 'floralwhite', boxWidth: 20 },
+      },
+    },
   };
 
   return (
@@ -217,8 +232,8 @@ const TonesOverTime = () => {
           <MenuItem value={30}>Month</MenuItem>
         </Select>
       </FormControl>
-      <Line data={lineChartData} />
-      <Polar data={polarChartData.data} options={polarChartData.options} />
+      <Line data={lineChartInfo.data} options={lineChartInfo.options} />
+      <Polar data={polarChartInfo.data} options={polarChartInfo.options} />
     </>
   );
 };
