@@ -119,8 +119,8 @@ const NewDream = (props) => {
           ></TextField>
           {/* {error && <h6>{error}</h6>} */}
           <Button variant="contained" color="primary" disabled={disabled} onClick={submitDream}>
-            Add
-            {loading && <SpinnerAdornment />}
+            {!loading && 'Add'}
+            {loading && <SpinnerAdornment /> }
           </Button>
         </form>
       </main>
