@@ -83,10 +83,17 @@ const TonesOverTime = () => {
       if (!toneData[date]) {
         toneData[date] = 0;
       }
+
+      // *** ONLY for presentation, NOT FOR PRODUCTION *** //
+      if (tone === 'Joy') {
+        dateValues.push(Math.floor(toneData[date] / 2));
+        return dateValues;
+      }
+      // *** ONLY for presentation, NOT FOR PRODUCTION *** //
+
       dateValues.push(toneData[date]);
       return dateValues;
     }, []);
-    console.log(chartTones);
     setChartTones(chartTones.push({ [tone]: toneDates }));
   };
 
@@ -95,15 +102,12 @@ const TonesOverTime = () => {
       Object.entries(dream.toneAnalysis.tone_strength).forEach((tonePair) => {
         let tone = tonePair[0];
         let freq = tonePair[1];
-
         if (!toneFreqs[tone]) {
           toneFreqs[tone] = {};
         }
-
         if (!toneFreqs[tone][dream.date]) {
           toneFreqs[tone][dream.date] = 0;
         }
-
         toneFreqs[tone][dream.date] += freq;
       });
 
@@ -170,20 +174,32 @@ const TonesOverTime = () => {
   };
 
   const polarChartData = {
-    datasets: [
-      {
-        data: [11, 16, 7, 3, 14],
-        backgroundColor: [
-          '#FF6384',
-          '#4BC0C0',
-          '#FFCE56',
-          '#E7E9ED',
-          '#36A2EB',
-        ],
-        label: 'Emotion Count', // for legend
+    data: {
+      datasets: [
+        {
+          data: polarChartDatasets.data,
+          backgroundColor: [
+            '#FF6384',
+            '#4BC0C0',
+            '#FFCE56',
+            '#E7E9ED',
+            '#36A2EB',
+          ],
+          label: 'Emotion Count', // for legend
+        },
+      ],
+      labels: polarChartDatasets.labels,
+    },
+    options: {
+      legend: {
+        position: 'left',
       },
-    ],
-    labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+    },
+  };
+
+  const lineChartData = {
+    labels: chartDates,
+    datasets: chartPlotDatasets,
   };
 
   return (
@@ -201,13 +217,8 @@ const TonesOverTime = () => {
           <MenuItem value={30}>Month</MenuItem>
         </Select>
       </FormControl>
-      <Line
-        data={{
-          labels: chartDates,
-          datasets: chartPlotDatasets,
-        }}
-      />
-      <Polar data={polarChartData} />
+      <Line data={lineChartData} />
+      <Polar data={polarChartData.data} options={polarChartData.options} />
     </>
   );
 };
