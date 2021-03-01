@@ -8,8 +8,8 @@ export const fetchUserLogin = async (email, password) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
+          email,
+          password,
         }),
       }
     );
@@ -55,7 +55,7 @@ export const fetchUserDreamsByDates = async (token, dateStart, dateEnd) => {
   }
 };
 
-export const postUserDream = async (token, date, title, desc) => {
+export const postUserDream = async (token, date, title, description) => {
   try {
     const response = await fetch(
       'https://vivid-project-backend.herokuapp.com/dreams',
@@ -66,9 +66,9 @@ export const postUserDream = async (token, date, title, desc) => {
           Authorization: token,
         },
         body: JSON.stringify({
-          date: date,
-          title: title,
-          description: desc,
+          date,
+          title,
+          description,
           emotion: null,
         }),
       }

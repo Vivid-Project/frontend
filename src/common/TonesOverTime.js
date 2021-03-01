@@ -13,6 +13,7 @@ const TonesOverTime = () => {
   const [chartDates, setChartDates] = useState(null);
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
+  const [polarChartDatasets, setPolarChartDatasets] = useState([]);
 
   useEffect(() => {
     buildChartDates();
@@ -35,6 +36,7 @@ const TonesOverTime = () => {
     if (!allDreams) return;
     processDreamData();
     createPlotChartDatasets();
+    createPolarChartDatasets();
   }, [allDreams]);
 
   const cleanAndStoreData = (responses) => {
@@ -84,13 +86,8 @@ const TonesOverTime = () => {
       dateValues.push(toneData[date]);
       return dateValues;
     }, []);
+    console.log(chartTones);
     setChartTones(chartTones.push({ [tone]: toneDates }));
-  };
-
-  const buildToneValues = (toneData) => {
-    Object.keys(toneData).forEach((tone) =>
-      createIndividualToneData(tone, toneData[tone])
-    );
   };
 
   const processDreamData = () => {
@@ -112,7 +109,9 @@ const TonesOverTime = () => {
 
       return toneFreqs;
     }, {});
-    buildToneValues(toneDatesAndFreqs);
+    Object.keys(toneDatesAndFreqs).forEach((tone) =>
+      createIndividualToneData(tone, toneDatesAndFreqs[tone])
+    );
   };
 
   const getRandomColor = () => {
@@ -151,6 +150,25 @@ const TonesOverTime = () => {
     setChartPlotDatasets(chartPlotData);
   };
 
+  const createPolarChartDatasets = () => {
+    const polarData = chartTones.reduce(
+      (datasets, tone) => {
+        let toneName = Object.keys(tone)[0];
+        let toneCounts = Object.values(tone)[0];
+        let toneSum = toneCounts.reduce(
+          (totalSum, number) => totalSum + number,
+          0
+        );
+        datasets.data.push(toneSum);
+        datasets.labels.push(toneName);
+        return datasets;
+      },
+      { data: [], labels: [] }
+    );
+    setPolarChartDatasets(polarData);
+    console.log(polarData);
+  };
+
   const polarChartData = {
     datasets: [
       {
@@ -162,7 +180,7 @@ const TonesOverTime = () => {
           '#E7E9ED',
           '#36A2EB',
         ],
-        label: 'My dataset', // for legend
+        label: 'Emotion Count', // for legend
       },
     ],
     labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
