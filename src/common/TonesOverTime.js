@@ -25,7 +25,7 @@ const TonesOverTime = () => {
       chartDates[chartDates.length - 1],
       chartDates[0]
     ).then((r) => {
-      setAllDreams(r);
+      cleanAndStoreData(r);
       console.log(r);
     });
   }, [chartDates]);
@@ -35,6 +35,16 @@ const TonesOverTime = () => {
     processDreamData();
     createPlotChartDatasets();
   }, [allDreams]);
+
+  const cleanAndStoreData = (responses) => {
+    const cleanedData = responses.map((response) => {
+      return {
+        date: response.date,
+        toneAnalysis: response.toneAnalysis,
+      };
+    });
+    setAllDreams(cleanedData);
+  };
 
   const handleChange = (event) => {
     setChartDayCount(event.target.value);
@@ -116,7 +126,7 @@ const TonesOverTime = () => {
   const createPlotChartDatasets = () => {
     const chartPlotData = chartTones.map((tone) => {
       return {
-        label: Object.keys(tone),
+        label: Object.keys(tone)[0],
         fill: false,
         lineTension: 0.2,
         backgroundColor: 'rgba(75,192,192,0.4)',
