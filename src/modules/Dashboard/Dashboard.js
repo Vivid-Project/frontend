@@ -39,7 +39,6 @@ const Dashboard = () => {
   return (
     <ThemeProvider theme={theme}>
       <main>
-        {/* <Container> */}
         <h3>Welcome{user.name && <span>, {user.name.split(' ')[0]}</span>}</h3>
         <div className={classes.graph}>
           <TonesOverTime />
