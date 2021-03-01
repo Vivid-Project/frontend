@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { orange } from '@material-ui/core/colors';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../../themes/theme';
-import fakeTone from '../../data/fakeTone';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +57,7 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
   useEffect(() => {
-    setTones(fakeTone.toneStrength);
+    setTones(toneAnalysis.tone_strength);
   });
 
   const handleExpandClick = (i) => {
@@ -100,8 +100,8 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
               </IconButton>
               <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>
-                  <p>{description}</p>
                   <PieChart toneLabels={toneLabels} toneValues={toneValues} />
+                  <p style={{textAlign: 'left'}}>{description}</p>
                 </CardContent>
               </Collapse>
             </Card>

@@ -44,17 +44,19 @@ const DreamJournal = () => {
     setExpandedId(expandedId === i ? -1 : i);
   };
 
-
   useEffect(() => {
     setLoading(true);
+    setDreamsError(false)
     API.fetchUserDreams(user.token).then((response) => {
-      const mostRecentDreams = response.slice(0, dreamAmount + 1);
-      setDreams(mostRecentDreams);
-      setLoading(false);
-      if (mostRecentDreams === undefined) {
+      if (response === []) {
         setDreamsError(true);
         setLoading(false);
-      }
+        return
+      } 
+      const mostRecentDreams = response.slice(0, dreamAmount + 1);
+      setDreams(mostRecentDreams);
+      setDreamsError(false)
+      setLoading(false);
     });
   }, []);
 
@@ -75,9 +77,7 @@ const DreamJournal = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        {window.location.pathname === '/dreamjournal' && (
           <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
-        )}
         {dreamsError && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}

@@ -1,4 +1,4 @@
-export const fetchUserLogin = async (email) => {
+export const fetchUserLogin = async (email, password) => {
   try {
     const response = await fetch(
       'https://vivid-project-backend.herokuapp.com/users/authenticate',
@@ -9,6 +9,7 @@ export const fetchUserLogin = async (email) => {
         },
         body: JSON.stringify({
           email: email,
+          password: password
         }),
       }
     );
