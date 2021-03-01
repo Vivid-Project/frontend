@@ -117,7 +117,6 @@ const NewDream = (props) => {
               'data-testid': 'describeInput',
             }}
           ></TextField>
-          {/* {error && <h6>{error}</h6>} */}
           <Button variant="contained" color="primary" disabled={disabled} onClick={submitDream}>
             {!loading && 'Add'}
             {loading && <SpinnerAdornment /> }
