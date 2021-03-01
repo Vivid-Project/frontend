@@ -153,6 +153,7 @@ const TonesOverTime = () => {
           id="demo-simple-select"
           value={chartDayCount}
           onChange={handleChange}
+          style={{ color: 'white' }}
         >
           <MenuItem value={7}>Week</MenuItem>
           <MenuItem value={14}>Bi-Weekly</MenuItem>
