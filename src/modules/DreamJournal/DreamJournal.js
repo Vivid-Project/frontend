@@ -20,13 +20,6 @@ const useStyles = makeStyles((theme) => ({
     alignContent: 'center',
     color: 'white',
   },
-  // expand: {
-  //   transform: 'rotate(180deg)',
-  //   marginLeft: 'auto',
-  //   transition: theme.transitions.create('transform', {
-  //     duration: theme.transitions.duration.shortest,
-  //   }),
-  // },
   loading: {
     width: '16em',
     height: '20em',
