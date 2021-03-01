@@ -2,9 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { Line, Polar } from 'react-chartjs-2';
 import UserContext from '../modules/Context/UserContext';
 import * as API from '../API/APIcalls';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { Typography, MenuItem, FormControl, Select } from '@material-ui/core';
 
 const TonesOverTime = () => {
   const user = useContext(UserContext);
@@ -14,6 +12,16 @@ const TonesOverTime = () => {
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
   const [polarChartDatasets, setPolarChartDatasets] = useState([]);
+  const chartColors = [
+    '#FFF2CF',
+    '#FCE39E',
+    '#FDD870',
+    '#FCCB41',
+    '#FDBF11',
+    '#E88E2D',
+    '#CA5800',
+    '#843215',
+  ];
 
   useEffect(() => {
     buildChartDates();
@@ -23,8 +31,8 @@ const TonesOverTime = () => {
     if (!chartDates) return;
     API.fetchUserDreamsByDates(
       user.token,
-      chartDates[0],
-      chartDates[chartDates.length - 1]
+      getDateToday(-chartDayCount),
+      getDateToday()
     ).then((r) => {
       // TODO: Remove cl when no longer needed
       console.log(r);
@@ -110,13 +118,12 @@ const TonesOverTime = () => {
     );
   };
 
-  const getRandomColor = () => {
-    var letters = '0123456789ABCDEF'.split('');
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
+  const selectColor = (tone) => {
+    let i = chartTones.indexOf(tone);
+    if (i >= chartColors.length) {
+      i = Math.floor(Math.random() * chartColors.length);
     }
-    return color;
+    return chartColors[i];
   };
 
   const createPlotChartDatasets = () => {
@@ -124,9 +131,9 @@ const TonesOverTime = () => {
       return {
         label: Object.keys(tone)[0],
         fill: false,
-        lineTension: 0.2,
+        lineTension: 0.15,
         backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: getRandomColor(),
+        borderColor: selectColor(tone),
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
@@ -170,14 +177,8 @@ const TonesOverTime = () => {
       datasets: [
         {
           data: polarChartDatasets.data,
-          backgroundColor: [
-            '#FF6384',
-            '#4BC0C0',
-            '#FFCE56',
-            '#E7E9ED',
-            '#36A2EB',
-          ],
-          label: 'Emotion Count', // for legend
+          backgroundColor: chartColors,
+          label: 'Emotion Count',
         },
       ],
       labels: polarChartDatasets.labels,
@@ -194,12 +195,19 @@ const TonesOverTime = () => {
   const lineChartInfo = {
     data: { labels: chartDates, datasets: chartPlotDatasets },
     options: {
+      scales: {
+        xAxes: [
+          {
+            display: false,
+          },
+        ],
+      },
       layout: {
         padding: {
-          left: 15,
-          right: 15,
-          top: 15,
-          bottom: 15,
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 20,
         },
       },
       legend: {
@@ -211,20 +219,25 @@ const TonesOverTime = () => {
 
   return (
     <>
-      <FormControl>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={chartDayCount}
-          onChange={handleChange}
-          style={{ color: 'white' }}
-        >
-          <MenuItem value={7}>Week</MenuItem>
-          <MenuItem value={14}>Bi-Weekly</MenuItem>
-          <MenuItem value={30}>Month</MenuItem>
-        </Select>
-      </FormControl>
+      <Typography>Your dreams over the past</Typography>
+      <span>
+        <FormControl>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={chartDayCount}
+            onChange={handleChange}
+            style={{ color: 'white' }}
+          >
+            <MenuItem value={7}>Week</MenuItem>
+            <MenuItem value={14}>Two Weeks</MenuItem>
+            <MenuItem value={30}>Month</MenuItem>
+          </Select>
+        </FormControl>
+      </span>
       <Line data={lineChartInfo.data} options={lineChartInfo.options} />
+      <Typography>Emotion Tags</Typography>
+
       <Polar data={polarChartInfo.data} options={polarChartInfo.options} />
     </>
   );
