@@ -56,9 +56,10 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   const [expandedId, setExpandedId] = useState(-1);
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
+
   useEffect(() => {
     setTones(toneAnalysis.tone_strength);
-  });
+  }, []);
 
   const handleExpandClick = (i) => {
     setExpandedId(expandedId === i ? -1 : i);
