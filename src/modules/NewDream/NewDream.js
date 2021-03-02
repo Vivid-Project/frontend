@@ -42,7 +42,10 @@ const NewDream = (props) => {
   const classes = useStyles();
 
   const SpinnerAdornment = () => (
-    <CircularProgress className={classes.spinner} size={20} />
+    <CircularProgress
+      className={classes.spinner}
+      size={20}
+    />
   );
 
   const submitDream = () => {
@@ -123,7 +126,7 @@ const NewDream = (props) => {
             onClick={submitDream}
           >
             {!loading && 'Add'}
-            {loading && <SpinnerAdornment data-testid='loading' />}
+            {loading && <SpinnerAdornment />}
           </Button>
         </form>
       </main>
