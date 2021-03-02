@@ -28,6 +28,7 @@ describe('DreamCard', () => {
   });
 
   it('should show the details of the card when the show more arrow is presses', () => {
+    act(() =>{
         let mockToneAnalysis = {
           tone_strength: {
             Analytical: 1,
@@ -36,7 +37,6 @@ describe('DreamCard', () => {
             Tentative: 5,
           }
         }
-        act(() =>{
           render(
           <DreamCard
             id={24}
@@ -54,5 +54,8 @@ describe('DreamCard', () => {
       userEvent.click(showMoreButton)
     });
     expect(screen.getByText('I was jumping on a cloud')).toBeInTheDocument();
+    expect(screen.getByTestId('pieGraph')).toBeInTheDocument()
+    screen.debug()
+
   });
 });
