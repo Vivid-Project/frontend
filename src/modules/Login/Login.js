@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
 import * as API from '../../API/APIcalls';
-import FilledInput from '@material-ui/core/FilledInput';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -33,6 +33,8 @@ const Login = (props) => {
   let { history, setUser } = props;
   const theme = useTheme();
   const classes = useStyles();
+  const [loginError, setLoginError] = useState(true)
+  const [error, setError] = useState({ email: false, password: false });
   const [values, setValues] = useState({
     showPassword: false,
     email: '',
@@ -51,6 +53,13 @@ const Login = (props) => {
     event.preventDefault();
   };
 
+  useEffect(() => {
+    if (!values.email && !values.password) {
+      return;
+    }
+    setError({ email: false, password: false });
+  }, [values.email, values.password]);
+
   const loginUser = () => {
     // API.fetchUserLogin(values.email, values.password)
     API.fetchUserLogin('mjones@example.com', 'password')
@@ -63,7 +72,8 @@ const Login = (props) => {
           token: `Bearer ${response.token}`,
         });
       })
-      .then(() => history.push('/dashboard'));
+      .then(() => history.push('/dashboard'))
+      .catch(error => setLoginError(true))
   };
 
   return (
@@ -71,17 +81,23 @@ const Login = (props) => {
       <main className={classes.root}>
         <form noValidate autoComplete="off" className={classes.root}>
           <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
-          <FilledInput
+          <TextField
+            error={error.email}
+            required={error.email}
             id="email"
             color="primary"
-            placeholder="Email"
+            label="Email"
+            required={true}
             className={classes.input}
             onChange={handleChange('email')}
-          ></FilledInput>
-          <FilledInput
+          ></TextField>
+          <TextField
+            error={error.password}
+            required={error.password}
             id="dream-body"
             color="primary"
-            placeholder="Password"
+            label="Password"
+            required={true}
             type={values.showPassword ? 'text' : 'password'}
             className={classes.input}
             onChange={handleChange('password')}
@@ -96,10 +112,11 @@ const Login = (props) => {
                 </IconButton>
               </InputAdornment>
             }
-          ></FilledInput>{' '}
+          ></TextField>{' '}
           <Button variant="contained" color="primary" onClick={loginUser}>
             Login
           </Button>
+          {loginError && <h2>No account matches that eamil or password</h2>}
         </form>
       </main>
     </ThemeProvider>
