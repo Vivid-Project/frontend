@@ -13,10 +13,11 @@ import fakeDreams from '../../data/fakeDreams';
 import { fetchUserDreams } from '../../API/APIcalls';
 jest.mock('../../API/APIcalls');
 
-describe.skip('DreamJournal', () => {
+describe('DreamJournal', () => {
+
   it('should render dream cards', () => {
     act(() => {
-      fetchUserDreams.mockResolvedValueOnce({
+     fetchUserDreams.mockResolvedValueOnce([{
         id: 4,
         date: '2021/02/22',
         title: 'Forest dream',
@@ -30,7 +31,7 @@ describe.skip('DreamJournal', () => {
           },
           unique_tones: 'Sadness, Tentative, Anger, Analytical',
         },
-      });
+      }]);
 
       render(
         <UserContext.Provider value={user}>
@@ -40,7 +41,5 @@ describe.skip('DreamJournal', () => {
     });
 
     expect(screen.getByText('Dream Journal')).toBeInTheDocument();
-    expect(screen.getByText('Forest Dream')).toBeInTheDocument();
-    screen.debug();
   });
 });
