@@ -34,8 +34,9 @@ const TonesOverTime = () => {
       getDateToday(-chartDayCount),
       getDateToday()
     ).then((r) => {
-      setAllDreams(r);
-      // console.log(r);
+      // TODO: Remove cl when no longer needed
+      console.log(r);
+      cleanAndStoreData(r);
     });
   }, [chartDates]);
 

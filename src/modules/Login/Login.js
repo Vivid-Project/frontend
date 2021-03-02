@@ -5,7 +5,6 @@ import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
 import * as API from '../../API/APIcalls';
 import FilledInput from '@material-ui/core/FilledInput';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -48,23 +47,13 @@ const Login = (props) => {
   };
 
   const handleChange = (prop) => (event) => {
-    setLoginError(false);
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const handleMouseDownPassword = (event) => {
-    setLoginError(false);
     event.preventDefault();
   };
 
-  // const checkInputs = () => {
-  //   if (!values.email || !values.password) {
-  //     !values.email
-  //       ? setError({ ...error, email: true })
-  //       : setError({ ...error, password: true });
-  //     return;
-  //   }
-  // };
 
   useEffect(() => {
     if (!values.email || !values.password) {
@@ -76,7 +65,6 @@ const Login = (props) => {
   }, [values.email, values.password]);
 
   const loginUser = () => {
-    // checkInputs();
       API.fetchUserLogin(values.email, values.password)
         // API.fetchUserLogin('mjones@example.com', 'password')
         .then((response) => {
