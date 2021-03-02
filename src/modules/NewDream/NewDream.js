@@ -1,14 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import UserContext from '../Context/UserContext';
 import * as API from '../../API/APIcalls';
 
+import { TextField, Button, CircularProgress} from '@material-ui/core';
 import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import Skeleton from '@material-ui/lab/Skeleton';
-import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,11 +32,9 @@ const NewDream = (props) => {
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
-  const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  
   const user = useContext(UserContext);
-
   const classes = useStyles();
 
   const SpinnerAdornment = () => (
@@ -50,13 +46,11 @@ const NewDream = (props) => {
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-      setDisabled(false);
       !dreamTitle
         ? setError({ ...error, name: true })
         : setError({ ...error, desc: true });
       return;
     }
-    setDisabled(true);
     setLoading(true);
     API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
       () => {
@@ -120,7 +114,6 @@ const NewDream = (props) => {
           <Button
             variant="contained"
             color="primary"
-            disabled={disabled}
             onClick={submitDream}
           >
             {!loading && 'Add'}
