@@ -16,8 +16,8 @@ describe('NewDream', () => {
         </UserContext.Provider>
       </MemoryRouter>
     );
-    const nameInput = screen.getByTestId('nameInput');
-    const describeInput = screen.getByTestId('describeInput');
+    const nameInput = screen.getByLabelText('Name Your Dream');
+    const describeInput = screen.getByLabelText('Describe Your Dream');
 
     expect(screen.getByText('Dream Input')).toBeInTheDocument();
     expect(nameInput).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe('NewDream', () => {
   });
 
   it('should not post the users dream when an imput field is empty', () => {
-    const postUserDream = jest.fn()
+    const postUserDream = jest.fn();
     render(
       <MemoryRouter>
         <UserContext.Provider value={user}>
@@ -37,9 +37,30 @@ describe('NewDream', () => {
 
     const addButton = screen.getByText('Add');
 
-    userEvent.type(screen.getByTestId('nameInput'), 'Crazy dream');
+    userEvent.type(screen.getByLabelText('Name Your Dream'), 'Crazy dream');
     userEvent.click(addButton);
 
     expect(postUserDream).not.toHaveBeenCalled();
-  })
+  });
+
+  it('should reflect what is typed into the form in the values', () => {
+    render(
+      <MemoryRouter>
+        <UserContext.Provider value={user}>
+          <NewDream />
+        </UserContext.Provider>
+      </MemoryRouter>
+    );
+    userEvent.type(screen.getByLabelText('Name Your Dream'), 'Spooky dream');
+    userEvent.type(
+      screen.getByLabelText('Describe Your Dream'),
+      'There was a ghost'
+    );
+      screen.debug()
+
+    expect(screen.getByLabelText('Name Your Dream').value).toEqual('Spooky dream');
+    expect(screen.getByLabelText('Describe Your Dream').value).toEqual(
+      'There was a ghost'
+    );
+  });
 });
