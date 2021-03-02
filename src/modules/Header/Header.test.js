@@ -13,7 +13,7 @@ describe('Header', () => {
       </BrowserRouter>
     );
     expect(screen.getByText('VIVID')).toBeInTheDocument();
-  }),
+  });
 
   it('should have a list of other pages to visit', () => {
     render(
@@ -26,5 +26,5 @@ describe('Header', () => {
     expect(screen.getByText('Journal')).toBeInTheDocument();
     expect(screen.getByText('Add')).toBeInTheDocument();
     expect(screen.getByText('Logout')).toBeInTheDocument();
-  })
+  });
 });
