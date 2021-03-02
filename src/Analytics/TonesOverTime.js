@@ -34,8 +34,6 @@ const TonesOverTime = () => {
       getDateToday(-chartDayCount),
       getDateToday()
     ).then((r) => {
-      // TODO: Remove cl when no longer needed
-      console.log(r);
       cleanAndStoreData(r);
     });
   }, [chartDates]);
@@ -169,7 +167,6 @@ const TonesOverTime = () => {
       { data: [], labels: [] }
     );
     setPolarChartDatasets(polarData);
-    console.log(polarData);
   };
 
   const polarChartInfo = {
@@ -204,7 +201,7 @@ const TonesOverTime = () => {
       },
       layout: {
         padding: {
-          left: 20,
+          left: 0,
           right: 20,
           top: 20,
           bottom: 20,

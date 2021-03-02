@@ -34,7 +34,6 @@ const Login = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const [loginError, setLoginError] = useState(false);
-  const [error, setError] = useState({ email: false, password: false });
   const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     showPassword: false,
@@ -59,7 +58,6 @@ const Login = (props) => {
       setDisabled(true);
       return;
     }
-    setError({ email: false, password: false });
     setDisabled(false);
   }, [values.email, values.password]);
 
