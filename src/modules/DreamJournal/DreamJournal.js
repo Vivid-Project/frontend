@@ -68,13 +68,12 @@ const DreamJournal = () => {
 
     API.fetchUserDreamsByDates(user.token, startDate, endDate).then(
       (response) => {
-        // debugger;
         if (response === []) {
           setDreamsError(true);
           setLoading(false);
           return;
         }
-        setDreams([...dreams, response]);
+        setDreams(dreams.concat(response));
         setDreamsError(false);
         setLoading(false);
       }
