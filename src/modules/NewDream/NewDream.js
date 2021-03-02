@@ -120,6 +120,7 @@ const NewDream = (props) => {
             color="primary"
             disabled={disabled}
             onClick={submitDream}
+            data-testId="submit-dream"
           >
             {!loading && 'Add'}
             {loading && <SpinnerAdornment />}

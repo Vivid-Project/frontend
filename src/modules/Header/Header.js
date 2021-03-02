@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -66,8 +65,12 @@ const Header = (props) => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar style={{background: 'orange'}}>
-          <Typography variant="h6" className={classes.title} style={{color: 'black'}}>
+        <Toolbar style={{ background: 'orange' }}>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            style={{ color: 'black' }}
+          >
             VIVID
           </Typography>
           <div>
@@ -114,6 +117,7 @@ const Header = (props) => {
                 {menuItems.map((menuItem) => {
                   return (
                     <Button
+                      data-testId={menuItem.menuTitle}
                       key={menuItem.menuTitle}
                       onClick={() => handleMenuClick(menuItem.pageURL)}
                     >
