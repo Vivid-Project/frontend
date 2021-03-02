@@ -1,14 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../Context/UserContext';
-import TonesOverTime from '../../common/TonesOverTime'
+import TonesOverTime from '../../Analytics/TonesOverTime';
 
 import { theme } from '../../themes/theme';
 import { AppBar, Fab } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
-
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -28,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
   },
   graph: {
-    marginBottom: '2em'
-  }
+    marginBottom: '2em',
+  },
 }));
 
 const Dashboard = () => {

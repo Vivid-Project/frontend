@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PieChart from '../../common/ToneGraph';
+import PieChart from '../../Analytics/ToneGraph';
 import {
   Grid,
   Card,
