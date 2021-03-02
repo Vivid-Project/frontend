@@ -33,8 +33,9 @@ const Login = (props) => {
   let { history, setUser } = props;
   const theme = useTheme();
   const classes = useStyles();
-  const [loginError, setLoginError] = useState(true)
+  const [loginError, setLoginError] = useState(false);
   const [error, setError] = useState({ email: false, password: false });
+   const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     showPassword: false,
     email: '',
@@ -46,36 +47,54 @@ const Login = (props) => {
   };
 
   const handleChange = (prop) => (event) => {
+    setLoginError(false);
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const handleMouseDownPassword = (event) => {
+    setLoginError(false);
     event.preventDefault();
   };
 
-  useEffect(() => {
-    if (!values.email && !values.password) {
+  const checkInputs = () => {
+    if (!values.email || !values.password) {
+      !values.email
+        ? setError({ ...error, email: true })
+        : setError({ ...error, password: true });
       return;
     }
+  };
+
+  useEffect(() => {
+    if (!values.email || !values.password) {
+      setDisabled(true)
+      return
+    }
     setError({ email: false, password: false });
+    setDisabled(false)
   }, [values.email, values.password]);
 
   const loginUser = () => {
-    // API.fetchUserLogin(values.email, values.password)
-    API.fetchUserLogin('mjones@example.com', 'password')
-      .then((response) => {
-        console.log(response);
-        setUser({
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          token: `Bearer ${response.token}`,
-        });
-      })
-      .then(() => history.push('/dashboard'))
-      .catch(error => setLoginError(true))
-  };
-
+    checkInputs();
+    if(error === true) {
+      return
+    } else {
+      API.fetchUserLogin(values.email, values.password)
+        // API.fetchUserLogin('mjones@example.com', 'password')
+        .then((response) => {
+            setUser({
+              id: response.id,
+              name: response.name,
+              email: response.email,
+              token: `Bearer ${response.token}`,
+            })
+          })
+            .then(() => history.push('/dashboard'))
+            .catch(error => setLoginError(true))
+        }
+    }
+      
+    
   return (
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
@@ -113,10 +132,10 @@ const Login = (props) => {
               </InputAdornment>
             }
           ></TextField>{' '}
-          <Button variant="contained" color="primary" onClick={loginUser}>
+          <Button variant="contained" color="primary" disabled={disabled} onClick={loginUser}>
             Login
           </Button>
-          {loginError && <h2>No account matches that eamil or password</h2>}
+          {loginError && <h2>No account matches that email or password</h2>}
         </form>
       </main>
     </ThemeProvider>
