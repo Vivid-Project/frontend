@@ -97,7 +97,6 @@ const NewDream = (props) => {
             className={classes.input}
             InputProps={{
               className: classes.text,
-              'data-testid': 'nameInput',
             }}
             onChange={(e) => setDreamTitle(e.target.value)}
           ></TextField>
@@ -116,7 +115,6 @@ const NewDream = (props) => {
             style={{ color: 'orange' }}
             InputProps={{
               className: classes.text,
-              'data-testid': 'describeInput',
             }}
           ></TextField>
           <Button
