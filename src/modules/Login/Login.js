@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
 
 import * as API from '../../API/APIcalls';
+import FilledInput from '@material-ui/core/FilledInput';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -35,7 +36,7 @@ const Login = (props) => {
   const classes = useStyles();
   const [loginError, setLoginError] = useState(false);
   const [error, setError] = useState({ email: false, password: false });
-   const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     showPassword: false,
     email: '',
@@ -56,14 +57,14 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-  const checkInputs = () => {
-    if (!values.email || !values.password) {
-      !values.email
-        ? setError({ ...error, email: true })
-        : setError({ ...error, password: true });
-      return;
-    }
-  };
+  // const checkInputs = () => {
+  //   if (!values.email || !values.password) {
+  //     !values.email
+  //       ? setError({ ...error, email: true })
+  //       : setError({ ...error, password: true });
+  //     return;
+  //   }
+  // };
 
   useEffect(() => {
     if (!values.email || !values.password) {
@@ -75,10 +76,7 @@ const Login = (props) => {
   }, [values.email, values.password]);
 
   const loginUser = () => {
-    checkInputs();
-    if(error === true) {
-      return
-    } else {
+    // checkInputs();
       API.fetchUserLogin(values.email, values.password)
         // API.fetchUserLogin('mjones@example.com', 'password')
         .then((response) => {
@@ -91,7 +89,6 @@ const Login = (props) => {
           })
             .then(() => history.push('/dashboard'))
             .catch(error => setLoginError(true))
-        }
     }
       
     
@@ -100,23 +97,17 @@ const Login = (props) => {
       <main className={classes.root}>
         <form noValidate autoComplete="off" className={classes.root}>
           <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
-          <TextField
-            error={error.email}
-            required={error.email}
+          <FilledInput
             id="email"
             color="primary"
-            label="Email"
-            required={true}
+            placeholder="Email"
             className={classes.input}
             onChange={handleChange('email')}
-          ></TextField>
-          <TextField
-            error={error.password}
-            required={error.password}
-            id="dream-body"
+          ></FilledInput>
+          <FilledInput
+            id="password"
             color="primary"
-            label="Password"
-            required={true}
+            placeholder="Password"
             type={values.showPassword ? 'text' : 'password'}
             className={classes.input}
             onChange={handleChange('password')}
@@ -131,7 +122,7 @@ const Login = (props) => {
                 </IconButton>
               </InputAdornment>
             }
-          ></TextField>{' '}
+          ></FilledInput>{' '}
           <Button variant="contained" color="primary" disabled={disabled} onClick={loginUser}>
             Login
           </Button>
