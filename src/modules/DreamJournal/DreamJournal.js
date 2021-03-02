@@ -35,7 +35,7 @@ const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
   const [dreamsError, setDreamsError] = useState(false);
   const [expandedId, setExpandedId] = useState(-1);
-  const [dreamAmount, setDreamAmount] = useState(7);
+  const [dreamDateRange, setDreamDateRange] = useState([0, 7]);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const user = useContext(UserContext);
@@ -46,16 +46,16 @@ const DreamJournal = () => {
 
   useEffect(() => {
     setLoading(true);
-    setDreamsError(false)
+    setDreamsError(false);
     API.fetchUserDreams(user.token).then((response) => {
       if (response === []) {
         setDreamsError(true);
         setLoading(false);
-        return
-      } 
-      const mostRecentDreams = response.slice(0, dreamAmount + 1);
+        return;
+      }
+      const mostRecentDreams = response.slice(0, 8);
       setDreams(mostRecentDreams);
-      setDreamsError(false)
+      setDreamsError(false);
       setLoading(false);
     });
   }, []);
@@ -77,7 +77,7 @@ const DreamJournal = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-          <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
+        <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
         {dreamsError && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}

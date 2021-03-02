@@ -204,7 +204,7 @@ const TonesOverTime = () => {
       },
       layout: {
         padding: {
-          left: 20,
+          left: 0,
           right: 20,
           top: 20,
           bottom: 20,
