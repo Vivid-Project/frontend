@@ -1,23 +1,23 @@
 export const fetchUserLogin = async (email, password) => {
-    const response = await fetch(
-      'https://vivid-project-backend.herokuapp.com/users/authenticate',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    )
-   if(response.status >=200 && response.status <= 299) {
-     const jsonResponse = await response.json()
-     return jsonResponse
-   } else {
-     return console.log(`Error! Code: ${response.status}`)
-   }
+  const response = await fetch(
+    'https://vivid-project-backend.herokuapp.com/users/authenticate',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }
+  );
+  if (response.status >= 200 && response.status <= 299) {
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } else {
+    return console.log(`Error! Code: ${response.status}`);
+  }
 };
 
 export const fetchUserDreams = async (token) => {

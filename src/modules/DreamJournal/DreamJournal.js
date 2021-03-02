@@ -34,31 +34,52 @@ const useStyles = makeStyles((theme) => ({
 const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
   const [dreamsError, setDreamsError] = useState(false);
-  const [expandedId, setExpandedId] = useState(-1);
+  // const [expandedId, setExpandedId] = useState(-1);
   const [dreamDateRange, setDreamDateRange] = useState([0, 7]);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const user = useContext(UserContext);
 
-  const handleExpandClick = (i) => {
-    setExpandedId(expandedId === i ? -1 : i);
-  };
-
   useEffect(() => {
     setLoading(true);
-    setDreamsError(false);
-    API.fetchUserDreams(user.token).then((response) => {
-      if (response === []) {
-        setDreamsError(true);
-        setLoading(false);
-        return;
-      }
-      const mostRecentDreams = response.slice(0, 8);
-      setDreams(mostRecentDreams);
-      setDreamsError(false);
-      setLoading(false);
-    });
+    fetchDreamsForJournal();
   }, []);
+
+  // const handleExpandClick = (i) => {
+  //   setExpandedId(expandedId === i ? -1 : i);
+  // };
+
+  const getDateThisManyDaysAgo = (dayModifier) => {
+    const date = new Date();
+
+    if (dayModifier) {
+      date.setDate(date.getDate() - dayModifier);
+    }
+
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    return `${yyyy}/${mm}/${dd}`;
+  };
+
+  const fetchDreamsForJournal = () => {
+    const startDate = getDateThisManyDaysAgo(dreamDateRange[1]);
+    const endDate = getDateThisManyDaysAgo(dreamDateRange[0]);
+
+    API.fetchUserDreamsByDates(user.token, startDate, endDate).then(
+      (response) => {
+        // debugger;
+        if (response === []) {
+          setDreamsError(true);
+          setLoading(false);
+          return;
+        }
+        setDreams([...dreams, response]);
+        setDreamsError(false);
+        setLoading(false);
+      }
+    );
+  };
 
   const dreamCards = dreams.map((dream) => {
     return (
