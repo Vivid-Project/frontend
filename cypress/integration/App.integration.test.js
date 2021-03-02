@@ -1,6 +1,4 @@
-// import '@testing-library/jest-dom';
 import * as API from '../../src/API/APIcalls';
-// jest.mock('../../src/API/APIcalls');
 
 describe('Application integration testing', () => {
   it('should be able to login and see the dashboard', () => {
@@ -51,7 +49,7 @@ describe('Application integration testing', () => {
     cy.url().should('include', '/dashboard');
   });
 
-  it.only('should route to dream journal after adding a new dream', () => {
+  it('should route to dream journal after adding a new dream', () => {
     //Login
     cy.visit('http://localhost:3000/')
       .get('input:first')
