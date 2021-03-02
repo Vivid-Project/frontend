@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
@@ -33,6 +33,9 @@ const Login = (props) => {
   let { history, setUser } = props;
   const theme = useTheme();
   const classes = useStyles();
+  const [loginError, setLoginError] = useState(false);
+  const [error, setError] = useState({ email: false, password: false });
+  const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     showPassword: false,
     email: '',
@@ -51,11 +54,19 @@ const Login = (props) => {
     event.preventDefault();
   };
 
+  useEffect(() => {
+    if (!values.email || !values.password) {
+      setDisabled(true);
+      return;
+    }
+    setError({ email: false, password: false });
+    setDisabled(false);
+  }, [values.email, values.password]);
+
   const loginUser = () => {
-    // API.fetchUserLogin(values.email, values.password)
-    API.fetchUserLogin('mjones@example.com', 'password')
+    API.fetchUserLogin(values.email, values.password)
+      // API.fetchUserLogin('mjones@example.com', 'password')
       .then((response) => {
-        console.log(response);
         setUser({
           id: response.id,
           name: response.name,
@@ -63,7 +74,8 @@ const Login = (props) => {
           token: `Bearer ${response.token}`,
         });
       })
-      .then(() => history.push('/dashboard'));
+      .then(() => history.push('/dashboard'))
+      .catch((error) => setLoginError(true));
   };
 
   return (
@@ -79,7 +91,7 @@ const Login = (props) => {
             onChange={handleChange('email')}
           ></FilledInput>
           <FilledInput
-            id="dream-body"
+            id="password"
             color="primary"
             placeholder="Password"
             type={values.showPassword ? 'text' : 'password'}
@@ -97,9 +109,15 @@ const Login = (props) => {
               </InputAdornment>
             }
           ></FilledInput>{' '}
-          <Button variant="contained" color="primary" onClick={loginUser}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+            onClick={loginUser}
+          >
             Login
           </Button>
+          {loginError && <h5>No account with that email or password</h5>}
         </form>
       </main>
     </ThemeProvider>

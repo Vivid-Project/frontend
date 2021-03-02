@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import DreamCard from './DreamCard';
+import { act } from 'react-dom/test-utils';
 
 describe('DreamCard', () => {
   it('should render a dream card showing a title', () => {
@@ -33,21 +34,25 @@ describe('DreamCard', () => {
             Anger: 2,
             Sadness: 2,
             Tentative: 5,
-          },
-        };
-    render(
-      <DreamCard
-        id={24}
-        title="Happy cloud"
-        description="I was jumping on a cloud"
-        date="June Wednesday 23"
-        toneAnalysis={mockToneAnalysis}
-      />
-    );
+          }
+        }
+        act(() =>{
+          render(
+          <DreamCard
+            id={24}
+            title="Happy cloud"
+            description="I was jumping on a cloud"
+            date="June Wednesday 23"
+            toneAnalysis={mockToneAnalysis}
+          />
+        )
+        })
     expect(screen.getByText('Happy cloud')).toBeInTheDocument();
     expect(screen.getByText('June Wednesday 23')).toBeInTheDocument();
-    const showMoreButton = screen.getByLabelText('show more');
-    userEvent.click(showMoreButton);
+    act(() => {
+      const showMoreButton = screen.getByLabelText('show more');
+      userEvent.click(showMoreButton)
+    });
     expect(screen.getByText('I was jumping on a cloud')).toBeInTheDocument();
   });
 });
