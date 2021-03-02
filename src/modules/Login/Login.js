@@ -54,18 +54,18 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-  useEffect(() => {
-    if (!values.email || !values.password) {
-      setDisabled(true);
-      return;
-    }
-    setError({ email: false, password: false });
-    setDisabled(false);
-  }, [values.email, values.password]);
+  // useEffect(() => {
+  //   if (!values.email || !values.password) {
+  //     setDisabled(true);
+  //     return;
+  //   }
+  //   setError({ email: false, password: false });
+  //   setDisabled(false);
+  // }, [values.email, values.password]);
 
   const loginUser = () => {
-    API.fetchUserLogin(values.email, values.password)
-      // API.fetchUserLogin('mjones@example.com', 'password')
+    // API.fetchUserLogin(values.email, values.password)
+      API.fetchUserLogin('adrew@example.com', 'password')
       .then((response) => {
         setUser({
           id: response.id,
