@@ -28,8 +28,11 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
   },
   graph: {
-    marginBottom: '2em'
-  }
+    marginBottom: '2em',
+    '& .MuiSvgIcon-root': {
+      color: 'orange',
+    },
+  },
 }));
 
 const Dashboard = () => {
