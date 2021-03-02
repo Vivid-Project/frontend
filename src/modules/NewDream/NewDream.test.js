@@ -18,14 +18,15 @@ describe('NewDream', () => {
     );
     const nameInput = screen.getByLabelText('Name Your Dream');
     const describeInput = screen.getByLabelText('Describe Your Dream');
+    const addButton = screen.getByText('Add');
 
     expect(screen.getByText('Dream Input')).toBeInTheDocument();
     expect(nameInput).toBeInTheDocument();
     expect(describeInput).toBeInTheDocument();
-    expect(screen.getByText('Add')).toBeInTheDocument();
+    expect(addButton).toBeInTheDocument();
   });
 
-  it('should not post the users dream when an imput field is empty', () => {
+  it('should not post the users dream when an input field is empty', () => {
     const postUserDream = jest.fn();
     render(
       <MemoryRouter>
@@ -39,6 +40,48 @@ describe('NewDream', () => {
 
     userEvent.type(screen.getByLabelText('Name Your Dream'), 'Crazy dream');
     userEvent.click(addButton);
+    expect(screen.getByLabelText('Describe Your Dream *'));
+
+    expect(postUserDream).not.toHaveBeenCalled();
+  });
+
+  it('should show an error when the describe input is empty', () => {
+    const postUserDream = jest.fn();
+    render(
+      <MemoryRouter>
+        <UserContext.Provider value={user}>
+          <NewDream />
+        </UserContext.Provider>
+      </MemoryRouter>
+    );
+
+    const addButton = screen.getByText('Add');
+
+    userEvent.type(screen.getByLabelText('Name Your Dream'), 'Crazy dream');
+    userEvent.click(addButton);
+    expect(screen.getByLabelText('Describe Your Dream *'));
+
+    expect(postUserDream).not.toHaveBeenCalled();
+  });
+
+  it('should show an error when the title field is empty', () => {
+    const postUserDream = jest.fn();
+    render(
+      <MemoryRouter>
+        <UserContext.Provider value={user}>
+          <NewDream />
+        </UserContext.Provider>
+      </MemoryRouter>
+    );
+
+    const addButton = screen.getByText('Add');
+
+    userEvent.type(
+      screen.getByLabelText('Describe Your Dream'),
+      'I was baking a cake'
+    );
+    userEvent.click(addButton);
+    expect(screen.getByLabelText('Name Your Dream *'));
 
     expect(postUserDream).not.toHaveBeenCalled();
   });
@@ -57,7 +100,9 @@ describe('NewDream', () => {
       'There was a ghost'
     );
 
-    expect(screen.getByLabelText('Name Your Dream').value).toEqual('Spooky dream');
+    expect(screen.getByLabelText('Name Your Dream').value).toEqual(
+      'Spooky dream'
+    );
     expect(screen.getByLabelText('Describe Your Dream').value).toEqual(
       'There was a ghost'
     );
