@@ -26,7 +26,7 @@ describe('NewDream', () => {
   });
 
   it('should not post the users dream when an imput field is empty', () => {
-  
+    const postUserDream = jest.fn()
     render(
       <MemoryRouter>
         <UserContext.Provider value={user}>
