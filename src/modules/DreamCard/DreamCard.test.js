@@ -7,13 +7,14 @@ import { act } from 'react-dom/test-utils';
 
 describe('DreamCard', () => {
   it('should render a dream card showing a title', () => {
- 
-    let mockToneAnalysis =({tone_strength:{
-      Analytical: 1,
-      Anger: 2,
-      Sadness: 2,
-      Tentative: 5,
-    }})
+    let mockToneAnalysis = {
+      tone_strength: {
+        Analytical: 1,
+        Anger: 2,
+        Sadness: 2,
+        Tentative: 5,
+      },
+    };
     render(
       <DreamCard
         id={22}
@@ -28,34 +29,33 @@ describe('DreamCard', () => {
   });
 
   it('should show the details of the card when the show more arrow is presses', () => {
-    act(() =>{
-        let mockToneAnalysis = {
-          tone_strength: {
-            Analytical: 1,
-            Anger: 2,
-            Sadness: 2,
-            Tentative: 5,
-          }
-        }
-          render(
-          <DreamCard
-            id={24}
-            title="Happy cloud"
-            description="I was jumping on a cloud"
-            date="June Wednesday 23"
-            toneAnalysis={mockToneAnalysis}
-          />
-        )
-        })
+    act(() => {
+      let mockToneAnalysis = {
+        tone_strength: {
+          Analytical: 1,
+          Anger: 2,
+          Sadness: 2,
+          Tentative: 5,
+        },
+      };
+      render(
+        <DreamCard
+          id={24}
+          title="Happy cloud"
+          description="I was jumping on a cloud"
+          date="2021/02/23"
+          toneAnalysis={mockToneAnalysis}
+        />
+      );
+    });
+
+    expect(screen.getByText('2021/02/23'))
     expect(screen.getByText('Happy cloud')).toBeInTheDocument();
-    expect(screen.getByText('June Wednesday 23')).toBeInTheDocument();
     act(() => {
       const showMoreButton = screen.getByLabelText('show more');
-      userEvent.click(showMoreButton)
+      userEvent.click(showMoreButton);
     });
     expect(screen.getByText('I was jumping on a cloud')).toBeInTheDocument();
-    expect(screen.getByTestId('pieGraph')).toBeInTheDocument()
-    screen.debug()
-
+    expect(screen.getByTestId('pieGraph')).toBeInTheDocument();
   });
 });
