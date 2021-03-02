@@ -5,7 +5,6 @@ import { MemoryRouter } from 'react-router-dom';
 import user from '../../data/fakeUser';
 import UserContext from '../Context/UserContext';
 import userEvent from '@testing-library/user-event';
-import { postUserDream } from '../../API/APIcalls';
 jest.mock('../../API/APIcalls');
 
 describe('NewDream', () => {
@@ -26,7 +25,8 @@ describe('NewDream', () => {
     expect(screen.getByText('Add')).toBeInTheDocument();
   });
 
-  it.only('should not post the users dream when an imput field is empty', () => {
+  it('should not post the users dream when an imput field is empty', () => {
+  
     render(
       <MemoryRouter>
         <UserContext.Provider value={user}>
@@ -38,28 +38,8 @@ describe('NewDream', () => {
     const addButton = screen.getByText('Add');
 
     userEvent.type(screen.getByTestId('nameInput'), 'Crazy dream');
-    userEvent.type(screen.getByTestId('describeInput'), 'There were blue cows');
-
     userEvent.click(addButton);
 
     expect(postUserDream).not.toHaveBeenCalled();
-  });
-
-  it('shoule render a loading button when a new dream is added', () => {
-    render(
-      <MemoryRouter>
-        <UserContext.Provider value={user}>
-          <NewDream />
-        </UserContext.Provider>
-      </MemoryRouter>
-    );
-
-    const addButton = screen.getByText('Add');
-    userEvent.type(screen.getByTestId('nameInput'), 'Crazy dream');
-    userEvent.type(screen.getByTestId('describeInput'), 'There were blue cows');
-    userEvent.click(addButton);
-
-    expect(screen.getByTestId('loading')).toBeInTheDocument();
-    expect(postUserDream).toHaveBeenCalled();
-  });
+  })
 });
