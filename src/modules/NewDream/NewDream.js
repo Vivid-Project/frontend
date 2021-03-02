@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     margin: theme.spacing(1.5),
     width: '30ch',
-  },
+    },
   text: {
     color: 'floralwhite',
   },
@@ -112,14 +112,20 @@ const NewDream = (props) => {
             rowsMax={12}
             onChange={(e) => setDreamBody(e.target.value)}
             className={classes.input}
+            style={{ color: 'orange' }}
             InputProps={{
               className: classes.text,
               'data-testid': 'describeInput',
             }}
           ></TextField>
-          <Button variant="contained" color="primary" disabled={disabled} onClick={submitDream}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+            onClick={submitDream}
+          >
             {!loading && 'Add'}
-            {loading && <SpinnerAdornment /> }
+            {loading && <SpinnerAdornment data-testid='loading' />}
           </Button>
         </form>
       </main>
