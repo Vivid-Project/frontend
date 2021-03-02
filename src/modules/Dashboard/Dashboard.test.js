@@ -24,7 +24,8 @@ describe('Dashboard', () => {
       )
     })
     expect(screen.getByText('Welcome')).toBeInTheDocument()
+    expect(screen.getByText('Your dreams over the past')).toBeInTheDocument();
     expect(screen.getByTestId('addButton')).toBeInTheDocument()
+    expect(screen.getByText('Emotion Tags')).toBeInTheDocument()
   })
-
 })
