@@ -14,11 +14,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    '& .MuiInputLabel-outlined': {
+      color: 'white',
+    },
+    '& .MuiInputLabel-outlined.Mui-error': {
+      color: 'red',
+    },
   },
   input: {
     margin: theme.spacing(1.5),
     width: '30ch',
-    },
+    color: 'orange',
+  },
   text: {
     color: 'floralwhite',
   },
@@ -33,7 +40,7 @@ const NewDream = (props) => {
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
   const [loading, setLoading] = useState(false);
-  
+
   const user = useContext(UserContext);
   const classes = useStyles();
 
@@ -85,7 +92,7 @@ const NewDream = (props) => {
             required={error.name}
             id="dream-title"
             variant="standard"
-            color="primary"
+            variant="outlined"
             label="Name Your Dream"
             fullWidth
             className={classes.input}
@@ -111,11 +118,7 @@ const NewDream = (props) => {
               className: classes.text,
             }}
           ></TextField>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={submitDream}
-          >
+          <Button variant="contained" color="primary" onClick={submitDream}>
             {!loading && 'Add'}
             {loading && <SpinnerAdornment />}
           </Button>
