@@ -56,7 +56,6 @@ describe('NewDream', () => {
       screen.getByLabelText('Describe Your Dream'),
       'There was a ghost'
     );
-      screen.debug()
 
     expect(screen.getByLabelText('Name Your Dream').value).toEqual('Spooky dream');
     expect(screen.getByLabelText('Describe Your Dream').value).toEqual(
