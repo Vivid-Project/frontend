@@ -4,6 +4,8 @@ import UserContext from '../Context/UserContext';
 import * as API from '../../API/APIcalls';
 
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { theme } from '../../themes/theme';
 import Skeleton from '@material-ui/lab/Skeleton';
 
@@ -34,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const DreamJournal = () => {
   const [dreams, setDreams] = useState([]);
   const [dreamsError, setDreamsError] = useState(false);
-  // const [expandedId, setExpandedId] = useState(-1);
-  const [dreamDateRange, setDreamDateRange] = useState([0, 7]);
+  const [dreamDateRange, setDreamDateRange] = useState([0, 6]);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
   const user = useContext(UserContext);
@@ -43,18 +44,11 @@ const DreamJournal = () => {
   useEffect(() => {
     setLoading(true);
     fetchDreamsForJournal();
-  }, []);
-
-  // const handleExpandClick = (i) => {
-  //   setExpandedId(expandedId === i ? -1 : i);
-  // };
+  }, [dreamDateRange]);
 
   const getDateThisManyDaysAgo = (dayModifier) => {
     const date = new Date();
-
-    if (dayModifier) {
-      date.setDate(date.getDate() - dayModifier);
-    }
+    date.setDate(date.getDate() - dayModifier);
 
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');
@@ -78,6 +72,11 @@ const DreamJournal = () => {
         setLoading(false);
       }
     );
+  };
+
+  const progressToNextWeeksDates = () => {
+    const newDateRange = dreamDateRange.map((date) => (date += 7));
+    setDreamDateRange(newDateRange);
   };
 
   const dreamCards = dreams.map((dream) => {
@@ -104,6 +103,17 @@ const DreamJournal = () => {
         {loading && <Skeleton variant="rect" className={classes.loading} />}
         {dreamCards}
       </div>
+      {!loading && (
+        <Button
+          style={{ margin: theme.spacing(1.5) }}
+          variant="contained"
+          color="primary"
+          onClick={progressToNextWeeksDates}
+        >
+          Next Week
+        </Button>
+      )}
+      {loading && <CircularProgress />}
     </ThemeProvider>
   );
 };
