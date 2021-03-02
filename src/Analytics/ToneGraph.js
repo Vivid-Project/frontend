@@ -34,14 +34,14 @@ const PieChart = ({toneValues, toneLabels}) => {
     ],
   }
   return (
-    <canvas data-testid='pieGraph'>
+    <p data-testid='pieGraph'>
       <Pie
         data={data}
         options={options}
         height={60}
         width={100}
       />
-    </canvas>
+    </p>
   );
 }
 
