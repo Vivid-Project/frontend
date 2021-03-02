@@ -62,8 +62,8 @@ const Login = (props) => {
   }, [values.email, values.password]);
 
   const loginUser = () => {
-    // API.fetchUserLogin(values.email, values.password)
-    API.fetchUserLogin('mjones@example.com', 'password')
+    API.fetchUserLogin(values.email, values.password)
+      // API.fetchUserLogin('mjones@example.com', 'password')
       .then((response) => {
         setUser({
           id: response.id,
@@ -110,7 +110,7 @@ const Login = (props) => {
           <Button
             variant="contained"
             color="primary"
-            // disabled={disabled}
+            disabled={disabled}
             onClick={loginUser}
           >
             Login
