@@ -54,32 +54,30 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-
   useEffect(() => {
     if (!values.email || !values.password) {
-      setDisabled(true)
-      return
+      setDisabled(true);
+      return;
     }
     setError({ email: false, password: false });
-    setDisabled(false)
+    setDisabled(false);
   }, [values.email, values.password]);
 
   const loginUser = () => {
-      API.fetchUserLogin(values.email, values.password)
-        // API.fetchUserLogin('mjones@example.com', 'password')
-        .then((response) => {
-            setUser({
-              id: response.id,
-              name: response.name,
-              email: response.email,
-              token: `Bearer ${response.token}`,
-            })
-          })
-            .then(() => history.push('/dashboard'))
-            .catch(error => setLoginError(true))
-    }
-      
-    
+    API.fetchUserLogin(values.email, values.password)
+      // API.fetchUserLogin('mjones@example.com', 'password')
+      .then((response) => {
+        setUser({
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          token: `Bearer ${response.token}`,
+        });
+      })
+      .then(() => history.push('/dashboard'))
+      .catch((error) => setLoginError(true));
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
@@ -111,10 +109,15 @@ const Login = (props) => {
               </InputAdornment>
             }
           ></FilledInput>{' '}
-          <Button variant="contained" color="primary" disabled={disabled} onClick={loginUser}>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={disabled}
+            onClick={loginUser}
+          >
             Login
           </Button>
-          {loginError && <h2>No account matches that email or password</h2>}
+          {loginError && <h5>No account with that email or password</h5>}
         </form>
       </main>
     </ThemeProvider>
