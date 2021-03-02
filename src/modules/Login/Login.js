@@ -34,7 +34,6 @@ const Login = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const [loginError, setLoginError] = useState(false);
-  const [error, setError] = useState({ email: false, password: false });
   const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     showPassword: false,
@@ -54,14 +53,13 @@ const Login = (props) => {
     event.preventDefault();
   };
 
-  // useEffect(() => {
-  //   if (!values.email || !values.password) {
-  //     setDisabled(true);
-  //     return;
-  //   }
-  //   setError({ email: false, password: false });
-  //   setDisabled(false);
-  // }, [values.email, values.password]);
+  useEffect(() => {
+    if (!values.email || !values.password) {
+      setDisabled(true);
+      return;
+    }
+    setDisabled(false);
+  }, [values.email, values.password]);
 
   const loginUser = () => {
     // API.fetchUserLogin(values.email, values.password)

@@ -47,22 +47,20 @@ const NewDream = (props) => {
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-      setDisabled(false)
+      setDisabled(false);
       !dreamTitle
-      ? setError({ ...error, name: true })
-      : setError({ ...error, desc: true })
-      return
+        ? setError({ ...error, name: true })
+        : setError({ ...error, desc: true });
+      return;
     }
     setDisabled(true);
     setLoading(true);
-    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody)
-      .then((response) => {
-        console.log(response);
-      })
-      .then(() => {
+    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
+      () => {
         setLoading(false);
         history.push('/dreamjournal');
-      });
+      }
+    );
   };
 
   const createDate = () => {

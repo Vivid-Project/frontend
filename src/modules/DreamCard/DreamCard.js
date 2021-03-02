@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PieChart from '../../common/ToneGraph';
+import PieChart from '../../Analytics/ToneGraph';
 import {
   Grid,
   Card,
@@ -15,17 +15,17 @@ import { orange } from '@material-ui/core/colors';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../../themes/theme';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     color: 'orange',
     background: '#282c34',
     display: 'flex-box',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   card: {
-    boxShadow: '11px 12px 1px -1px rgb(0 0 0 / 20%), inset 6px 11px 2px 0px rgb(0 0 0 / 14%), 19px 20px 3px 0px rgb(0 0 0 / 12%)',
+    boxShadow:
+      '11px 12px 1px -1px rgb(0 0 0 / 20%), inset 6px 11px 2px 0px rgb(0 0 0 / 14%), 19px 20px 3px 0px rgb(0 0 0 / 12%)',
     display: 'flex-box',
     justifyContent: 'center',
     alignItems: 'stretch',
@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
     width: '17em',
     background: '#282c34',
     borderColor: 'orange',
-    margin: '2em'
+    margin: '2em',
   },
   button: {
-    alightItems: 'right'
+    alightItems: 'right',
   },
   typography: {
     h2: {
@@ -56,9 +56,10 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   const [expandedId, setExpandedId] = useState(-1);
   const toneLabels = Object.keys(tones);
   const toneValues = Object.values(tones);
+
   useEffect(() => {
     setTones(toneAnalysis.tone_strength);
-  });
+  }, []);
 
   const handleExpandClick = (i) => {
     setExpandedId(expandedId === i ? -1 : i);
@@ -89,6 +90,7 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
               <CardHeader
                 title={title}
                 style={{ padding: '0', textAlign: 'center' }}
+                onClick={() => handleExpandClick(id)}
               />
               <IconButton
                 onClick={() => handleExpandClick(id)}
@@ -100,8 +102,10 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
               </IconButton>
               <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
                 <CardContent className={classes.content}>
-                  <PieChart toneLabels={toneLabels} toneValues={toneValues} />
-                  <p style={{textAlign: 'left'}}>{description}</p>
+                  {toneLabels.length > 1 && (
+                    <PieChart toneLabels={toneLabels} toneValues={toneValues} />
+                  )}
+                  <p style={{ textAlign: 'left' }}>{description}</p>
                 </CardContent>
               </Collapse>
             </Card>
