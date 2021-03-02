@@ -18,4 +18,25 @@ describe('Login', () => {
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();
   });
+
+  it('it should refeclt what is typed in the values', () => {
+    render(
+      <MemoryRouter>
+        <Login />
+      </MemoryRouter>
+    );
+
+    userEvent.type(
+      screen.getByPlaceholderText('Email'),
+      'bexample@example.com'
+    );
+    userEvent.type(screen.getByPlaceholderText('Password'), 'bestpassword');
+
+    expect(screen.getByPlaceholderText('Email').value).toEqual(
+      'bexample@example.com'
+    );
+    expect(screen.getByPlaceholderText('Password').value).toEqual(
+      'bestpassword'
+    );
+  });
 });
