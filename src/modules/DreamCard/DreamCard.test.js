@@ -18,9 +18,9 @@ describe('DreamCard', () => {
     render(
       <DreamCard
         id={22}
-        title="Creepy dream"
-        description="I was in the woods and it was creepy"
-        date="June Tuesday 22"
+        title='Creepy dream'
+        description='I was in the woods and it was creepy'
+        date='June Tuesday 22'
         toneAnalysis={mockToneAnalysis}
       />
     );
@@ -41,15 +41,15 @@ describe('DreamCard', () => {
       render(
         <DreamCard
           id={24}
-          title="Happy cloud"
-          description="I was jumping on a cloud"
-          date="2021/02/23"
+          title='Happy cloud'
+          description='I was jumping on a cloud'
+          date='2021/02/23'
           toneAnalysis={mockToneAnalysis}
         />
       );
     });
 
-    expect(screen.getByText('2021/02/23'))
+    expect(screen.getByText('2021/02/23'));
     expect(screen.getByText('Happy cloud')).toBeInTheDocument();
     act(() => {
       const showMoreButton = screen.getByLabelText('show more');

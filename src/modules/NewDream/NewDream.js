@@ -3,10 +3,9 @@ import { withRouter } from 'react-router-dom';
 import UserContext from '../Context/UserContext';
 import * as API from '../../API/APIcalls';
 
-import { TextField, Button, CircularProgress} from '@material-ui/core';
+import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,10 +44,7 @@ const NewDream = (props) => {
   const classes = useStyles();
 
   const SpinnerAdornment = () => (
-    <CircularProgress
-      className={classes.spinner}
-      size={20}
-    />
+    <CircularProgress className={classes.spinner} size={20} />
   );
 
   const submitDream = () => {
@@ -86,14 +82,14 @@ const NewDream = (props) => {
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
         <h2>Dream Input</h2>
-        <form noValidate autoComplete="off" className={classes.root}>
+        <form noValidate autoComplete='off' className={classes.root}>
           <TextField
             error={error.name}
             required={error.name}
-            id="dream-title"
-            variant="standard"
-            variant="outlined"
-            label="Name Your Dream"
+            id='dream-title'
+            variant='standard'
+            variant='outlined'
+            label='Name Your Dream'
             fullWidth
             className={classes.input}
             InputProps={{
@@ -104,10 +100,10 @@ const NewDream = (props) => {
           <TextField
             error={error.desc}
             required={error.desc}
-            id="dream-body"
-            variant="outlined"
-            color="primary"
-            label="Describe Your Dream"
+            id='dream-body'
+            variant='outlined'
+            color='primary'
+            label='Describe Your Dream'
             fullWidth
             multiline
             rowsMax={12}
@@ -118,7 +114,7 @@ const NewDream = (props) => {
               className: classes.text,
             }}
           ></TextField>
-          <Button variant="contained" color="primary" onClick={submitDream}>
+          <Button variant='contained' color='primary' onClick={submitDream}>
             {!loading && 'Add'}
             {loading && <SpinnerAdornment />}
           </Button>

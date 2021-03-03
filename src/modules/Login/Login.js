@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import * as API from '../../API/APIcalls';
+
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-
-import * as API from '../../API/APIcalls';
-import FilledInput from '@material-ui/core/FilledInput';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
+import { FilledInput, Button, InputAdornment, IconButton } from '@material-ui/core'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import image from '../../assets/login-landing-back.jpg';
@@ -78,26 +75,26 @@ const Login = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
-        <form noValidate autoComplete="off" className={classes.root}>
+        <form noValidate autoComplete='off' className={classes.root}>
           <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
           <FilledInput
-            id="email"
-            color="primary"
-            placeholder="Email"
+            id='email'
+            color='primary'
+            placeholder='Email'
             className={classes.input}
             onChange={handleChange('email')}
           ></FilledInput>
           <FilledInput
-            id="password"
-            color="primary"
-            placeholder="Password"
+            id='password'
+            color='primary'
+            placeholder='Password'
             type={values.showPassword ? 'text' : 'password'}
             className={classes.input}
             onChange={handleChange('password')}
             endAdornment={
-              <InputAdornment position="end">
+              <InputAdornment position='end'>
                 <IconButton
-                  aria-label="toggle password visibility"
+                  aria-label='toggle password visibility'
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
@@ -107,8 +104,8 @@ const Login = (props) => {
             }
           ></FilledInput>{' '}
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             disabled={disabled}
             onClick={loginUser}
           >

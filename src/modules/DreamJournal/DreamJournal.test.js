@@ -14,24 +14,27 @@ import { fetchUserDreams } from '../../API/APIcalls';
 jest.mock('../../API/APIcalls');
 
 describe('DreamJournal', () => {
-
+  
   it('should render dream cards', () => {
     act(() => {
-     fetchUserDreams.mockResolvedValueOnce([{
-        id: 4,
-        date: '2021/02/22',
-        title: 'Forest dream',
-        description: 'I was walking through a forest when I met a talking bird',
-        toneAnalysis: {
-          tone_strength: {
-            Analytical: 1,
-            Anger: 2,
-            Sadness: 2,
-            Tentative: 5,
+      fetchUserDreams.mockResolvedValueOnce([
+        {
+          id: 4,
+          date: '2021/02/22',
+          title: 'Forest dream',
+          description:
+            'I was walking through a forest when I met a talking bird',
+          toneAnalysis: {
+            tone_strength: {
+              Analytical: 1,
+              Anger: 2,
+              Sadness: 2,
+              Tentative: 5,
+            },
+            unique_tones: 'Sadness, Tentative, Anger, Analytical',
           },
-          unique_tones: 'Sadness, Tentative, Anger, Analytical',
         },
-      }]);
+      ]);
 
       render(
         <UserContext.Provider value={user}>

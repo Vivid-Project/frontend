@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import { Pie } from 'react-chartjs-2';
 
-const PieChart = ({toneValues, toneLabels}) => {
+const PieChart = ({ toneValues, toneLabels }) => {
   const options = {
-      legend: {
-        position: 'left'
-      }
-    }
+    legend: {
+      position: 'left',
+    },
+  };
   const data = {
     labels: toneLabels,
     datasets: [
@@ -32,17 +32,12 @@ const PieChart = ({toneValues, toneLabels}) => {
         borderWidth: 1,
       },
     ],
-  }
+  };
   return (
     <p data-testid='pieGraph'>
-      <Pie
-        data={data}
-        options={options}
-        height={60}
-        width={100}
-      />
+      <Pie data={data} options={options} height={60} width={100} />
     </p>
   );
-}
+};
 
 export default PieChart;

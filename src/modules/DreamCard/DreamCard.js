@@ -68,10 +68,10 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Grid className={classes.palette.primary} container justify="center">
+        <Grid className={classes.palette.primary} container justify='center'>
           <CardActions
             disableSpacing
-            variant="subtitle2"
+            variant='subtitle2'
             style={{ textAlign: 'right' }}
           >
             <Card
@@ -82,7 +82,7 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
             >
               {' '}
               <Typography
-                variant="subtitle1"
+                variant='subtitle1'
                 style={{ margin: '1em', textAlign: 'left' }}
               >
                 {date}
@@ -95,12 +95,12 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
               <IconButton
                 onClick={() => handleExpandClick(id)}
                 aria-expanded={expandedId === id}
-                aria-label="show more"
+                aria-label='show more'
                 className={classes.root}
               >
                 <ExpandMoreIcon />
               </IconButton>
-              <Collapse in={expandedId === id} timeout="auto" unmountOnExit>
+              <Collapse in={expandedId === id} timeout='auto' unmountOnExit>
                 <CardContent className={classes.content}>
                   {toneLabels.length > 1 && (
                     <PieChart toneLabels={toneLabels} toneValues={toneValues} />

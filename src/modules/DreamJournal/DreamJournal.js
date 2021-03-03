@@ -53,7 +53,7 @@ const DreamJournal = () => {
         setDreamsError(false);
         setLoading(false);
         sortAndSetDreams(response);
-      })
+      });
     });
   }, []);
 
@@ -85,7 +85,7 @@ const DreamJournal = () => {
         {dreamsError && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}
-        {loading && <Skeleton variant="rect" className={classes.loading} />}
+        {loading && <Skeleton variant='rect' className={classes.loading} />}
         {loading && <CircularProgress />}
         {dreamCards}
       </div>

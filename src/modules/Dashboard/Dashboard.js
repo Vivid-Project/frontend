@@ -4,8 +4,7 @@ import UserContext from '../Context/UserContext';
 import TonesOverTime from '../../Analytics/TonesOverTime';
 
 import { theme } from '../../themes/theme';
-import { AppBar, Fab } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
+import { AppBar, Fab, Toolbar } from '@material-ui/core';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -45,12 +44,12 @@ const Dashboard = () => {
         <div className={classes.graph}>
           <TonesOverTime />
         </div>
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar variant="dense">
-            <Link to="/newdream">
+        <AppBar position='fixed' className={classes.appBar}>
+          <Toolbar variant='dense'>
+            <Link to='/newdream'>
               <Fab
-                aria-label="add"
-                data-testid="addButton"
+                aria-label='add'
+                data-testid='addButton'
                 className={classes.fabButton}
               >
                 <AddIcon />
