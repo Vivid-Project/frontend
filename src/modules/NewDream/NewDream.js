@@ -114,7 +114,12 @@ const NewDream = (props) => {
               className: classes.text,
             }}
           ></TextField>
-          <Button variant='contained' color='primary' onClick={submitDream}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={submitDream}
+            data-testId="submit-dream"
+          >
             {!loading && 'Add'}
             {loading && <SpinnerAdornment />}
           </Button>

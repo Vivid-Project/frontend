@@ -68,6 +68,7 @@ const Header = (props) => {
         <Toolbar style={{ background: 'orange' }}>
           <Typography
             variant='h6'
+
             className={classes.title}
             style={{ color: 'black' }}
           >
@@ -117,6 +118,7 @@ const Header = (props) => {
                 {menuItems.map((menuItem) => {
                   return (
                     <Button
+                      data-testId={menuItem.menuTitle}
                       key={menuItem.menuTitle}
                       onClick={() => handleMenuClick(menuItem.pageURL)}
                     >
