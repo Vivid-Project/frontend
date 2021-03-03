@@ -17,7 +17,6 @@ _VIVID is currently under development. If you'd like to contribute, submit a PR 
 - [Technologies and Tools](#technologies-and-tools)
 - [Challenges](#challenges)
 - [Wins](#wins)
-- [ScreenShots and Demos](#screenshots-and-demos)
 - [Roadmap](#roadmap)
 - [Credits](#credits)
 
