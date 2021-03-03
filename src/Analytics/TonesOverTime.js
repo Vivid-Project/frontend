@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { act } from 'react-dom/test-utils';
 import { Line, Polar } from 'react-chartjs-2';
 import UserContext from '../modules/Context/UserContext';
 import * as API from '../API/APIcalls';
@@ -28,21 +29,33 @@ const TonesOverTime = () => {
   }, [chartDayCount]);
 
   useEffect(() => {
+    let mounted = true;
     if (!chartDates) return;
     API.fetchUserDreamsByDates(
       user.token,
       getDateToday(-chartDayCount),
       getDateToday()
     ).then((r) => {
-      cleanAndStoreData(r);
+      if(mounted) {
+        cleanAndStoreData(r);
+      }
     });
+    return function cleanup() {
+      mounted = false
+    }
   }, [chartDates]);
 
   useEffect(() => {
+    let mounted = true
     if (!allDreams) return;
-    processDreamData();
-    createPlotChartDatasets();
-    createPolarChartDatasets();
+    if(mounted) {
+      processDreamData();
+      createPlotChartDatasets();
+      createPolarChartDatasets();
+    }
+    return function cleanup() {
+      mounted = false
+    }
   }, [allDreams]);
 
   const cleanAndStoreData = (responses) => {
@@ -52,7 +65,9 @@ const TonesOverTime = () => {
         toneAnalysis: response.toneAnalysis,
       };
     });
-    setAllDreams(cleanedData);
+    act(() => {
+      setAllDreams(cleanedData);
+    })
   };
 
   const handleChange = (event) => {

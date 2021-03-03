@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import DreamCard from '../DreamCard/DreamCard';
 import UserContext from '../Context/UserContext';
 import * as API from '../../API/APIcalls';
+import { act } from 'react-dom/test-utils';
 
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../../themes/theme';
@@ -48,9 +49,11 @@ const DreamJournal = () => {
         setLoading(false);
         return;
       }
-      setDreamsError(false);
-      setLoading(false);
-      sortAndSetDreams(response);
+      act(() => {
+        setDreamsError(false);
+        setLoading(false);
+        sortAndSetDreams(response);
+      });
     });
   }, []);
 
@@ -82,7 +85,7 @@ const DreamJournal = () => {
         {dreamsError && (
           <h2 className={classes.root}>You have not saved any dreams yet</h2>
         )}
-        {loading && <Skeleton variant="rect" className={classes.loading} />}
+        {loading && <Skeleton variant='rect' className={classes.loading} />}
         {loading && <CircularProgress />}
         {dreamCards}
       </div>

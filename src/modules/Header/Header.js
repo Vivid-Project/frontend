@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -64,10 +64,11 @@ const Header = (props) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar style={{ background: 'orange' }}>
           <Typography
-            variant="h6"
+            variant='h6'
+
             className={classes.title}
             style={{ color: 'black' }}
           >
@@ -77,16 +78,16 @@ const Header = (props) => {
             {isMobile ? (
               <>
                 <IconButton
-                  edge="start"
+                  edge='start'
                   className={classes.menuButton}
-                  color="inherit"
-                  aria-label="menu"
+                  color='inherit'
+                  aria-label='menu'
                   onClick={handleMenu}
                 >
                   <MenuIcon />
                 </IconButton>
                 <Menu
-                  id="menu-appbar"
+                  id='menu-appbar'
                   anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'top',

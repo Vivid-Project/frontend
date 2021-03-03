@@ -1,14 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import UserContext from '../Context/UserContext';
 import * as API from '../../API/APIcalls';
 
+import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { theme } from '../../themes/theme';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import Skeleton from '@material-ui/lab/Skeleton';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,10 +13,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    '& .MuiInputLabel-outlined': {
+      color: 'white',
+    },
+    '& .MuiInputLabel-outlined.Mui-error': {
+      color: 'red',
+    },
   },
   input: {
     margin: theme.spacing(1.5),
     width: '30ch',
+    color: 'orange',
   },
   text: {
     color: 'floralwhite',
@@ -34,11 +38,9 @@ const NewDream = (props) => {
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
-  const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const user = useContext(UserContext);
-
   const classes = useStyles();
 
   const SpinnerAdornment = () => (
@@ -47,13 +49,11 @@ const NewDream = (props) => {
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-      setDisabled(false);
       !dreamTitle
         ? setError({ ...error, name: true })
         : setError({ ...error, desc: true });
       return;
     }
-    setDisabled(true);
     setLoading(true);
     API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
       () => {
@@ -82,43 +82,41 @@ const NewDream = (props) => {
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
         <h2>Dream Input</h2>
-        <form noValidate autoComplete="off" className={classes.root}>
+        <form noValidate autoComplete='off' className={classes.root}>
           <TextField
             error={error.name}
             required={error.name}
-            id="dream-title"
-            variant="standard"
-            color="primary"
-            label="Name Your Dream"
+            id='dream-title'
+            variant='standard'
+            variant='outlined'
+            label='Name Your Dream'
             fullWidth
             className={classes.input}
             InputProps={{
               className: classes.text,
-              'data-testid': 'nameInput',
             }}
             onChange={(e) => setDreamTitle(e.target.value)}
           ></TextField>
           <TextField
             error={error.desc}
             required={error.desc}
-            id="dream-body"
-            variant="outlined"
-            color="primary"
-            label="Describe Your Dream"
+            id='dream-body'
+            variant='outlined'
+            color='primary'
+            label='Describe Your Dream'
             fullWidth
             multiline
             rowsMax={12}
             onChange={(e) => setDreamBody(e.target.value)}
             className={classes.input}
+            style={{ color: 'orange' }}
             InputProps={{
               className: classes.text,
-              'data-testid': 'describeInput',
             }}
           ></TextField>
           <Button
             variant="contained"
             color="primary"
-            disabled={disabled}
             onClick={submitDream}
             data-testId="submit-dream"
           >
