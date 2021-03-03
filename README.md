@@ -28,7 +28,7 @@ _VIVID is currently under development. If you'd like to contribute, submit a PR 
 
 VIVID is a full-stack collaborative project built completely from scratch by our team at Turing Shool of Software & Design.
 
-Use VIVID to log your dreams and recieve back an analysis of unique tones inside of them. Track these tones over time with interactive charts detailing the frequency of your emotions over time.
+Use VIVID to log your dreams and receive back an analysis of unique tones inside of them. Track these tones over time with interactive charts detailing the frequency of your emotions over time.
 
 As a Progressive Web Application, Vivid is fully reactive and ready to be used as an application on your mobile device without needing to install anything. (_See the installation section for more details_)
 
@@ -42,9 +42,9 @@ _Note: VIVID works best on mobile!_
 
 Navigate to our live site at https://vivid-project.herokuapp.com/ with your mobile device. You may have to wait for Heroku to load.
 
-Once you reach the login screen, add the site to your homescreen. You can find a helpful article explaining how to that [here](https://www.howtogeek.com/196087/how-to-add-websites-to-the-home-screen-on-any-smartphone-or-tablet/).
+Once you reach the login screen, add the site to your home screen. You can find a helpful article explaining how to that [here](https://www.howtogeek.com/196087/how-to-add-websites-to-the-home-screen-on-any-smartphone-or-tablet/).
 
-Launch Vivid from your homescreen. It now functions exactly like an application!
+Launch Vivid from your home screen. It now functions exactly like an application!
 
 Login as a user. You may have to wait for the Heroku backend to start up. Currently VIVID supports 2 unique users, and their logins are below:
 
@@ -127,7 +127,7 @@ The Dream Journal
 
 - Entirety of project was built in 12 days
 - Explored and learned PWA technology, including service workers and offline caching
-- Succesfully integrated Cypress testing for the first time
+- Successfully integrated Cypress testing for the first time
 - Collaborated with Backend Engineers to create custom endpoints to utilize
 
 ## Roadmap
