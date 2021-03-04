@@ -161,13 +161,29 @@ The Dream Journal
 
 ---
 
-Jonathan Wilson - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/jonathan--wilson/) - [GitHub](https://github.com/Jonathan-M-Wilson) - [Turing Alum Profile](https://alumni.turing.io/alumni/jonathan-wilson)
+<img src="https://avatars.githubusercontent.com/u/53539820?s=460&u=dab7d7060d77889815fb919b7069e85268293839&v=4" alt="Jonathan Wilson"
+ width="150" height="auto" />
+ 
+**Jonathan Wilson** - 
+[GitHub](https://github.com/Jonathan-M-Wilson) - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/jonathan--wilson/) - [Turing Alum Profile](https://alumni.turing.io/alumni/jonathan-wilson)
 
-Zach Stearns - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/zach-stearns/) - [GitHub](https://github.com/Stearnzy) - [Turing Alum Profile](https://alumni.turing.io/alumni/zach-stearns)
+<img src="https://avatars.githubusercontent.com/u/64452036?s=400&u=b1004064cab7a4b3a912feebfffd924588d24358&v=4" alt="Zach Stearns"
+ width="150" height="auto" />
 
-Aidan Murray - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/aidan-murray-teknoserval/) - [GitHub](https://github.com/TeknoServal)
+**Zach Stearns** - 
+[GitHub](https://github.com/Stearnzy) - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/zach-stearns/) - [Turing Alum Profile](https://alumni.turing.io/alumni/zach-stearns)
 
-Taylor Phillips - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/taphill/) - [GitHub](https://github.com/taphill) - [Turing Alum Profile](https://alumni.turing.io/alumni/taylor-phillips)
+<img src="https://avatars.githubusercontent.com/u/48848183?s=460&u=db1852028efcc61937c95bf2d25e4402191bea3a&v=4" alt="Aidan Murray"
+ width="150" height="auto" />
+
+**Aidan Murray** - 
+[GitHub](https://github.com/TeknoServal) - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/aidan-murray-teknoserval/)
+
+<img src="https://avatars.githubusercontent.com/u/62676321?s=460&u=c73207f5a23458449622dfe77d27aff512e07ac0&v=4" alt="Taylor Phillips"
+ width="150" height="auto" />
+
+**Taylor Phillips** - 
+[GitHub](https://github.com/taphill) - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/taphill/) - [Turing Alum Profile](https://alumni.turing.io/alumni/taylor-phillips)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
