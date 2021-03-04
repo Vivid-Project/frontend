@@ -15,7 +15,7 @@ _VIVID is currently under development. If you'd like to contribute, submit a PR 
 ## Table of Contents
 
 - [Project Overview](#project-overview)
-- [Installation] (#installation)
+- [Installation](#installation)
 - [Features](#features)
 - [Technologies and Tools](#technologies-and-tools)
 - [Challenges](#challenges)
