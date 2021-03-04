@@ -1,5 +1,7 @@
 # VIVID Project - Frontend
 
+![Vivid Splash](https://imgur.com/KBwFqdN.png)
+
 ### [Link To Our Repo]()
 
 [![Contributors][contributors-shield]][contributors-url]
