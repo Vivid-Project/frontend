@@ -29,7 +29,7 @@ _VIVID is currently under development. If you'd like to contribute, submit a PR 
 
 > What are your dreams telling you?
 
-VIVID is a full-stack collaborative project built completely from scratch by our team at Turing Shool of Software & Design.
+VIVID is a full-stack collaborative project built completely from scratch by our team at Turing School of Software & Design.
 
 Use VIVID to log your dreams and receive back an analysis of unique tones inside of them. Track these tones over time with interactive charts detailing the frequency of your emotions over time.
 
