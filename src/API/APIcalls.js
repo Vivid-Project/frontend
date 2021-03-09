@@ -1,23 +1,23 @@
 export const fetchUserLogin = async (email, password) => {
-    const response = await fetch(
-      'https://vivid-project-backend.herokuapp.com/users/authenticate',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      }
-    )
-   if(response.status >=200 && response.status <= 299) {
-     const jsonResponse = await response.json()
-     return jsonResponse
-   } else {
-     return console.log(`Error! Code: ${response.status}`)
-   }
+  const response = await fetch(
+    'https://vivid-project-backend.herokuapp.com/users/authenticate',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }
+  );
+  if (response.status >= 200 && response.status <= 299) {
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } else {
+    return console.log(`Error! Code: ${response.status}`);
+  }
 };
 
 export const fetchUserDreams = async (token) => {
@@ -71,6 +71,28 @@ export const postUserDream = async (token, date, title, description) => {
           title,
           description,
           emotion: null,
+        }),
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
+};
+
+export const createNewUser = async (name, email, password) => {
+  try {
+    const response = await fetch(
+      'https://vivid-project-backend.herokuapp.com/users',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
         }),
       }
     );
