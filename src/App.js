@@ -8,6 +8,7 @@ import DreamJournal from './modules/DreamJournal/DreamJournal';
 import NewDream from './modules/NewDream/NewDream';
 import Login from './modules/Login/Login';
 import Header from './modules/Header/Header';
+import SignUp from './modules/SignUp/SignUp';
 
 import 'fontsource-roboto';
 
@@ -16,19 +17,24 @@ const App = () => {
 
   return (
     <UserContext.Provider value={user}>
-      <main className="App">
-        <header className="App-header">
+      <main className='App'>
+        <header className='App-header'>
           <Switch>
             <Route
               exact
-              path="/"
+              path='/'
               render={(props) => <Login {...props} setUser={setUser} />}
+            />
+            <Route
+              exact
+              path='/signup'
+              render={(props) => <SignUp {...props} setUser={setUser} />}
             />
             <>
               <Header />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/dreamjournal" component={DreamJournal} />
-              <Route exact path="/newdream" component={NewDream} />
+              <Route exact path='/dashboard' component={Dashboard} />
+              <Route exact path='/dreamjournal' component={DreamJournal} />
+              <Route exact path='/newdream' component={NewDream} />
             </>
           </Switch>
         </header>
