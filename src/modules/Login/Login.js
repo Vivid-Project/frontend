@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import * as API from '../../API/APIcalls';
 
 
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import { FilledInput, Button, InputAdornment, IconButton } from '@material-ui/core'
+import { FilledInput, Button, InputAdornment, IconButton, Container } from '@material-ui/core'
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import image from '../../assets/login-landing-back.jpg';
@@ -108,10 +108,20 @@ const Login = (props) => {
             color='primary'
             disabled={disabled}
             onClick={loginUser}
+            style={{ margin: '1em' }}
           >
             Login
           </Button>
           {loginError && <h5>No account with that email or password</h5>}
+          Need an account?
+          <Button
+            variant='contained'
+            color='primary'
+            href='/signup'
+            style={{ margin: '1em' }}
+          >
+            Sign Up
+          </Button>
         </form>
       </main>
     </ThemeProvider>
