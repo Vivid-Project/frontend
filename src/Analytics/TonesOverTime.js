@@ -64,6 +64,9 @@ const TonesOverTime = () => {
   }, [allDreams]);
 
   const cleanAndStoreData = (responses) => {
+    if(!responses.length) {
+      return
+    }
     const cleanedData = responses.map((response) => {
       return {
         date: response.date,
