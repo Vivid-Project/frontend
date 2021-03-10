@@ -85,7 +85,7 @@ const SignUp = (props) => {
           setSignUpError(true)
         }
       })
-      .then(() => history.push('/dashboard'))
+      .then(() => window.location = '/dashboard')
       .catch((error) => console.log(error))
   };
 
