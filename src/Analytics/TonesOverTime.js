@@ -240,7 +240,7 @@ const TonesOverTime = () => {
    if (noCharts === true ) {
      return(
         <h4>
-          You do not have any dream data, add some dreams to find your dream
+          You do not have any dream data, add dreams to see your dream
           tones
         </h4> 
      )
