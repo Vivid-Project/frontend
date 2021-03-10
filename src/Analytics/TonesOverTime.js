@@ -13,6 +13,7 @@ const TonesOverTime = () => {
   const [chartTones, setChartTones] = useState([]);
   const [chartPlotDatasets, setChartPlotDatasets] = useState([]);
   const [polarChartDatasets, setPolarChartDatasets] = useState([]);
+  const [noCharts, setNoCharts] = useState(false);
   const chartColors = [
     '#FFF2CF',
     '#FCE39E',
@@ -30,32 +31,36 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     let mounted = true;
-    if (!chartDates) return;
+    if (!chartDates) { 
+      setNoCharts(true)
+      return;
+    }
     API.fetchUserDreamsByDates(
       user.token,
       getDateToday(-chartDayCount),
       getDateToday()
     ).then((r) => {
-      if(mounted) {
+      if (mounted) {
         cleanAndStoreData(r);
       }
     });
     return function cleanup() {
-      mounted = false
-    }
+      mounted = false;
+    };
   }, [chartDates]);
 
   useEffect(() => {
-    let mounted = true
-    if (!allDreams) return;
-    if(mounted) {
+    let mounted = true;
+    if (!allDreams)
+      return;
+    if (mounted) {
       processDreamData();
       createPlotChartDatasets();
       createPolarChartDatasets();
     }
     return function cleanup() {
-      mounted = false
-    }
+      mounted = false;
+    };
   }, [allDreams]);
 
   const cleanAndStoreData = (responses) => {
@@ -67,7 +72,7 @@ const TonesOverTime = () => {
     });
     act(() => {
       setAllDreams(cleanedData);
-    })
+    });
   };
 
   const handleChange = (event) => {
@@ -105,6 +110,7 @@ const TonesOverTime = () => {
         toneData[date] = 0;
       }
       dateValues.push(toneData[date]);
+      setNoCharts(false)
       return dateValues;
     }, []);
     setChartTones(chartTones.push({ [tone]: toneDates }));
@@ -228,31 +234,38 @@ const TonesOverTime = () => {
       },
     },
   };
-
+   if (noCharts === true ) {
+     return(
+        <h4>
+          You do not have any dream data, add some dreams to find your dream
+          tones
+        </h4> 
+     )
+   } else {
   return (
     <>
-      <Typography>Your dreams over the past</Typography>
+     <Typography>Your dreams over the past</Typography>
       <span>
-        <FormControl>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={chartDayCount}
-            onChange={handleChange}
-            style={{ color: 'white' }}
-          >
-            <MenuItem value={7}>Week</MenuItem>
-            <MenuItem value={14}>Two Weeks</MenuItem>
-            <MenuItem value={30}>Month</MenuItem>
-          </Select>
-        </FormControl>
+          <FormControl>
+            <Select
+              labelId='demo-simple-select-label'
+              id='demo-simple-select'
+              value={chartDayCount}
+              onChange={handleChange}
+              style={{ color: 'white' }}
+            >
+              <MenuItem value={7}>Week</MenuItem>
+              <MenuItem value={14}>Two Weeks</MenuItem>
+              <MenuItem value={30}>Month</MenuItem>
+            </Select>
+          </FormControl>
       </span>
       <Line data={lineChartInfo.data} options={lineChartInfo.options} />
       <Typography>Emotion Tags</Typography>
-
       <Polar data={polarChartInfo.data} options={polarChartInfo.options} />
     </>
   );
+}
 };
 
 export default TonesOverTime;
