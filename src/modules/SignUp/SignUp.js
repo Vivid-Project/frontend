@@ -35,6 +35,7 @@ const SignUp = (props) => {
   const theme = useTheme();
   const classes = useStyles();
   const [signUpError, setSignUpError] = useState(false);
+  const [duplicateWarning, setduplicateWarning] = useState(false)
   const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     name: '',
@@ -64,17 +65,28 @@ const SignUp = (props) => {
 
   const createUser = (props) => {
     let { history, setUser } = props;
+    console.log(props)
+    setSignUpError(false)
+    setduplicateWarning(false)
     API.createNewUser(values.name, values.email, values.password)
       .then((response) => {
-        setUser({
-          id: response.id,
-          name: response.name,
-          email: response.email,
-          token: `Bearer ${response.token}`,
-        });
+        if(response.status === 409) {
+          setDisabled(true)
+          setduplicateWarning(true)
+          return 
+        } else if(response.status >=200 && response.status <=299){
+          setUser({
+            id: response.id,
+            name: response.name,
+            email: response.email,
+            token: `Bearer ${response.token}`,
+          });
+        }else {
+          setSignUpError(true)
+        }
       })
       .then(() => history.push('/dashboard'))
-      .catch((error) => setSignUpError(true));
+      .catch((error) => console.log(error))
   };
 
   return (
@@ -115,6 +127,7 @@ const SignUp = (props) => {
               </InputAdornment>
             }
           ></FilledInput>{' '}
+          {duplicateWarning && <h5>It looks like there is already an account matching this email, please try signing in</h5>}
           {signUpError && <h5>Oh no there was an error please try again</h5>}
           <Button
             variant='contained'
