@@ -32,10 +32,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUp = (props) => {
+  let { history, setUser } = props;
   const theme = useTheme();
   const classes = useStyles();
   const [signUpError, setSignUpError] = useState(false);
-  const [duplicateWarning, setduplicateWarning] = useState(false)
+  const [duplicateWarning, setduplicateWarning] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
     name: '',
@@ -63,30 +65,39 @@ const SignUp = (props) => {
     setDisabled(false);
   }, [values.name, values.email, values.password]);
 
-  const createUser = (props) => {
-    let { history, setUser } = props;
-    console.log(props)
-    setSignUpError(false)
-    setduplicateWarning(false)
-    API.createNewUser(values.name, values.email, values.password)
+  const loginUser = () => {
+    API.fetchUserLogin(values.email, values.password)
       .then((response) => {
-        if(response.status === 409) {
-          setDisabled(true)
-          setduplicateWarning(true)
-          return 
-        } else if(response.status >=200 && response.status <=299){
-          setUser({
-            id: response.id,
-            name: response.name,
-            email: response.email,
-            token: `Bearer ${response.token}`,
-          });
-        }else {
-          setSignUpError(true)
-        }
+        setUser({
+          id: response.id,
+          name: response.name,
+          email: response.email,
+          token: `Bearer ${response.token}`,
+        });
       })
-      .then(() => window.location = '/dashboard')
-      .catch((error) => console.log(error))
+      .then(() => history.push('/dashboard'))
+      .catch((error) => setLoginError(true));
+  };
+
+  const createUser = () => {
+    setSignUpError(false);
+    setduplicateWarning(false);
+    API.createNewUser(values.name, values.email, values.password).then(
+      (response) => {
+        console.log(response);
+        debugger;
+        if (response.status === 409) {
+          setDisabled(true);
+          setduplicateWarning(true);
+          return;
+        } else if (response.email === values.email) {
+          loginUser(values.email, values.password);
+        } else if (response.status === 400) {
+          setSignUpError(true);
+          return;
+        }
+      }
+    );
   };
 
   return (
@@ -127,8 +138,14 @@ const SignUp = (props) => {
               </InputAdornment>
             }
           ></FilledInput>{' '}
-          {duplicateWarning && <h5>It looks like there is already an account matching this email, please try signing in</h5>}
+          {duplicateWarning && (
+            <h5>
+              It looks like there is already an account matching this email,
+              please try signing in
+            </h5>
+          )}
           {signUpError && <h5>Oh no there was an error please try again</h5>}
+          {loginError && <h5>No account with that email or password</h5>}
           <Button
             variant='contained'
             color='primary'
@@ -138,10 +155,15 @@ const SignUp = (props) => {
           >
             Sign Up!
           </Button>
-            Already have an account?
-            <Button variant='contained' color='primary' href='/' style={{marginTop: '1em'}}>
-              Login
-            </Button>
+          Already have an account?
+          <Button
+            variant='contained'
+            color='primary'
+            href='/'
+            style={{ marginTop: '1em' }}
+          >
+            Login
+          </Button>
         </form>
       </main>
     </ThemeProvider>
