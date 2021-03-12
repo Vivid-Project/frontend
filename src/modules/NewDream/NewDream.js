@@ -38,6 +38,7 @@ const NewDream = (props) => {
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
+  const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const user = useContext(UserContext);
@@ -48,13 +49,16 @@ const NewDream = (props) => {
   );
 
   const submitDream = () => {
+    debugger;
     if (!dreamTitle || !dreamBody) {
       !dreamTitle
         ? setError({ ...error, name: true })
         : setError({ ...error, desc: true });
+      setDisabled(false);
       return;
     }
     setLoading(true);
+    setDisabled(true);
     API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
       () => {
         setLoading(false);
@@ -115,10 +119,11 @@ const NewDream = (props) => {
             }}
           ></TextField>
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={submitDream}
-            data-testId="submit-dream"
+            data-testId='submit-dream'
+            disabled={disabled}
           >
             {!loading && 'Add'}
             {loading && <SpinnerAdornment />}
