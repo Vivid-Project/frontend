@@ -84,8 +84,6 @@ const SignUp = (props) => {
     setduplicateWarning(false);
     API.createNewUser(values.name, values.email, values.password).then(
       (response) => {
-        console.log(response);
-        debugger;
         if (response.status === 409) {
           setDisabled(true);
           setduplicateWarning(true);
