@@ -44,7 +44,6 @@ const DreamJournal = () => {
     setLoading(true);
     setDreamsError(false);
     API.fetchUserDreams(user.token).then((response) => {
-      console.log(response)
       if (!response.length) {
         setDreamsError(true);
         setLoading(false);
