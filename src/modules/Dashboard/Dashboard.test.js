@@ -23,8 +23,7 @@ describe('Dashboard', () => {
       );
     });
     expect(screen.getByText('Welcome')).toBeInTheDocument();
-    expect(screen.getByText('Your dreams over the past')).toBeInTheDocument();
+    expect(screen.getByText('You do not have any dream data, add dreams to see your dream tones')).toBeInTheDocument();
     expect(screen.getByTestId('addButton')).toBeInTheDocument();
-    expect(screen.getByText('Emotion Tags')).toBeInTheDocument();
   });
 });

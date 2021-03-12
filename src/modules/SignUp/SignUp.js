@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import * as API from '../../API/APIcalls';
-
-
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import { FilledInput, Button, InputAdornment, IconButton, Container } from '@material-ui/core'
+import image from '../../assets/login-landing-back.jpg';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import image from '../../assets/login-landing-back.jpg';
+
+import {
+  FilledInput,
+  Button,
+  InputAdornment,
+  IconButton,
+  Container,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,14 +31,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = (props) => {
+const SignUp = (props) => {
   let { history, setUser } = props;
   const theme = useTheme();
   const classes = useStyles();
+  const [signUpError, setSignUpError] = useState(false);
+  const [duplicateWarning, setduplicateWarning] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [values, setValues] = useState({
-    showPassword: false,
+    name: '',
     email: '',
     password: '',
   });
@@ -51,12 +58,12 @@ const Login = (props) => {
   };
 
   useEffect(() => {
-    if (!values.email || !values.password) {
+    if (!values.name || !values.email || !values.password) {
       setDisabled(true);
       return;
     }
     setDisabled(false);
-  }, [values.email, values.password]);
+  }, [values.name, values.email, values.password]);
 
   const loginUser = () => {
     API.fetchUserLogin(values.email, values.password)
@@ -72,11 +79,37 @@ const Login = (props) => {
       .catch((error) => setLoginError(true));
   };
 
+  const createUser = () => {
+    setSignUpError(false);
+    setduplicateWarning(false);
+    API.createNewUser(values.name, values.email, values.password).then(
+      (response) => {
+        if (response.status === 409) {
+          setDisabled(true);
+          setduplicateWarning(true);
+          return;
+        } else if (response.email === values.email) {
+          loginUser(values.email, values.password);
+        } else if (response.status === 400) {
+          setSignUpError(true);
+          return;
+        }
+      }
+    );
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
         <form noValidate autoComplete='off' className={classes.root}>
           <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
+          <FilledInput
+            id='name'
+            color='primary'
+            placeholder='Name'
+            className={classes.input}
+            onChange={handleChange('name')}
+          ></FilledInput>
           <FilledInput
             id='email'
             color='primary'
@@ -103,24 +136,31 @@ const Login = (props) => {
               </InputAdornment>
             }
           ></FilledInput>{' '}
+          {duplicateWarning && (
+            <h5>
+              It looks like there is already an account matching this email,
+              please try signing in
+            </h5>
+          )}
+          {signUpError && <h5>Oh no there was an error please try again</h5>}
+          {loginError && <h5>No account with that email or password</h5>}
           <Button
             variant='contained'
             color='primary'
+            onClick={createUser}
             disabled={disabled}
-            onClick={loginUser}
             style={{ margin: '1em' }}
+          >
+            Sign Up!
+          </Button>
+          Already have an account?
+          <Button
+            variant='contained'
+            color='primary'
+            href='/'
+            style={{ marginTop: '1em' }}
           >
             Login
-          </Button>
-          {loginError && <h5>No account with that email or password</h5>}
-          Need an account?
-          <Button
-            variant='contained'
-            color='primary'
-            href='/signup'
-            style={{ margin: '1em' }}
-          >
-            Sign Up
           </Button>
         </form>
       </main>
@@ -128,4 +168,4 @@ const Login = (props) => {
   );
 };
 
-export default withRouter(Login);
+export default withRouter(SignUp);

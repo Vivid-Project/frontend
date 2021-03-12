@@ -38,7 +38,7 @@ const NewDream = (props) => {
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
-    const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const user = useContext(UserContext);
@@ -50,14 +50,16 @@ const NewDream = (props) => {
 
   const submitDream = () => {
     if (!dreamTitle || !dreamBody) {
-       setDisabled(false);
+      setDisabled(false);
       !dreamTitle
         ? setError({ ...error, name: true })
         : setError({ ...error, desc: true });
+      setDisabled(false);
       return;
     }
     setDisabled(true);
     setLoading(true);
+    setDisabled(true);
     API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
       () => {
         setLoading(false);

@@ -44,7 +44,7 @@ const DreamJournal = () => {
     setLoading(true);
     setDreamsError(false);
     API.fetchUserDreams(user.token).then((response) => {
-      if (response === []) {
+      if (!response.length) {
         setDreamsError(true);
         setLoading(false);
         return;
@@ -78,19 +78,28 @@ const DreamJournal = () => {
     );
   });
 
-  return (
-    <ThemeProvider theme={theme}>
+  if (dreamsError === true) {
+    return (
       <div>
         <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
-        {dreamsError && (
-          <h2 className={classes.root}>You have not saved any dreams yet</h2>
-        )}
-        {loading && <Skeleton variant='rect' className={classes.loading} />}
-        {loading && <CircularProgress />}
-        {dreamCards}
+        <h4>
+          You do not have any dreams yet. Once a dream is added it will appear
+          here
+        </h4>
       </div>
-    </ThemeProvider>
-  );
+    );
+  } else {
+    return (
+      <ThemeProvider theme={theme}>
+        <div>
+          <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
+          {loading && <Skeleton variant='rect' className={classes.loading} />}
+          {loading && <CircularProgress />}
+          {dreamCards}
+        </div>
+      </ThemeProvider>
+    );
+  }
 };
 
 export default DreamJournal;
