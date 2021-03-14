@@ -17,5 +17,27 @@ describe('SignUp', () => {
     expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
     expect(screen.getByText('Sign Up!')).toBeInTheDocument();
-  })
+  }),
+    it('it should refeclt what is typed in the values', () => {
+      render(
+        <MemoryRouter>
+          <SignUp />
+        </MemoryRouter>
+      );
+
+      userEvent.type(screen.getByPlaceholderText('Name'), 'Zoe');
+      userEvent.type(
+        screen.getByPlaceholderText('Email'),
+        'cexample@example.com'
+      );
+      userEvent.type(screen.getByPlaceholderText('Password'), 'bestpassword');
+
+      expect(screen.getByPlaceholderText('Name').value).toEqual('Zoe');
+      expect(screen.getByPlaceholderText('Email').value).toEqual(
+        'cexample@example.com'
+      );
+      expect(screen.getByPlaceholderText('Password').value).toEqual(
+        'bestpassword'
+      );
+    });
 });
