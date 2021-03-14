@@ -118,7 +118,7 @@ const Header = (props) => {
                 {menuItems.map((menuItem) => {
                   return (
                     <Button
-                      data-testId={menuItem.menuTitle}
+                      data-testid={menuItem.menuTitle}
                       key={menuItem.menuTitle}
                       onClick={() => handleMenuClick(menuItem.pageURL)}
                     >
