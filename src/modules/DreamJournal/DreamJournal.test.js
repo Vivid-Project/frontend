@@ -47,7 +47,7 @@ describe('DreamJournal', () => {
     expect(dreamOne).toBeInTheDocument()
   });
 
-  it.only('should have a message when a user has no dreams', async () => {
+  it('should have a message when a user has no dreams', async () => {
     act(() => {
       fetchUserDreams.mockResolvedValueOnce([]);
     });
@@ -64,6 +64,5 @@ describe('DreamJournal', () => {
       )
     ).toBeInTheDocument();
   })
-    screen.debug()
   });
 });
