@@ -17,6 +17,7 @@ describe('Login', () => {
     expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
     expect(screen.getByText('Login')).toBeInTheDocument();
+    expect(screen.getByText('Sign Up')).toBeInTheDocument();
   });
 
   it('it should refeclt what is typed in the values', () => {
