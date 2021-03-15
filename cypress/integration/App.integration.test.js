@@ -61,7 +61,7 @@ describe('Application integration testing', () => {
       .click();
 
     // Navigate to Add Dream and input info
-    cy.get('[data-testId="Add"]')
+    cy.get('[data-testid="Add"]')
       .click()
       .get('input:first')
       .type('A Dream')
@@ -78,4 +78,18 @@ describe('Application integration testing', () => {
     //Assert
     cy.url().should('include', '/dreamjournal');
   });
+  it('should have a page to create a new user', () => {
+    cy.visit('http://localhost:3000/')
+      .get('[data-testId="newUserButton"]')
+      .click()
+      cy.contains('Already have an account?')
+  })
+    it('should have a button to get back to login', () => {
+      cy.visit('http://localhost:3000/')
+        .get('[data-testId="newUserButton"]')
+        .click()
+        .get('[data-testId="loginButton"]')
+        .click();
+      cy.contains('Need an account')
+    });
 });
