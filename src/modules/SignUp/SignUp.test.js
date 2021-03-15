@@ -18,6 +18,7 @@ describe('SignUp', () => {
     expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
     expect(screen.getByText('Sign Up!')).toBeInTheDocument();
+    expect(screen.getByText('Login')).toBeInTheDocument();
   }),
     it('it should refeclt what is typed in the values', () => {
       render(
@@ -40,23 +41,25 @@ describe('SignUp', () => {
       expect(screen.getByPlaceholderText('Password').value).toEqual(
         'bestpassword'
       );
-    }),
+    });
 
-    it.only('sign up button should be disabled if an input is empty', () => {
-      const createNewUser = jest.fn()
+    it('sign up button should be disabled if an input is empty', () => {
+      const createNewUser = jest.fn();
       render(
         <MemoryRouter>
           <SignUp />
         </MemoryRouter>
       );
-      
-      const signUpButton = screen.getByText('Sign Up!')
+
+      const signUpButton = screen.getByText('Sign Up!');
+
       userEvent.type(screen.getByPlaceholderText('Name'), 'Zoe');
       userEvent.type(
         screen.getByPlaceholderText('Email'),
         'cexample@example.com'
       );
-      userEvent.click(signUpButton)
+      userEvent.click(signUpButton);
+
       expect(createNewUser).not.toHaveBeenCalled();
-    } )
+    });
 });
