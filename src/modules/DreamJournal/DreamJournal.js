@@ -7,7 +7,7 @@ import { act } from 'react-dom/test-utils';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../../themes/theme';
 import Skeleton from '@material-ui/lab/Skeleton';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CircularProgress, Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,12 +91,12 @@ const DreamJournal = () => {
   } else {
     return (
       <ThemeProvider theme={theme}>
-        <div>
+        <Container component="div" maxWidth="sm">
           <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
-          {loading && <Skeleton variant='rect' className={classes.loading} />}
           {loading && <CircularProgress />}
+          {loading && <Skeleton variant="rect" className={classes.loading} />}
           {dreamCards}
-        </div>
+        </Container>
       </ThemeProvider>
     );
   }
