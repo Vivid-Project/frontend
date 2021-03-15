@@ -43,22 +43,20 @@ describe('SignUp', () => {
     }),
 
     it.only('sign up button should be disabled if an input is empty', () => {
+      const createNewUser = jest.fn()
       render(
         <MemoryRouter>
           <SignUp />
         </MemoryRouter>
       );
-
+      
+      const signUpButton = screen.getByText('Sign Up!')
       userEvent.type(screen.getByPlaceholderText('Name'), 'Zoe');
       userEvent.type(
         screen.getByPlaceholderText('Email'),
         'cexample@example.com'
       );
-
-      expect(screen.getByPlaceholderText('Name').value).toEqual('Zoe');
-      expect(screen.getByPlaceholderText('Email').value).toEqual(
-        'cexample@example.com'
-      );
-      expect(screen.getByText('Sign Up!')).toBeDisabled()
+      userEvent.click(signUpButton)
+      expect(createNewUser).not.toHaveBeenCalled();
     } )
 });
