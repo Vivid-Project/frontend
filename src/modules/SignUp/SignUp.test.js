@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import SignUp from './SignUp';
 import userEvent from '@testing-library/user-event';
 import user from '../../data/fakeUser';
+jest.mock('../../API/APIcalls');
 
 describe('SignUp', () => {
   it('should render a signup form ', () => {
@@ -39,5 +40,25 @@ describe('SignUp', () => {
       expect(screen.getByPlaceholderText('Password').value).toEqual(
         'bestpassword'
       );
-    });
+    }),
+
+    it.only('sign up button should be disabled if an input is empty', () => {
+      render(
+        <MemoryRouter>
+          <SignUp />
+        </MemoryRouter>
+      );
+
+      userEvent.type(screen.getByPlaceholderText('Name'), 'Zoe');
+      userEvent.type(
+        screen.getByPlaceholderText('Email'),
+        'cexample@example.com'
+      );
+
+      expect(screen.getByPlaceholderText('Name').value).toEqual('Zoe');
+      expect(screen.getByPlaceholderText('Email').value).toEqual(
+        'cexample@example.com'
+      );
+      expect(screen.getByText('Sign Up!')).toBeDisabled()
+    } )
 });
