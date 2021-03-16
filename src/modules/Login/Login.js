@@ -114,7 +114,7 @@ const Login = (props) => {
             disabled={disabled}
             onClick={loginUser}
             style={{ margin: '1em' }}
-            data-testId='loginButton'
+            data-testid={'loginButton'}
           >
             Login
           </Button>
@@ -125,7 +125,7 @@ const Login = (props) => {
             color="primary"
             href="/signup"
             style={{ margin: '1em' }}
-            data-testId='newUserButton'
+            data-testid={'newUserButton'}
           >
             Sign Up
           </Button>

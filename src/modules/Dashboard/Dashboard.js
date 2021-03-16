@@ -60,7 +60,7 @@ const Dashboard = () => {
                 <Link to="/newdream">
                   <Fab
                     aria-label="add"
-                    data-testid="addButton"
+                    data-testid={"addButton"}
                     className={classes.fabButton}
                   >
                     <AddIcon />
@@ -76,7 +76,7 @@ const Dashboard = () => {
               <Link to="/newdream">
                 <Fab
                   aria-label="add"
-                  data-testid="addButton"
+                  data-testid={"addButton"}
                   className={classes.desktopFabButton}
                 >
                   <AddIcon />

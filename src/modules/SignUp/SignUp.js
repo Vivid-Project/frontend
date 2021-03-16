@@ -160,7 +160,7 @@ const SignUp = (props) => {
             onClick={createUser}
             disabled={disabled}
             style={{ margin: '1em' }}
-            data-testId='newUserButton'
+            data-testid={'newUserButton'}
           >
             {!loading && 'Sign Up!'}
             {loading && <SpinnerAdornment />}
@@ -171,7 +171,7 @@ const SignUp = (props) => {
             color="primary"
             href="/"
             style={{ marginTop: '1em' }}
-            data-testId='loginButton'
+            data-testid={'loginButton'}
           >
             Login
           </Button>
