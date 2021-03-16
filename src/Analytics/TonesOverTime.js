@@ -31,8 +31,8 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     let mounted = true;
-    if (!chartDates) { 
-      setNoCharts(true)
+    if (!chartDates) {
+      setNoCharts(true);
       return;
     }
     API.fetchUserDreamsByDates(
@@ -51,8 +51,7 @@ const TonesOverTime = () => {
 
   useEffect(() => {
     let mounted = true;
-    if (!allDreams)
-      return;
+    if (!allDreams) return;
     if (mounted) {
       processDreamData();
       createPlotChartDatasets();
@@ -64,8 +63,8 @@ const TonesOverTime = () => {
   }, [allDreams]);
 
   const cleanAndStoreData = (responses) => {
-    if(!responses.length) {
-      return
+    if (!responses.length) {
+      return;
     }
     const cleanedData = responses.map((response) => {
       return {
@@ -113,7 +112,7 @@ const TonesOverTime = () => {
         toneData[date] = 0;
       }
       dateValues.push(toneData[date]);
-      setNoCharts(false)
+      setNoCharts(false);
       return dateValues;
     }, []);
     setChartTones(chartTones.push({ [tone]: toneDates }));
@@ -237,22 +236,21 @@ const TonesOverTime = () => {
       },
     },
   };
-   if (noCharts === true ) {
-     return(
-        <h4>
-          You do not have any dream data, add dreams to see your dream
-          tones
-        </h4> 
-     )
-   } else {
-  return (
-    <>
-     <Typography>Your dreams over the past</Typography>
-      <span>
+  if (noCharts === true) {
+    return (
+      <h4>
+        You do not have any dream data, add dreams to see your dream tones
+      </h4>
+    );
+  } else {
+    return (
+      <>
+        <Typography>Your dreams over the past</Typography>
+        <span>
           <FormControl>
             <Select
-              labelId='demo-simple-select-label'
-              id='demo-simple-select'
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
               value={chartDayCount}
               onChange={handleChange}
               style={{ color: 'white' }}
@@ -262,13 +260,13 @@ const TonesOverTime = () => {
               <MenuItem value={30}>Month</MenuItem>
             </Select>
           </FormControl>
-      </span>
-      <Line data={lineChartInfo.data} options={lineChartInfo.options} />
-      <Typography>Emotion Tags</Typography>
-      <Polar data={polarChartInfo.data} options={polarChartInfo.options} />
-    </>
-  );
-}
+        </span>
+        <Line data={lineChartInfo.data} options={lineChartInfo.options} />
+        <Typography>Emotion Tags</Typography>
+        <Polar data={polarChartInfo.data} options={polarChartInfo.options} />
+      </>
+    );
+  }
 };
 
 export default TonesOverTime;

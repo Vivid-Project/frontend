@@ -49,7 +49,7 @@ Once you reach the login screen, add the site to your home screen. You can find 
 
 Launch Vivid from your home screen. It now functions exactly like an application!
 
-Login as a user. You may have to wait for the Heroku backend to start up. Currently VIVID supports 2 unique users, and their logins are below:
+Login as an existing user, or create your own account. You may have to wait for the Heroku backend to start up. Logins for existing users are below:
 
 > user: mjones@example.com
 >
