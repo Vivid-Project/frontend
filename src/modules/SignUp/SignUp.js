@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as API from '../../API/APIcalls';
 import { makeStyles, ThemeProvider, useTheme } from '@material-ui/core/styles';
-import image from '../../assets/login-landing-back.jpg';
+import image from '../../assets/login-landing-back.png';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
@@ -101,33 +101,33 @@ const SignUp = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <main className={classes.root}>
-        <form noValidate autoComplete='off' className={classes.root}>
+        <form noValidate autoComplete="off" className={classes.root}>
           <h1 style={{ marginTop: theme.spacing(15) }}>VIVID</h1>
           <FilledInput
-            id='name'
-            color='primary'
-            placeholder='Name'
+            id="name"
+            color="primary"
+            placeholder="Name"
             className={classes.input}
             onChange={handleChange('name')}
           ></FilledInput>
           <FilledInput
-            id='email'
-            color='primary'
-            placeholder='Email'
+            id="email"
+            color="primary"
+            placeholder="Email"
             className={classes.input}
             onChange={handleChange('email')}
           ></FilledInput>
           <FilledInput
-            id='password'
-            color='primary'
-            placeholder='Password'
+            id="password"
+            color="primary"
+            placeholder="Password"
             type={values.showPassword ? 'text' : 'password'}
             className={classes.input}
             onChange={handleChange('password')}
             endAdornment={
-              <InputAdornment position='end'>
+              <InputAdornment position="end">
                 <IconButton
-                  aria-label='toggle password visibility'
+                  aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
@@ -145,8 +145,8 @@ const SignUp = (props) => {
           {signUpError && <h5>Oh no there was an error please try again</h5>}
           {loginError && <h5>No account with that email or password</h5>}
           <Button
-            variant='contained'
-            color='primary'
+            variant="contained"
+            color="primary"
             onClick={createUser}
             disabled={disabled}
             style={{ margin: '1em' }}
@@ -155,9 +155,9 @@ const SignUp = (props) => {
           </Button>
           Already have an account?
           <Button
-            variant='contained'
-            color='primary'
-            href='/'
+            variant="contained"
+            color="primary"
+            href="/"
             style={{ marginTop: '1em' }}
           >
             Login
