@@ -114,6 +114,7 @@ const NewDream = (props) => {
             rowsMax={12}
             onChange={(e) => setDreamBody(e.target.value)}
             className={classes.input}
+            data-testid={'describeInput'}
             style={{ color: 'orange' }}
             InputProps={{
               className: classes.text,
@@ -124,7 +125,7 @@ const NewDream = (props) => {
             color='primary'
             disabled={disabled}
             onClick={submitDream}
-            data-testId='submit-dream'
+            data-testid={'submit-dream'}
           >
             {!loading && 'Add'}
             {loading && <SpinnerAdornment />}

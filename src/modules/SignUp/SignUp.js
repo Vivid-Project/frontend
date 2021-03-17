@@ -11,6 +11,7 @@ import {
   Button,
   InputAdornment,
   IconButton,
+  CircularProgress,
   Container,
 } from '@material-ui/core';
 
@@ -39,11 +40,16 @@ const SignUp = (props) => {
   const [duplicateWarning, setduplicateWarning] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     name: '',
     email: '',
     password: '',
   });
+
+  const SpinnerAdornment = () => (
+    <CircularProgress className={classes.spinner} size={20} />
+  );
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
@@ -66,6 +72,7 @@ const SignUp = (props) => {
   }, [values.name, values.email, values.password]);
 
   const loginUser = () => {
+    setLoading(true)
     API.fetchUserLogin(values.email, values.password)
       .then((response) => {
         setUser({
@@ -80,6 +87,7 @@ const SignUp = (props) => {
   };
 
   const createUser = () => {
+    setLoading(true)
     setSignUpError(false);
     setduplicateWarning(false);
     API.createNewUser(values.name, values.email, values.password).then(
@@ -87,10 +95,12 @@ const SignUp = (props) => {
         if (response.status === 409) {
           setDisabled(true);
           setduplicateWarning(true);
+          setLoading(false)
           return;
         } else if (response.email === values.email) {
           loginUser(values.email, values.password);
         } else if (response.status === 400) {
+          setLoading(false)
           setSignUpError(true);
           return;
         }
@@ -150,8 +160,10 @@ const SignUp = (props) => {
             onClick={createUser}
             disabled={disabled}
             style={{ margin: '1em' }}
+            data-testid={'newUserButton'}
           >
-            Sign Up!
+            {!loading && 'Sign Up!'}
+            {loading && <SpinnerAdornment />}
           </Button>
           Already have an account?
           <Button
@@ -159,6 +171,7 @@ const SignUp = (props) => {
             color="primary"
             href="/"
             style={{ marginTop: '1em' }}
+            data-testid={'loginButton'}
           >
             Login
           </Button>
