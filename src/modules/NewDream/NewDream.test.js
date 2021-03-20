@@ -101,6 +101,7 @@ describe('NewDream', () => {
       screen.getByLabelText('Describe Your Dream'),
       'There was a ghost'
     );
+    userEvent.type(screen.getByLabelText('Emotion of Dream'), 'Scary');
 
     expect(screen.getByLabelText('Name Your Dream').value).toEqual(
       'Spooky dream'
@@ -108,5 +109,6 @@ describe('NewDream', () => {
     expect(screen.getByLabelText('Describe Your Dream').value).toEqual(
       'There was a ghost'
     );
+    expect(screen.getByLabelText('Emotion of Dream').value).toEqual('Scary');
   });
 });
