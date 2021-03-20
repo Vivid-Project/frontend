@@ -37,6 +37,7 @@ const NewDream = (props) => {
   let { history } = props;
   const [dreamTitle, setDreamTitle] = useState(null);
   const [dreamBody, setDreamBody] = useState(null);
+  const [dreamEmotion, setDreamEmotion] = useState(null);
   const [error, setError] = useState({ name: false, desc: false });
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -60,7 +61,7 @@ const NewDream = (props) => {
     setDisabled(true);
     setLoading(true);
     setDisabled(true);
-    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody).then(
+    API.postUserDream(user.token, createDate(), dreamTitle, dreamBody, dreamEmotion).then(
       () => {
         setLoading(false);
         history.push('/dreamjournal');
@@ -115,6 +116,22 @@ const NewDream = (props) => {
             onChange={(e) => setDreamBody(e.target.value)}
             className={classes.input}
             data-testid={'describeInput'}
+            style={{ color: 'orange' }}
+            InputProps={{
+              className: classes.text,
+            }}
+          ></TextField>
+          <TextField
+            id='dream-emotion'
+            variant='outlined'
+            color='primary'
+            label='Emotion of Dream'
+            fullWidth
+            multiline
+            rowsMax={1}
+            onChange={(e) => setDreamEmotion(e.target.value)}
+            className={classes.input}
+            data-testid={'emotionInput'}
             style={{ color: 'orange' }}
             InputProps={{
               className: classes.text,
