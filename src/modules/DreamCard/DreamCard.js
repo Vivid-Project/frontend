@@ -108,21 +108,21 @@ const DreamCard = ({ id, date, title, description, toneAnalysis, emotion }) => {
                   )}
                   <p style={{ textAlign: 'left' }}>{description}</p>
                   {emotion !== 'null' && (
-                    <p
+                    <div
                       style={{
                         textAlign: 'left',
                         fontSize: '.8em',
                         color: 'white',
                       }}
                     >
-                      Emotion of Dream:
+                      Emotion of Dream: 
                       <Chip
                         size='small'
                         color='primary'
                         label={emotion}
                         className={classes.chip}
                       />
-                    </p>
+                    </div>
                   )}
                 </CardContent>
               </Collapse>
