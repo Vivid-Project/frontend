@@ -18,11 +18,13 @@ describe('NewDream', () => {
     );
     const nameInput = screen.getByLabelText('Name Your Dream');
     const describeInput = screen.getByLabelText('Describe Your Dream');
+    const emotionInput = screen.getByLabelText('Emotion of Dream');
     const addButton = screen.getByText('Add');
 
     expect(screen.getByText('Dream Input')).toBeInTheDocument();
     expect(nameInput).toBeInTheDocument();
     expect(describeInput).toBeInTheDocument();
+    expect(emotionInput).toBeInTheDocument();
     expect(addButton).toBeInTheDocument();
   });
 
