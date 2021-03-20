@@ -9,6 +9,7 @@ import {
   IconButton,
   Collapse,
   Typography,
+  Chip,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { orange } from '@material-ui/core/colors';
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
+const DreamCard = ({ id, date, title, description, toneAnalysis, emotion }) => {
   const [tones, setTones] = useState([]);
   const classes = useStyles();
   const [expandedId, setExpandedId] = useState(-1);
@@ -106,6 +107,23 @@ const DreamCard = ({ id, date, title, description, toneAnalysis }) => {
                     <PieChart toneLabels={toneLabels} toneValues={toneValues} />
                   )}
                   <p style={{ textAlign: 'left' }}>{description}</p>
+                  {emotion !== 'null' && (
+                    <p
+                      style={{
+                        textAlign: 'left',
+                        fontSize: '.8em',
+                        color: 'white',
+                      }}
+                    >
+                      Emotion of Dream:
+                      <Chip
+                        size='small'
+                        color='primary'
+                        label={emotion}
+                        className={classes.chip}
+                      />
+                    </p>
+                  )}
                 </CardContent>
               </Collapse>
             </Card>
