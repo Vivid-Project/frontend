@@ -56,7 +56,7 @@ export const fetchUserDreamsByDates = async (token, dateStart, dateEnd) => {
   }
 };
 
-export const postUserDream = async (token, date, title, description) => {
+export const postUserDream = async (token, date, title, description, emotion) => {
   try {
     const response = await fetch(
       'https://vivid-project-backend.herokuapp.com/dreams',
@@ -70,7 +70,7 @@ export const postUserDream = async (token, date, title, description) => {
           date,
           title,
           description,
-          emotion: null,
+          emotion,
         }),
       }
     );
