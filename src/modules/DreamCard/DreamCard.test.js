@@ -22,6 +22,7 @@ describe('DreamCard', () => {
         description='I was in the woods and it was creepy'
         date='June Tuesday 22'
         toneAnalysis={mockToneAnalysis}
+        emotion='Awkward'
       />
     );
     expect(screen.getByText('Creepy dream')).toBeInTheDocument();
@@ -45,6 +46,7 @@ describe('DreamCard', () => {
           description='I was jumping on a cloud'
           date='2021/02/23'
           toneAnalysis={mockToneAnalysis}
+          emotion='Awkward'
         />
       );
     });
@@ -57,5 +59,7 @@ describe('DreamCard', () => {
     });
     expect(screen.getByText('I was jumping on a cloud')).toBeInTheDocument();
     expect(screen.getByTestId('pieGraph')).toBeInTheDocument();
+    expect(screen.getByText('Emotion of Dream:')).toBeInTheDocument();
+    expect(screen.getByText('Awkward')).toBeInTheDocument();
   });
 });
