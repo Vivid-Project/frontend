@@ -93,7 +93,6 @@ const NewDream = (props) => {
             error={error.name}
             required={error.name}
             id='dream-title'
-            variant='standard'
             variant='outlined'
             label='Name Your Dream'
             fullWidth
