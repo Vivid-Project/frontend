@@ -127,8 +127,6 @@ const NewDream = (props) => {
             color='primary'
             label='Emotion of Dream'
             fullWidth
-            multiline
-            rowsMax={1}
             onChange={(e) => setDreamEmotion(e.target.value)}
             className={classes.input}
             data-testid={'emotionInput'}
