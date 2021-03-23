@@ -73,6 +73,7 @@ const DreamJournal = () => {
           title={dream.title}
           description={dream.description}
           toneAnalysis={dream.toneAnalysis}
+          emotion={dream.emotion}
         />
       </div>
     );
