@@ -59,10 +59,10 @@ const DreamJournal = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchError, setSearchError] = useState(false);
   const [searchModalIsOpen, setSeachModalIsOpen] = useState(false);
-    const [inputError, setInputError] = useState(false);
+  const [inputError, setInputError] = useState(false);
   
 
-  const searchForDream = (searchWord) => {
+  const searchForDream = () => {
     setInputError(false)
     if (searchInput === '') {
       setInputError(true)
