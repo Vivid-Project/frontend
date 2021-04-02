@@ -59,20 +59,36 @@ const DreamJournal = () => {
   const [searchInput, setSearchInput] = useState('');
   const [searchError, setSearchError] = useState(false);
   const [searchModalIsOpen, setSeachModalIsOpen] = useState(false);
+    const [inputError, setInputError] = useState(false);
   
 
   const searchForDream = (searchWord) => {
+    setInputError(false)
+    if (searchInput === '') {
+      setInputError(true)
+      return
+    }
     let foundDreams = [];
     closeSearchModal();
-    const searchTerm = searchInput
+    const searchTerm = searchInput.charAt(0).toUpperCase() + searchInput.slice(1)
+    console.log(searchTerm)
     dreams.filter((dream) => {
-      if (dream.title.includes(searchTerm)) {
+      if (
+        dream.title.includes(searchTerm) ||
+        dream.title.includes(searchInput)
+      ) {
         foundDreams.push(dream);
-      } else if (dream.emotion.includes(searchTerm)) {
+      } else if (
+        dream.emotion.includes(searchTerm) ||
+        dream.emotion.includes(searchInput)
+      ) {
         if (!foundDreams.includes(dream)) {
           foundDreams.push(dream);
         }
-      } else if (dream.description.includes(searchTerm)) {
+      } else if (
+        dream.description.includes(searchTerm) ||
+        dream.description.includes(searchInput)
+      ) {
         if (!foundDreams.includes(dream)) {
           foundDreams.push(dream);
         }
@@ -197,9 +213,9 @@ const DreamJournal = () => {
                     value={searchInput}
                     onChange={(event) => setSearchInput(event.target.value)}
                   />
-                  {/* {inputError === true && (
+                  {inputError === true && (
                 <h2>Please add search parameter before submitting</h2>
-              )} */}
+              )}
                   <Button
                     variant='contained'
                     color='secondary'
@@ -218,13 +234,13 @@ const DreamJournal = () => {
                   </Button>
                 </form>
               </Modal>
-              <Button
+              {/* <Button
                 variant='contained'
                 color='secondary'
                 onClick={resetDreams}
               >
                 Clear Search
-              </Button>
+              </Button> */}
             </div>
           )}
           {loading && <CircularProgress />}
