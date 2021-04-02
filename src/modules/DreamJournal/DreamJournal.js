@@ -11,6 +11,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { CircularProgress, Container, Button } from '@material-ui/core';
 import Modal from 'react-modal';
 import { Subtitles } from '@material-ui/icons';
+import SearchIcon from '@material-ui/icons/Search';
+import ClearAllRoundedIcon from '@material-ui/icons/ClearAllRounded';
+
 Modal.setAppElement('body');
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +63,7 @@ const DreamJournal = () => {
   const [searchError, setSearchError] = useState(false);
   const [searchModalIsOpen, setSeachModalIsOpen] = useState(false);
   const [inputError, setInputError] = useState(false);
+
   
 
   const searchForDream = () => {
@@ -185,13 +189,12 @@ const DreamJournal = () => {
           <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
           {!loading && (
             <div>
-              <Button
+              <SearchIcon
                 variant='contained'
                 color='secondary'
                 onClick={openSearchModal}
-              >
-                Search
-              </Button>
+                icon={<SearchIcon />}
+              />
               <Modal
                 isOpen={searchModalIsOpen}
                 onAfterOpen={afterOpenSearchModal}
@@ -233,13 +236,11 @@ const DreamJournal = () => {
                   </Button>
                 </form>
               </Modal>
-              <Button
+              <ClearAllRoundedIcon
                 variant='contained'
                 color='secondary'
                 onClick={resetDreams}
-              >
-                Clear Search
-              </Button>
+              />
             </div>
           )}
           {loading && <CircularProgress />}
