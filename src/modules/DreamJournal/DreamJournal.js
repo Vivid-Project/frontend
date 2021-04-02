@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import DreamCard from '../DreamCard/DreamCard';
 import UserContext from '../Context/UserContext';
 import * as API from '../../API/APIcalls';
@@ -64,7 +65,7 @@ const DreamJournal = () => {
     let foundDreams = [];
     closeSearchModal();
     const searchTerm = searchInput
-    const results = dreams.filter((dream) => {
+    dreams.filter((dream) => {
       if (dream.title.includes(searchTerm)) {
         foundDreams.push(dream);
       } else if (dream.emotion.includes(searchTerm)) {
@@ -78,6 +79,9 @@ const DreamJournal = () => {
       }
       setDreams(foundDreams);
     });
+    if (!foundDreams.length) {
+      setSearchError(true)
+    }
   };
 
   const openSearchModal = () => {
@@ -109,6 +113,23 @@ const DreamJournal = () => {
       });
     });
   }, []);
+
+   const resetDreams = (event) => {
+      setLoading(true);
+      setDreamsError(false);
+      API.fetchUserDreams(user.token).then((response) => {
+        if (!response.length) {
+          setDreamsError(true);
+          setLoading(false);
+          return;
+        }
+        act(() => {
+          setDreamsError(false);
+          setLoading(false);
+          sortAndSetDreams(response);
+        });
+      });
+    };
 
   const sortAndSetDreams = (dreams) => {
     dreams.sort(
@@ -147,57 +168,78 @@ const DreamJournal = () => {
       <ThemeProvider theme={theme}>
         <Container component='div' maxWidth='sm'>
           <h2 className={(classes.root, classes.title)}>Dream Journal</h2>
-          <Button
-            variant='contained'
-            color='secondary'
-            onClick={openSearchModal}
-          >
-            Search
-          </Button>
-          <Modal
-            isOpen={searchModalIsOpen}
-            onAfterOpen={afterOpenSearchModal}
-            onRequestClose={closeSearchModal}
-            style={classes.searchArea}
-            contentLabel='Search jokes modal'
-          >
-            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-              Search for a joke here
-            </h2>
-            <form>
-              <input
-                className='search-area'
-                style={{ fontSize: 20 }}
-                type='search'
-                placeholder='Search'
-                name='searchInput'
-                value={searchInput}
-                onChange={(event) => setSearchInput(event.target.value)}
-              />
-              {/* {inputError === true && (
-                <h2>Please add search parameter before submitting</h2>
-              )} */}
+          {!loading && (
+            <div>
               <Button
                 variant='contained'
                 color='secondary'
-                data-testid='search-button'
-                onClick={searchForDream}
+                onClick={openSearchModal}
               >
                 Search
               </Button>
-              <Button
-                className='modal-buttons'
-                variant='contained'
-                color='primary'
-                onClick={closeSearchModal}
+              <Modal
+                isOpen={searchModalIsOpen}
+                onAfterOpen={afterOpenSearchModal}
+                onRequestClose={closeSearchModal}
+                style={classes.searchArea}
+                contentLabel='Search jokes modal'
               >
-                CLOSE
+                <h2 ref={(_subtitle) => (subtitle = _subtitle)}>
+                  Search for a joke here
+                </h2>
+                <form>
+                  <input
+                    className='search-area'
+                    style={{ fontSize: 20 }}
+                    type='search'
+                    placeholder='Search'
+                    name='searchInput'
+                    value={searchInput}
+                    onChange={(event) => setSearchInput(event.target.value)}
+                  />
+                  {/* {inputError === true && (
+                <h2>Please add search parameter before submitting</h2>
+              )} */}
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    data-testid='search-button'
+                    onClick={searchForDream}
+                  >
+                    Search
+                  </Button>
+                  <Button
+                    className='modal-buttons'
+                    variant='contained'
+                    color='primary'
+                    onClick={closeSearchModal}
+                  >
+                    CLOSE
+                  </Button>
+                </form>
+              </Modal>
+              <Button
+                variant='contained'
+                color='secondary'
+                onClick={resetDreams}
+              >
+                Clear Search
               </Button>
-            </form>
-          </Modal>
+            </div>
+          )}
           {loading && <CircularProgress />}
           {loading && <Skeleton variant='rect' className={classes.loading} />}
           {dreamCards}
+          {searchError === true && (
+            <h2 data-testid='search-error'>
+              Sorry, there are no results for that search. Press
+              <Link to='/dashboard' data-testid='return-home'>
+                {' '}
+                here
+              </Link>{' '}
+              to go home or reload the page.
+            </h2>
+          )}
         </Container>
       </ThemeProvider>
     );
