@@ -71,7 +71,6 @@ const DreamJournal = () => {
     let foundDreams = [];
     closeSearchModal();
     const searchTerm = searchInput.charAt(0).toUpperCase() + searchInput.slice(1)
-    console.log(searchTerm)
     dreams.filter((dream) => {
       if (
         dream.title.includes(searchTerm) ||
@@ -234,13 +233,13 @@ const DreamJournal = () => {
                   </Button>
                 </form>
               </Modal>
-              {/* <Button
+              <Button
                 variant='contained'
                 color='secondary'
                 onClick={resetDreams}
               >
                 Clear Search
-              </Button> */}
+              </Button>
             </div>
           )}
           {loading && <CircularProgress />}
