@@ -43,7 +43,7 @@ Visit the [VIVID backend](https://github.com/Vivid-Project/backend) to explore p
 
 _Note: VIVID works best on mobile!_
 
-Navigate to our live site at https://vivid-project.herokuapp.com/ with your mobile device. You may have to wait for Heroku to load.
+Navigate to our live site at https://vivid-project.herokuapp.com/ with your mobile device. _(Note: You may have to wait for Heroku to load. If you receive an error message from Heroku, reload the page and the app will be displayed. This is due to the free tier hosting)_
 
 Once you reach the login screen, add the site to your home screen. You can find a helpful article explaining how to that [here](https://www.howtogeek.com/196087/how-to-add-websites-to-the-home-screen-on-any-smartphone-or-tablet/).
 
