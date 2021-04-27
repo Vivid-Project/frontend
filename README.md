@@ -155,7 +155,7 @@ The Dream Journal
  width="150" height="auto" />
 
 **Shawn Truesdale** -
-[GitHub Profile](https://github.com/Shawntru) - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/shawntruesdale/)
+[GitHub Profile](https://github.com/Shawntru) - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/shawntruesdale/) - [Turing Alum Profile](https://terminal.turing.edu/profiles/837)
 
 ### Back End:
 
