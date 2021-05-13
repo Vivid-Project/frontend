@@ -43,11 +43,37 @@ Visit the [VIVID backend](https://github.com/Vivid-Project/backend) to explore p
 
 _Note: VIVID works best on mobile!_
 
+#### Mobile:
+
 Navigate to our live site at https://vivid-project.herokuapp.com/ with your mobile device. _(Note: You may have to wait for Heroku to load. If you receive an error message from Heroku, reload the page and the app will be displayed. This is due to the free tier hosting)_
 
 Once you reach the login screen, add the site to your home screen. You can find a helpful article explaining how to that [here](https://www.howtogeek.com/196087/how-to-add-websites-to-the-home-screen-on-any-smartphone-or-tablet/).
 
 Launch Vivid from your home screen. It now functions exactly like an application!
+
+#### Desktop:
+
+In your console, navigate to a directory you want to download the repo to and type
+
+`$ git clone git@github.com:Vivid-Project/frontend.git`
+
+Navigate into the new directory
+
+`$ cd frontend/`
+
+Install dependancies 
+
+`$ npm install`
+
+Start the application 
+
+`$ npm start`
+
+Navigate to `http://localhost:3000/` in your browswer to use the application!
+
+Alternatively, navigate to the deployed site at https://vivid-project.herokuapp.com/ _(Note: You may have to wait for Heroku to load. If you receive an error message from Heroku, reload the page and the app will be displayed. This is due to the free tier hosting)_
+
+#### Logging In:
 
 Login as an existing user, or create your own account. You may have to wait for the Heroku backend to start up. Logins for existing users are below:
 
